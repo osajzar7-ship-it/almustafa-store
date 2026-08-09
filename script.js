@@ -8,7 +8,7 @@ function addToCart(title, price) {
     showToast("تمت إضافة " + title + " إلى السلة ✅");
 }
 
-// إشعار سفل الشاشة
+// إشعار أسفل الشاشة
 function showToast(message) {
     let toast = document.getElementById("toast");
     toast.innerText = message;
@@ -53,13 +53,15 @@ function updateCart() {
     document.getElementById('modalTotal').innerText = total;
 }
 
-// إرسال للواتساب
-function sendOrder() 
-
- // إرسال الطلب عبر الواتساب مع حساب خصم 5% تلقائياً
+// إرسال الطلب عبر الواتساب مع حساب الخصم 5%
 function sendOrder() {
+    if (cart.length === 0) {
+        alert("سلتك فارغة! أضف منتجات أولاً.");
+        return;
+    }
+    
     let total = parseFloat(document.getElementById('modalTotal').innerText);
-    let discount = total * 0.05; // حساب الخصم 5%
+    let discount = total * 0.05; // حساب 5% خصم
     let finalTotal = total - discount;
 
     let msg = "مرحباً متجر المصطفى، أود طلب القائمة التالية عبر الموقع (مع خصم 5%):\n\n";
@@ -69,17 +71,6 @@ function sendOrder() {
     msg += `\nالمجموع الأصلي: ${total} ل.س`;
     msg += `\nقيمة الخصم (5%): ${discount.toFixed(0)} ل.س`;
     msg += `\nالمجموع النهائي بعد الخصم: ${finalTotal.toFixed(0)} ل.س`;
-    
-    window.open("https://wa.me/963990835712?text=" + encodeURIComponent(msg));
-}
-   if (cart.length === 0) {
-        alert("سلتك فارغة! أضف منتجات أولاً.");
-       
-        return;
-    }
-    let msg = "مرحباً متجر المصطفى، أود طلب القائمة التالية:\n\n";
-    cart.forEach((item, i) => msg += `${i + 1}. ${item.title} (${item.price} ل.س)\n`);
-    msg += "\nالمجموع الكلي: " + document.getElementById('modalTotal').innerText + " ل.س";
     
     window.open("https://wa.me/963990835712?text=" + encodeURIComponent(msg));
 }
