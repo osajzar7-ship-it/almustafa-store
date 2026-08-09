@@ -64,7 +64,7 @@ function sendOrder() {
     let discount = total * 0.05; // حساب 5% خصم
     let finalTotal = total - discount;
 
-    let msg = "مرحباً متجر المصطفى، أود طلب القائمة التالية عبر الموقع (مع خصم 5%):\n\n";
+    let msg = "مرحباً مكتبة المصطفى، أود طلب القائمة التالية عبر الموقع (مع خصم 5%):\n\n";
     cart.forEach((item, i) => msg += `${i + 1}. ${item.title} (${item.price} ل.س)\n`);
     
     msg += `\n----------------------`;
@@ -75,19 +75,33 @@ function sendOrder() {
     window.open("https://wa.me/963990835712?text=" + encodeURIComponent(msg));
 }
 
-// البحث والفلترة
+// دالة تنظيف النصوص لجعل البحث ذكياً
+function normalizeText(text) {
+    if (!text) return "";
+    return text.toLowerCase()
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/ة/g, 'ه')
+        .replace(/ى/g, 'ي')
+        .trim();
+}
+
+// البحث والفلترة الاحترافية
 function filterProducts() {
-    let search = document.getElementById('searchInput').value.toLowerCase();
+    let search = normalizeText(document.getElementById('searchInput').value);
     let cards = document.querySelectorAll('.card');
     
     cards.forEach(card => {
-        let name = card.getAttribute('data-name').toLowerCase();
+        let name = normalizeText(card.getAttribute('data-name'));
         let cat = card.getAttribute('data-category');
         
         let matchesCategory = (currentCategory === 'all' || cat === currentCategory);
         let matchesSearch = name.includes(search);
 
-        card.style.display = (matchesCategory && matchesSearch) ? 'flex' : 'none';
+        if (matchesCategory && matchesSearch) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
     });
 }
 
