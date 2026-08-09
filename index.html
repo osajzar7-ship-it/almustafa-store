@@ -3,89 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر المصطفى - الكتالوج الرقمي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>مكتبة المصطفى - الكتالوج الرقمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --primary-blue: #0c3866; 
-            --secondary-blue: #1b5394; 
-            --accent-gold: #f4b41a; 
-            --text-dark: #2c2c2c; 
-            --bg-cream: #f9f6f0; 
-            --danger: #dc3545; 
-            --success-green: #28a745;
+            --primary-navy: #0b2545; 
+            --secondary-navy: #134074; 
+            --accent-gold: #d4af37; 
+            --accent-gold-hover: #b89628;
+            --text-dark: #1d2d44; 
+            --bg-light: #f8f9fa; 
+            --white: #ffffff;
+            --danger: #e63946; 
+            --card-shadow: 0 10px 25px rgba(11, 37, 69, 0.08);
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg-cream); padding-bottom: 90px; }
-        
-        /* شريط الخصم العلوي */
+        body { background-color: var(--bg-light); color: var(--text-dark); padding-bottom: 95px; }
+
+        /* شريط الخصم العلوي الفاخر */
         .discount-banner {
-            background-color: var(--accent-gold);
-            color: var(--primary-blue);
+            background: linear-gradient(90deg, var(--accent-gold), #f3e5ab, var(--accent-gold));
+            color: var(--primary-navy);
             text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 11px;
+            font-weight: 700;
+            font-size: 0.98rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        header { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); color: white; text-align: center; padding: 20px; border-bottom: 5px solid var(--accent-gold); }
-        .logo-container { max-width: 180px; margin: 0 auto 10px; }
-        .logo-container img { width: 100%; border-radius: 10px; border: 2px solid var(--accent-gold); }
+        /* الترويسة الأنيقة */
+        header { 
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy)); 
+            color: var(--white); 
+            text-align: center; 
+            padding: 30px 15px 25px; 
+            border-bottom: 4px solid var(--accent-gold);
+            position: relative;
+        }
+        .logo-container { max-width: 150px; margin: 0 auto 12px; }
+        .logo-container img { 
+            width: 100%; 
+            border-radius: 50%; 
+            border: 3px solid var(--accent-gold); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        header h1 { font-size: 2.1rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 5px; }
+        header p { font-size: 0.95rem; opacity: 0.85; font-weight: 500; }
 
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
-        .search-box { width: 100%; padding: 12px 15px; margin-bottom: 15px; border-radius: 10px; border: 2px solid var(--secondary-blue); font-size: 1rem; outline: none; }
+        .container { max-width: 1150px; margin: 25px auto; padding: 0 15px; }
+
+        /* صندوق البحث الفخم */
+        .search-box { 
+            width: 100%; 
+            padding: 14px 20px; 
+            margin-bottom: 20px; 
+            border-radius: 12px; 
+            border: 2px solid #e2e8f0; 
+            font-size: 1rem; 
+            outline: none; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .search-box:focus { border-color: var(--secondary-navy); box-shadow: 0 4px 15px rgba(19, 64, 116, 0.15); }
+
+        /* أزرار الأقسام */
+        .category-buttons { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 30px; padding-bottom: 8px; }
+        .cat-btn { 
+            background: var(--white); 
+            border: 2px solid var(--secondary-navy); 
+            color: var(--primary-navy); 
+            padding: 10px 22px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            white-space: nowrap; 
+            font-weight: 700; 
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .cat-btn.active, .cat-btn:hover { background: var(--secondary-navy); color: var(--white); border-color: var(--secondary-navy); }
+
+        /* شبكة البطاقات */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
+        .card { 
+            background: var(--white); 
+            border-radius: 18px; 
+            overflow: hidden; 
+            box-shadow: var(--card-shadow); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            border: 1px solid #edf2f7;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(11, 37, 69, 0.12); }
+        .card-img-wrapper { height: 190px; background: #f1f5f9; position: relative; overflow: hidden; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .card:hover img { transform: scale(1.05); }
         
-        .category-buttons { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 25px; padding-bottom: 5px; }
-        .cat-btn { background: white; border: 2px solid var(--secondary-blue); color: var(--primary-blue); padding: 8px 18px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-weight: bold; transition: 0.3s; }
-        .cat-btn.active, .cat-btn:hover { background: var(--secondary-blue); color: white; }
-
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e0e0e0; }
-        .card-img-wrapper { height: 180px; background: #eee; position: relative; }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .card-title { font-weight: bold; font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 5px; }
-        .card-desc { font-size: 0.85rem; color: #666; margin-bottom: 10px; }
-        .card-price { font-size: 1.2rem; font-weight: 900; color: var(--secondary-blue); margin-bottom: 10px; }
-        .btn-add { background: var(--secondary-blue); color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-title { font-weight: 700; font-size: 1.15rem; color: var(--primary-navy); margin-bottom: 6px; }
+        .card-desc { font-size: 0.88rem; color: #64748b; margin-bottom: 14px; line-height: 1.4; }
+        .card-price { font-size: 1.25rem; font-weight: 900; color: var(--secondary-navy); margin-bottom: 12px; }
+        
+        .btn-add { 
+            background: var(--primary-navy); 
+            color: var(--white); 
+            border: none; 
+            padding: 12px; 
+            border-radius: 10px; 
+            width: 100%; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-size: 0.95rem;
+            transition: background 0.2s ease, transform 0.1s ease; 
+        }
+        .btn-add:hover { background: var(--secondary-navy); }
         .btn-add:active { transform: scale(0.97); }
 
-        /* شريط السلة والنافذة */
-        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary-blue); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; z-index: 100; border-top: 3px solid var(--accent-gold); }
-        .cart-count-badge { background: var(--accent-gold); color: var(--primary-blue); padding: 2px 8px; border-radius: 10px; margin-right: 5px; }
+        /* شريط السلة السفلي الاحترافي */
+        .cart-bar { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: var(--primary-navy); 
+            color: var(--white); 
+            padding: 16px 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer; 
+            font-weight: 700; 
+            z-index: 100; 
+            border-top: 3px solid var(--accent-gold);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+        }
+        .cart-count-badge { background: var(--accent-gold); color: var(--primary-navy); padding: 3px 10px; border-radius: 12px; margin-right: 6px; font-weight: 900; }
         
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 90%; max-width: 450px; padding: 20px; border-radius: 15px; max-height: 80vh; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 8px 0; border-bottom: 1px solid #eee; }
-        .btn-remove { background: var(--danger); color: white; border: none; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; }
+        /* النافذة المنبثقة للطلب */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 37, 69, 0.7); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; }
+        .modal-content { background: var(--white); width: 92%; max-width: 460px; padding: 25px; border-radius: 20px; max-height: 82vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .btn-remove { background: var(--danger); color: var(--white); border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 700; }
 
-        /* إشعار إضافة منتج لطيف بدون pop-up */
-        #toast { visibility: hidden; min-width: 200px; background-color: #333; color: #fff; text-align: center; border-radius: 8px; padding: 12px; position: fixed; z-index: 300; left: 50%; bottom: 80px; transform: translateX(-50%); font-size: 0.9rem; }
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 60px; opacity: 0;} to {bottom: 80px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 80px; opacity: 1;} to {bottom: 60px; opacity: 0;} }
+        /* الإشعار السريع */
+        #toast { visibility: hidden; min-width: 220px; background-color: var(--primary-navy); color: var(--white); text-align: center; border-radius: 10px; padding: 14px; position: fixed; z-index: 300; left: 50%; bottom: 85px; transform: translateX(-50%); font-size: 0.95rem; font-weight: 500; border: 1px solid var(--accent-gold); }
+        #toast.show { visibility: visible; animation: fadein 0.4s, fadeout 0.4s 2.3s; }
+        @keyframes fadein { from {bottom: 65px; opacity: 0;} to {bottom: 85px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 85px; opacity: 1;} to {bottom: 65px; opacity: 0;} }
     </style>
 </head>
 <body>
 
     <!-- شريط الخصم العلوي -->
     <div class="discount-banner">
-        🎁 خصم خاص 5% على كل طلب يتم عبر الموقع والواتساب!
+        🎁 خصم خاص 5% عند الطلب والتجميع عبر الموقع وتجهيز الطلب للواتساب!
     </div>
 
     <header>
         <div class="logo-container">
-            <img src="images/logo.jpg" alt="شعار متجر المصطفى">
+            <img src="images/logo.jpg" alt="شعار مكتبة المصطفى">
         </div>
-        <h1>متجر المصطفى</h1>
+        <h1>مكتبة المصطفى</h1>
+        <p>قرطاسية - باقات مدرسية - ألعاب وهدايا</p>
     </header>
 
     <div class="container">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن منتج..." onkeyup="filterProducts()">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن دفتر، قلم، باقة مدرسية..." onkeyup="filterProducts()">
         
         <div class="category-buttons">
             <button class="cat-btn active" onclick="filterCategory('all', this)">الكل 🛍️</button>
+            <button class="cat-btn" onclick="filterCategory('school-bundles', this)">باقات المدارس 🎒</button>
             <button class="cat-btn" onclick="filterCategory('stationery', this)">أقلام وقرطاسية 📝</button>
             <button class="cat-btn" onclick="filterCategory('toys-gifts', this)">ألعاب وهدايا 🎁</button>
             <button class="cat-btn" onclick="filterCategory('caps-acc', this)">طواقي وإكسسوارات 🧢</button>
@@ -93,7 +184,23 @@
 
         <div class="products-grid">
 
-            <!-- 1. قسم أقلام وقرطاسية -->
+            <!-- ================= 1. قسم باقات المدارس (data-category="school-bundles") ================= -->
+            <div class="card" data-category="school-bundles" data-name="باقة الابتدائي المكتملة">
+                <div class="card-img-wrapper"><img src="images/primary-bundle.jpg" alt="باقة الابتدائي"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">باقة الابتدائي المكتملة 🎒</div>
+                        <div class="card-desc">تحتوي على: 5 دفاتر، علبة ألوان، أقلام رصاص، محاية، براية، ومسطرة.</div>
+                    </div>
+                    <div>
+                        <div class="card-price">1200 ل.س</div>
+                        <button class="btn-add" onclick="addToCart('باقة الابتدائي المكتملة', 1200)">أضف للسلة 🛒</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ================= 2. قسم أقلام وقرطاسية (data-category="stationery") ================= -->
             <div class="card" data-category="stationery" data-name="دفتر مذكرات انيق">
                 <div class="card-img-wrapper"><img src="images/diary-elegant.jpg" alt="دفتر مذكرات"></div>
                 <div class="card-body">
@@ -122,7 +229,8 @@
                 </div>
             </div>
 
-            <!-- 2. قسم ألعاب وهدايا -->
+
+            <!-- ================= 3. قسم ألعاب وهدايا (data-category="toys-gifts") ================= -->
             <div class="card" data-category="toys-gifts" data-name="لعبة مكعبات تركيب">
                 <div class="card-img-wrapper"><img src="images/toy-blocks.jpg" alt="لعبة مكعبات"></div>
                 <div class="card-body">
@@ -137,7 +245,8 @@
                 </div>
             </div>
 
-            <!-- 3. قسم طواقي وإكسسوارات -->
+
+            <!-- ================= 4. قسم طواقي وإكسسوارات (data-category="caps-acc") ================= -->
             <div class="card" data-category="caps-acc" data-name="طاقية شبابية صيفية">
                 <div class="card-img-wrapper"><img src="images/cap-summer.jpg" alt="طاقية شبابية"></div>
                 <div class="card-body">
@@ -157,19 +266,19 @@
 
     <!-- شريط السلة السفلي -->
     <div class="cart-bar" onclick="toggleCart()">
-        <div>🛒 السلة <span id="cartCount" class="cart-count-badge">0</span></div>
+        <div>🛒 سلة الطلبات <span id="cartCount" class="cart-count-badge">0</span></div>
         <div>المجموع: <span id="totalPrice">0</span> ل.س</div>
     </div>
 
     <!-- نافذة السلة -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-bottom:15px; color:var(--primary-blue);">سلة التسوق الخاصة بك 🛒</h3>
+            <h3 style="margin-bottom:15px; color:var(--primary-navy);">قائمة طلباتك من مكتبة المصطفى 🛒</h3>
             <div id="cartItemsList"></div>
-            <hr style="margin:15px 0;">
-            <p style="font-size:1.1rem; margin-bottom:15px;"><strong>المجموع الكلي: <span id="modalTotal">0</span> ل.س</strong></p>
-            <button onclick="sendOrder()" style="background:#25d366; color:white; width:100%; border:none; padding:12px; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer;">إرسال الطلب عبر واتساب 💬</button>
-            <button onclick="toggleCart()" style="background:#eee; color:#333; width:100%; border:none; padding:10px; border-radius:8px; margin-top:8px; cursor:pointer; font-weight:bold;">إغلاق</button>
+            <hr style="margin:15px 0; border:0; border-top:1px solid #eee;">
+            <p style="font-size:1.1rem; margin-bottom:15px;"><strong>المجموع الإجمالي: <span id="modalTotal">0</span> ل.س</strong></p>
+            <button onclick="sendOrder()" style="background:#25d366; color:white; width:100%; border:none; padding:13px; border-radius:10px; font-size:1rem; font-weight:700; cursor:pointer;">إرسال للواتساب وحجز الخصم 💬</button>
+            <button onclick="toggleCart()" style="background:#f1f5f9; color:#333; width:100%; border:none; padding:11px; border-radius:10px; margin-top:8px; cursor:pointer; font-weight:700;">إغلاق</button>
         </div>
     </div>
 
