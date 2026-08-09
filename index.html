@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة المصطفى - الكتالوج الرقمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0c3866;
+            --secondary-blue: #1b5394;
+            --accent-gold: #f4b41a;
+            --text-dark: #2c2c2c;
+            --bg-cream: #f9f6f0;
+            --white: #ffffff;
+            --success-green: #28a745;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg-cream); color: var(--text-dark); padding-bottom: 50px; }
+        
+        header { 
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); 
+            color: white; 
+            text-align: center; 
+            padding: 25px 15px; 
+            border-bottom: 5px solid var(--accent-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .logo-container { max-width: 320px; margin: 0 auto 15px auto; }
+        .logo-container img { width: 100%; height: auto; border-radius: 12px; border: 2px solid var(--accent-gold); }
+
+        header h1 { font-size: 2rem; font-weight: 900; color: var(--accent-gold); margin-bottom: 5px; }
+        header p { opacity: 0.95; font-size: 1.1rem; font-weight: 700; }
+        
+        .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
+        
+        .controls { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .search-box { 
+            width: 100%; padding: 14px 18px; border: 2px solid var(--secondary-blue); 
+            border-radius: 10px; font-size: 1rem; outline: none; background: white;
+        }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        
+        .card { 
+            background: white; border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06); display: flex; 
+            flex-direction: column; border: 1px solid #e0e0e0;
+        }
+        
+        .card-img-wrapper { position: relative; width: 100%; height: 200px; background-color: #f0f0f0; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .badge {
+            position: absolute; top: 10px; right: 10px; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.75rem; font-weight: bold; color: white;
+            background-color: var(--success-green);
+        }
+
+        .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-title { font-weight: bold; font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 6px; }
+        .card-price { font-size: 1.2rem; font-weight: 900; color: var(--secondary-blue); margin-bottom: 12px; }
+        
+        .btn-order { 
+            display: block; width: 100%; text-align: center; background: #25d366; 
+            color: white; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.jpg" alt="شعار مكتبة المصطفى">
+        </div>
+        <h1>مكتبة المصطفى</h1>
+        <p>كل ما يحتاجه الطالب... في مكان واحد</p>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن دفتر، قلم..." onkeyup="filterProducts()">
+        </div>
+
+        <div class="products-grid">
+            <div class="card" data-name="دفتر عربي 5 اقسام">
+                <div class="card-img-wrapper">
+                    <span class="badge">متوفر ✅</span>
+                    <img src="notebook-5sec.jpg" alt="دفتر عربي 5 اقسام">
+                </div>
+                <div class="card-body">
+                    <div><div class="card-title">دفتر عربي (5 أقسام)</div></div>
+                    <div>
+                        <div class="card-price">120 ل.س</div>
+                        <a href="https://wa.me/963990835712" target="_blank" class="btn-order">طلب عبر الواتساب 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-name="دفتر مذكرات انيق">
+                <div class="card-img-wrapper">
+                    <span class="badge">متوفر ✅</span>
+                    <img src="diary-elegant.jpg" alt="دفتر مذكرات أنيق">
+                </div>
+                <div class="card-body">
+                    <div><div class="card-title">دفتر مذكرات أنيق</div></div>
+                    <div>
+                        <div class="card-price">220 ل.س</div>
+                        <a href="https://wa.me/963990835712" target="_blank" class="btn-order">طلب عبر الواتساب 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-name="دفتر عربي جامعي">
+                <div class="card-img-wrapper">
+                    <span class="badge">متوفر ✅</span>
+                    <img src="notebook-uni.jpg" alt="دفتر عربي جامعي">
+                </div>
+                <div class="card-body">
+                    <div><div class="card-title">دفتر عربي جامعي كبير (قسمين)</div></div>
+                    <div>
+                        <div class="card-price">120 ل.س</div>
+                        <a href="https://wa.me/963990835712" target="_blank" class="btn-order">طلب عبر الواتساب 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-name="دفتر انجليزي قسمين">
+                <div class="card-img-wrapper">
+                    <span class="badge">متوفر ✅</span>
+                    <img src="notebook-eng-70.jpg" alt="دفتر انجليزي قسمين">
+                </div>
+                <div class="card-body">
+                    <div><div class="card-title">دفتر إنجليزي قسمين</div></div>
+                    <div>
+                        <div class="card-price">70 ل.س</div>
+                        <a href="https://wa.me/963990835712" target="_blank" class="btn-order">طلب عبر الواتساب 💬</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterProducts() {
+            let search = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name').toLowerCase();
+                card.style.display = name.includes(search) ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
