@@ -6,296 +6,80 @@
     <title>متجر المصطفى - الكتالوج الرقمي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-blue: #0c3866;
-            --secondary-blue: #1b5394;
-            --accent-gold: #f4b41a;
-            --text-dark: #2c2c2c;
-            --bg-cream: #f9f6f0;
-            --white: #ffffff;
-            --success-green: #28a745;
-        }
-
+        :root { --primary-blue: #0c3866; --secondary-blue: #1b5394; --accent-gold: #f4b41a; --text-dark: #2c2c2c; --bg-cream: #f9f6f0; --danger: #dc3545; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg-cream); color: var(--text-dark); padding-bottom: 90px; }
+        body { background-color: var(--bg-cream); padding-bottom: 80px; }
         
-        header { 
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); 
-            color: white; 
-            text-align: center; 
-            padding: 25px 15px; 
-            border-bottom: 5px solid var(--accent-gold);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+        /* الترويسة */
+        header { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); color: white; text-align: center; padding: 20px; border-bottom: 5px solid var(--accent-gold); }
+        .logo-container { max-width: 200px; margin: 0 auto 10px; }
+        .logo-container img { width: 100%; border-radius: 10px; }
 
-        .logo-container { max-width: 280px; margin: 0 auto 15px auto; }
-        .logo-container img { width: 100%; height: auto; border-radius: 12px; border: 2px solid var(--accent-gold); }
+        /* الأزرار والبحث */
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        .search-box { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; }
+        .category-buttons { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 5px; }
+        .cat-btn { background: white; border: 2px solid var(--secondary-blue); padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+        .cat-btn.active { background: var(--secondary-blue); color: white; }
 
-        header h1 { font-size: 2rem; font-weight: 900; color: var(--accent-gold); margin-bottom: 5px; }
-        header p { opacity: 0.95; font-size: 1.1rem; font-weight: 700; }
-        
-        .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
-        
-        .controls { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-        .search-box { 
-            width: 100%; padding: 14px 18px; border: 2px solid var(--secondary-blue); 
-            border-radius: 10px; font-size: 1rem; outline: none; background: white;
-        }
+        /* البطاقات */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .card { background: white; border-radius: 15px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+        .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
+        .btn-add { background: var(--secondary-blue); color: white; border: none; padding: 10px; border-radius: 5px; width: 100%; cursor: pointer; margin-top: 10px; }
 
-        .category-buttons {
-            display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;
-        }
-        .cat-btn {
-            background-color: white; border: 2px solid var(--secondary-blue);
-            color: var(--primary-blue); padding: 8px 16px; border-radius: 20px;
-            font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.3s;
-        }
-        .cat-btn.active, .cat-btn:hover {
-            background-color: var(--secondary-blue); color: white;
-        }
-
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        
-        .card { 
-            background: white; border-radius: 15px; overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06); display: flex; 
-            flex-direction: column; border: 1px solid #e0e0e0;
-        }
-        
-        .card-img-wrapper { position: relative; width: 100%; height: 200px; background-color: #f0f0f0; }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .badge {
-            position: absolute; top: 10px; right: 10px; padding: 5px 12px;
-            border-radius: 20px; font-size: 0.75rem; font-weight: bold; color: white;
-            background-color: var(--success-green);
-        }
-
-        .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .card-title { font-weight: bold; font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 6px; }
-        .card-desc { font-size: 0.85rem; color: #666; margin-bottom: 12px; line-height: 1.4; }
-        .card-price { font-size: 1.2rem; font-weight: 900; color: var(--secondary-blue); margin-bottom: 12px; }
-        
-        .btn-add-cart { 
-            display: block; width: 100%; text-align: center; background: var(--secondary-blue); 
-            color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; 
-            cursor: pointer; transition: 0.2s; font-size: 0.95rem;
-        }
-        .btn-add-cart:active { transform: scale(0.97); }
-
-        /* شريط السلة الثابت في أسفل الشاشة */
-        .cart-bar {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: var(--primary-blue); color: white;
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.2); z-index: 1000;
-            border-top: 3px solid var(--accent-gold);
-        }
-        .cart-info { font-size: 1rem; font-weight: bold; }
-        .cart-count { background: var(--accent-gold); color: var(--primary-blue); padding: 3px 10px; border-radius: 12px; margin-left: 5px; }
-        .btn-send-whatsapp {
-            background: #25d366; color: white; border: none; padding: 10px 20px;
-            border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none;
-            display: flex; align-items: center; gap: 8px; font-size: 1rem;
-        }
-        .btn-send-whatsapp.disabled { opacity: 0.5; pointer-events: none; background: #888; }
+        /* السلة والنافذة */
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary-blue); color: white; padding: 15px; text-align: center; cursor: pointer; font-weight: bold; z-index: 100; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 90%; max-width: 400px; padding: 20px; border-radius: 15px; max-height: 80vh; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px; border-bottom: 1px solid #eee; }
+        .btn-remove { background: var(--danger); color: white; border: none; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
-            <img src="images/logo.jpg" alt="شعار متجر المصطفى">
-        </div>
+        <div class="logo-container"><img src="images/logo.jpg" alt="Logo"></div>
         <h1>متجر المصطفى</h1>
-        <p>قرطاسية • ألعاب وهدايا • إكسسوارات</p>
     </header>
 
     <div class="container">
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن أي منتج..." onkeyup="filterProducts()">
-            
-            <div class="category-buttons">
-                <button class="cat-btn active" onclick="filterCategory('all', this)">الكل 🛍️</button>
-                <button class="cat-btn" onclick="filterCategory('stationery', this)">أقلام وقرطاسية 📝</button>
-                <button class="cat-btn" onclick="filterCategory('toys-gifts', this)">ألعاب وهدايا 🎁</button>
-                <button class="cat-btn" onclick="filterCategory('caps-acc', this)">طواقي وإكسسوارات 🧢</button>
-            </div>
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن منتج..." onkeyup="filterProducts()">
+        <div class="category-buttons">
+            <button class="cat-btn active" onclick="filterCategory('all', this)">الكل</button>
+            <button class="cat-btn" onclick="filterCategory('stationery', this)">أقلام وقرطاسية</button>
+            <button class="cat-btn" onclick="filterCategory('toys-gifts', this)">ألعاب وهدايا</button>
+            <button class="cat-btn" onclick="filterCategory('caps-acc', this)">طواقي وإكسسوارات</button>
         </div>
 
         <div class="products-grid">
-            
-            <!-- 1. دفتر مذكرات أنيق -->
-            <div class="card" data-category="stationery" data-name="دفتر مذكرات انيق">
-                <div class="card-img-wrapper">
-                    <span class="badge">متوفر ✅</span>
-                    <img src="images/diary-elegant.jpg" alt="دفتر مذكرات أنيق">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">دفتر مذكرات أنيق</div>
-                        <div class="card-desc">دفتر مذكرات فاخر بغلاف مقوى وتفاصيل ذهبية جذابة.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">220 ل.س</div>
-                        <button class="btn-add-cart" onclick="addToCart('دفتر مذكرات أنيق', 220)">إضافة إلى السلة 🛒</button>
-                    </div>
-                </div>
+            <!-- مثال لمنتج: كرر هذه البطاقة لكل منتج -->
+            <div class="card" data-category="stationery" data-name="دفتر مذكرات">
+                <img src="images/diary.jpg" alt="دفتر">
+                <h3>دفتر مذكرات</h3>
+                <p>220 ل.س</p>
+                <button class="btn-add" onclick="addToCart('دفتر مذكرات', 220)">أضف للسلة 🛒</button>
             </div>
-
-            <!-- 2. دفتر عربي 5 أقسام -->
-            <div class="card" data-category="stationery" data-name="دفتر عربي 5 اقسام">
-                <div class="card-img-wrapper">
-                    <span class="badge">متوفر ✅</span>
-                    <img src="images/notebook-5sec.jpg" alt="دفتر عربي 5 اقسام">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">دفتر عربي (5 أقسام)</div>
-                        <div class="card-desc">سعة كبيرة تنظم معظم المواد في دفتر سلك واحد.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">120 ل.س</div>
-                        <button class="btn-add-cart" onclick="addToCart('دفتر عربي (5 أقسام)', 120)">إضافة إلى السلة 🛒</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. دفتر عربي جامعي -->
-            <div class="card" data-category="stationery" data-name="دفتر عربي جامعي كبير قسمين">
-                <div class="card-img-wrapper">
-                    <span class="badge">متوفر ✅</span>
-                    <img src="images/notebook-uni.jpg" alt="دفتر عربي جامعي">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">دفتر عربي جامعي كبير</div>
-                        <div class="card-desc">قياس كبير بتصاميم ورسومات متنوعة.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">120 ل.س</div>
-                        <button class="btn-add-cart" onclick="addToCart('دفتر عربي جامعي كبير', 120)">إضافة إلى السلة 🛒</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. لعبة تركيب -->
-            <div class="card" data-category="toys-gifts" data-name="لعبة تركيب اطفال">
-                <div class="card-img-wrapper">
-                    <span class="badge">متوفر ✅</span>
-                    <img src="images/toy-example.jpg" alt="لعبة تركيب">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">لعبة مكعبات تركيب</div>
-                        <div class="card-desc">لعبة ممتعة ومحفزة للذكاء مخصصة للأطفال.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">150 ل.س</div>
-                        <button class="btn-add-cart" onclick="addToCart('لعبة مكعبات تركيب', 150)">إضافة إلى السلة 🛒</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. طاقية شبابية -->
-            <div class="card" data-category="caps-acc" data-name="طاقية شباكية شبابية">
-                <div class="card-img-wrapper">
-                    <span class="badge">متوفر ✅</span>
-                    <img src="images/cap-example.jpg" alt="طاقية شبابية">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">طاقية شبابية صيفية</div>
-                        <div class="card-desc">طاقية ممتازة بجودة عالية وتصاميم حديثة.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">180 ل.س</div>
-                        <button class="btn-add-cart" onclick="addToCart('طاقية شبابية صيفية', 180)">إضافة إلى السلة 🛒</button>
-                    </div>
-                </div>
-            </div>
-
+            <!-- أضف المزيد من البطاقات هنا بنفس الطريقة -->
         </div>
     </div>
 
-    <!-- شريط السلة المثبت أسفل الشاشة -->
-    <div class="cart-bar">
-        <div class="cart-info">
-            المجموع: <span id="totalPrice">0</span> ل.س 
-            (<span id="cartCount" class="cart-count">0</span> عناصر)
-        </div>
-        <button id="sendBtn" class="btn-send-whatsapp disabled" onclick="sendOrder()">
-            إرسال الطلب عبر الواتساب 💬
-        </button>
+    <!-- شريط السلة السفلي -->
+    <div class="cart-bar" onclick="toggleCart()">
+        🛒 السلة (<span id="cartCount">0</span>) | المجموع: <span id="totalPrice">0</span> ل.س
     </div>
 
-    <script>
-        let cart = [];
-        let currentCategory = 'all';
+    <!-- نافذة السلة -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h3>سلة التسوق</h3>
+            <div id="cartItemsList"></div>
+            <p><strong>الإجمالي: <span id="modalTotal">0</span> ل.س</strong></p>
+            <button onclick="sendOrder()" style="background:#25d366; width:100%; border:none; padding:10px; color:white; border-radius:5px;">إرسال للواتساب 💬</button>
+            <button onclick="toggleCart()" style="background:#ccc; width:100%; border:none; padding:10px; margin-top:5px; border-radius:5px;">إغلاق</button>
+        </div>
+    </div>
 
-        function addToCart(title, price) {
-            cart.push({ title: title, price: price });
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('totalPrice').innerText = total;
-            document.getElementById('cartCount').innerText = cart.length;
-
-            let sendBtn = document.getElementById('sendBtn');
-            if (cart.length > 0) {
-                sendBtn.classList.remove('disabled');
-            } else {
-                sendBtn.classList.add('disabled');
-            }
-        }
-
-        function sendOrder() {
-            if (cart.length === 0) return;
-
-            let phone = "963990835712";
-            let message = "مرحباً متجر المصطفى، أود طلب القائمة التالية:\n\n";
-
-            // تجميع العناصر ومجموع الحساب
-            let total = 0;
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.title} - ${item.price} ل.س\n`;
-                total += item.price;
-            });
-
-            message += `\nالمجموع الكلي: ${total} ل.س`;
-
-            // فتح رابط الواتساب مجهزاً بالرسالة المجمعة
-            let whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
-        function filterProducts() {
-            let search = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.card');
-            
-            cards.forEach(card => {
-                let name = card.getAttribute('data-name').toLowerCase();
-                let category = card.getAttribute('data-category');
-                
-                let matchesCategory = (currentCategory === 'all' || category === currentCategory);
-                let matchesSearch = name.includes(search);
-
-                if(matchesCategory && matchesSearch) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function filterCategory(cat, btn) {
-            currentCategory = cat;
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            filterProducts();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
