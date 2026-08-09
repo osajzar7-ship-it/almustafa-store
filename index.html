@@ -5,16 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متجر المصطفى - الكتالوج الرقمي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-   .discount-banner {
-    background-color: var(--accent-gold);
-    color: var(--primary-blue);
-    text-align: center;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 0.95rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
- <style>
+    <style>
         :root { 
             --primary-blue: #0c3866; 
             --secondary-blue: #1b5394; 
@@ -27,6 +18,17 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
         body { background-color: var(--bg-cream); padding-bottom: 90px; }
         
+        /* شريط الخصم العلوي */
+        .discount-banner {
+            background-color: var(--accent-gold);
+            color: var(--primary-blue);
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
         header { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); color: white; text-align: center; padding: 20px; border-bottom: 5px solid var(--accent-gold); }
         .logo-container { max-width: 180px; margin: 0 auto 10px; }
         .logo-container img { width: 100%; border-radius: 10px; border: 2px solid var(--accent-gold); }
@@ -66,9 +68,11 @@
     </style>
 </head>
 <body>
-<div class="discount-banner">
-    🎁 خصم خاص 5% على كل طلب يتم عبر الموقع والواتساب!
-</div>
+
+    <!-- شريط الخصم العلوي -->
+    <div class="discount-banner">
+        🎁 خصم خاص 5% على كل طلب يتم عبر الموقع والواتساب!
+    </div>
 
     <header>
         <div class="logo-container">
@@ -89,7 +93,7 @@
 
         <div class="products-grid">
 
-            <!-- ================= 1. قسم أقلام وقرطاسية (data-category="stationery") ================= -->
+            <!-- 1. قسم أقلام وقرطاسية -->
             <div class="card" data-category="stationery" data-name="دفتر مذكرات انيق">
                 <div class="card-img-wrapper"><img src="images/diary-elegant.jpg" alt="دفتر مذكرات"></div>
                 <div class="card-body">
@@ -118,8 +122,7 @@
                 </div>
             </div>
 
-
-            <!-- ================= 2. قسم ألعاب وهدايا (data-category="toys-gifts") ================= -->
+            <!-- 2. قسم ألعاب وهدايا -->
             <div class="card" data-category="toys-gifts" data-name="لعبة مكعبات تركيب">
                 <div class="card-img-wrapper"><img src="images/toy-blocks.jpg" alt="لعبة مكعبات"></div>
                 <div class="card-body">
@@ -134,22 +137,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="toys-gifts" data-name="سيارة تحكم عن بعد">
-                <div class="card-img-wrapper"><img src="images/remote-car.jpg" alt="سيارة تحكم"></div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">سيارة سباق تحكم</div>
-                        <div class="card-desc">سيارة سريعة مع جهاز تحكم لاسلكي.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">300 ل.س</div>
-                        <button class="btn-add" onclick="addToCart('سيارة سباق تحكم', 300)">أضف للسلة 🛒</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- ================= 3. قسم طواقي وإكسسوارات (data-category="caps-acc") ================= -->
+            <!-- 3. قسم طواقي وإكسسوارات -->
             <div class="card" data-category="caps-acc" data-name="طاقية شبابية صيفية">
                 <div class="card-img-wrapper"><img src="images/cap-summer.jpg" alt="طاقية شبابية"></div>
                 <div class="card-body">
@@ -164,20 +152,6 @@
                 </div>
             </div>
 
-            <div class="card" data-category="caps-acc" data-name="سلسلة مفاتيح ميدالية">
-                <div class="card-img-wrapper"><img src="images/keychain.jpg" alt="ميدالية"></div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">ميدالية مفاتيح مميزة</div>
-                        <div class="card-desc">تصميم أنيق ومقاوم للصدأ.</div>
-                    </div>
-                    <div>
-                        <div class="card-price">50 ل.س</div>
-                        <button class="btn-add" onclick="addToCart('ميدالية مفاتيح مميزة', 50)">أضف للسلة 🛒</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -187,7 +161,7 @@
         <div>المجموع: <span id="totalPrice">0</span> ل.س</div>
     </div>
 
-    <!-- نافذة السلة التفاعلية -->
+    <!-- نافذة السلة -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <h3 style="margin-bottom:15px; color:var(--primary-blue);">سلة التسوق الخاصة بك 🛒</h3>
