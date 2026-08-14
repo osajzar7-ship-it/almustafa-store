@@ -157,6 +157,7 @@
         }
         .btn-add:active { transform: scale(0.95); }
 
+        /* شريط السلة العائم */
         .cart-bar-wrapper { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; z-index: 100; }
         .cart-bar { 
             background: var(--navy-dark); 
@@ -173,10 +174,30 @@
         }
         .cart-count-badge { background: var(--gold-accent); color: var(--navy-dark); padding: 2px 10px; border-radius: 12px; margin-right: 6px; font-weight: 900; }
         
+        /* النافذة المنبثقة للسلة */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.75); z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .modal.show { display: flex; }
         .modal-content { background: var(--white); width: 92%; max-width: 440px; padding: 25px; border-radius: 24px; max-height: 80vh; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 10px 0; border-bottom: 1px dashed #f1f5f9; }
         .btn-remove { background: #fee2e2; color: var(--danger); border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 700; }
+        
+        .btn-send {
+            width: 100%;
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
         #toast { 
             visibility: hidden; 
@@ -229,9 +250,10 @@
         </div>
 
         <div class="products-grid">
+            <!-- باقة الابتدائي -->
             <div class="card" data-category="school-bundles" data-name="باقة الابتدائي المكتملة">
                 <span class="card-tag">خصم 5%</span>
-                <div class="card-img-wrapper"><img src="images/primary-bundle.jpg" alt="باقة الابتدائي"></div>
+                <div class="card-img-wrapper"><img src="images/primary-bundle.jpg" alt="باقة الابتدائي" onerror="this.src='https://via.placeholder.com/300x200?text=باقة+الابتدائي'"></div>
                 <div class="card-body">
                     <div>
                         <div class="card-title">باقة الابتدائي المكتملة 🎒</div>
@@ -242,199 +264,141 @@
                         <button type="button" class="btn-add" onclick="addToCart('باقة الابتدائي المكتملة', 1200)">+ أضف</button>
                     </div>
                 </div>
-            
-              <div class="> باقة المرحلة المتوسطة </div>
-                        <div class="card-desc">تحتوي على: 5 دفاتر، علبة ألوان، أقلام رصاص، محاية، براية ومسطرة.</div>
+            </div>
+
+            <!-- باقة المرحلة المتوسطة -->
+            <div class="card" data-category="school-bundles" data-name="باقة المرحلة المتوسطة">
+                <span class="card-tag">خصم 5%</span>
+                <div class="card-img-wrapper"><img src="images/middle-bundle.jpg" alt="باقة المرحلة المتوسطة" onerror="this.src='https://via.placeholder.com/300x200?text=باقة+المتوسطة'"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">باقة المرحلة المتوسطة 📚</div>
+                        <div class="card-desc">تحتوي على: دفاتر سلك مقسمة، أقلام حبر، علبة هندسة، ومسطرة.</div>
                     </div>
                     <div class="card-footer">
                         <div class="card-price">1400 <span>ل.س</span></div>
-                        <button type="button" class="btn-add" onclick="addToCart('باقة الابتدائي المكتملة', 1400)">+ أضف</button>
+                        <button type="button" class="btn-add" onclick="addToCart('باقة المرحلة المتوسطة', 1400)">+ أضف</button>
                     </div>
-    </div>
-    </div>
-</div>
+                </div>
+            </div>
 
-
-            <div class="card" data-category="stationery" data-name="دفتر مذكرات انيق">
-                <div class="card-img-wrapper"><img src="images/diary-elegant.jpg" alt="دفتر مذكرات"></div>
+            <!-- دفتر مذكرات -->
+            <div class="card" data-category="stationery" data-name="دفتر مذكرات أنيق">
+                <div class="card-img-wrapper"><img src="images/diary-elegant.jpg" alt="دفتر مذكرات" onerror="this.src='https://via.placeholder.com/300x200?text=دفتر+مذكرات'"></div>
                 <div class="card-body">
                     <div>
-                        <div class="card-title">دفتر مذكرات أنيق</div>
+                        <div class="card-title">دفتر مذكرات أنيق 📝</div>
                         <div class="card-desc">غلاف مقوى فاخر مع ورقات سطر واضحة ونظيفة.</div>
                     </div>
                     <div class="card-footer">
-                        <div class="card-price">220 <span>ل.س</span></div>
-                        <button type="button" class="btn-add" onclick="addToCart('دفتر مذكرات أنيق', 220)">+ أضف</button>
+                        <div class="card-price">250 <span>ل.س</span></div>
+                        <button type="button" class="btn-add" onclick="addToCart('دفتر مذكرات أنيق', 250)">+ أضف</button>
                     </div>
                 </div>
             </div>
 
-            <div class="card" data-category="stationery" data-name="دفتر عربي 5 اقسام">
-                <div class="card-img-wrapper"><img src="images/notebook-5sec.jpg" alt="دفتر عربي"></div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">دفتر عربي (5 أقسام)</div>
-                        <div class="card-desc">سلك ممتاز وعملي للمدرسة والجامعة.</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">120 <span>ل.س</span></div>
-                        <button type="button" class="btn-add" onclick="addToCart('دفتر عربي 5 أقسام', 120)">+ أضف</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-category="toys-gifts" data-name="لعبة مكعبات تركيب">
-                <div class="card-img-wrapper"><img src="images/toy-blocks.jpg" alt="لعبة مكعبات"></div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">لعبة مكعبات تركيب</div>
-                        <div class="card-desc">تنمي مهارات التفكير والإبداع لدى الأطفال.</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">150 <span>ل.س</span></div>
-                        <button type="button" class="btn-add" onclick="addToCart('لعبة مكعبات تركيب', 150)">+ أضف</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-category="caps-acc" data-name="طاقية شبابية صيفية">
-                <div class="card-img-wrapper"><img src="images/cap-summer.jpg" alt="طاقية شبابية"></div>
-                <div class="card-body">
-                    <div>
-                        <div class="card-title">طاقية شبابية صيفية</div>
-                        <div class="card-desc">خامة ممتازة ومريحة للأيام الحارة.</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">180 <span>ل.س</span></div>
-                        <button type="button" class="btn-add" onclick="addToCart('طاقية شبابية صيفية', 180)">+ أضف</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- شريط السلة العائم -->
     <div class="cart-bar-wrapper">
-        <div class="cart-bar" onclick="toggleCart()">
-            <div>🛒 سلة الطلبات <span id="cartCount" class="cart-count-badge">0</span></div>
-            <div>المجموع: <span id="totalPrice">0</span> ل.س</div>
+        <div class="cart-bar" onclick="toggleCartModal()">
+            <div>
+                <span class="cart-count-badge" id="cartCount">0</span>
+                <span>سلة المشتريات</span>
+            </div>
+            <div>
+                <span id="cartTotal">0</span> ل.س 🛒
+            </div>
         </div>
     </div>
 
-    <div id="cartModal" class="modal">
+    <!-- نافذة السلة (Modal) -->
+    <div class="modal" id="cartModal">
         <div class="modal-content">
-            <h3 style="margin-bottom:18px; color:var(--navy-dark); font-size:1.2rem;">طلباتك من مكتبة المصطفى 🛒</h3>
+            <div class="modal-header">
+                <h3 style="color: var(--navy-dark);">محتويات السلة 🛒</h3>
+                <button onclick="toggleCartModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">✕</button>
+            </div>
             <div id="cartItemsList"></div>
-            <hr style="margin:18px 0; border:0; border-top:1px solid #f1f5f9;">
-            <p style="font-size:1.1rem; margin-bottom:18px;"><strong>المجموع الإجمالي: <span id="modalTotal">0</span> ل.س</strong></p>
-            <button type="button" onclick="sendOrder()" style="background:#25d366; color:white; width:100%; border:none; padding:14px; border-radius:14px; font-size:1rem; font-weight:800; cursor:pointer;">إرسال للواتساب وحجز الخصم 💬</button>
-            <button type="button" onclick="toggleCart()" style="background:#f1f5f9; color:#475569; width:100%; border:none; padding:12px; border-radius:14px; margin-top:10px; cursor:pointer; font-weight:700;">إغلاق</button>
+            <div style="margin-top: 15px; font-weight: 800; font-size: 1.1rem; text-align: left; color: var(--navy-dark);">
+                المجموع الاصلي: <span id="modalSubTotal">0</span> ل.س<br>
+                <small style="color: green;">الخصم (5%): -<span id="modalDiscount">0</span> ل.س</small><br>
+                <div style="font-size: 1.2rem; margin-top: 5px;">المجموع النهائي: <span id="modalFinalTotal" style="color: var(--gold-accent);">0</span> ل.س</div>
+            </div>
+            <button class="btn-send" onclick="sendToWhatsApp()">إرسال الطلب عبر الواتساب 💬</button>
         </div>
     </div>
 
-    <div id="toast">تمت إضافة المنتج إلى السلة!</div>
+    <div id="toast">تمت إضافة المنتج للسلة! 🛒</div>
 
     <script>
-        var cart = [];
-        var currentCategory = 'all';
+        let cart = [];
 
-        function addToCart(title, price) {
-            cart.push({ title: title, price: Number(price) });
+        function addToCart(name, price) {
+            cart.push({ name, price });
             updateCart();
-            showToast("تمت إضافة " + title + " إلى السلة ✅");
-        }
-
-        function showToast(message) {
-            var toast = document.getElementById("toast");
-            toast.innerText = message;
-            toast.className = "show";
-            setTimeout(function(){ toast.className = ""; }, 2200);
+            showToast(`تم إضافة "${name}" إلى السلة`);
         }
 
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCart();
-        }
-
-        function toggleCart() {
-            var modal = document.getElementById('cartModal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            } else {
-                modal.style.display = 'flex';
-            }
+            renderCartItems();
         }
 
         function updateCart() {
-            var list = document.getElementById('cartItemsList');
-            var total = 0;
-            list.innerHTML = '';
-            
-            if (cart.length === 0) {
-                list.innerHTML = '<p style="text-align:center; color:#888; padding:10px;">السلة فارغة حالياً</p>';
-            } else {
-                for (var i = 0; i < cart.length; i++) {
-                    total += cart[i].price;
-                    list.innerHTML += '<div class="cart-item">' +
-                        '<span>' + cart[i].title + ' - <strong>' + cart[i].price + ' ل.س</strong></span>' +
-                        '<button type="button" class="btn-remove" onclick="removeFromCart(' + i + ')">حذف ❌</button>' +
-                    '</div>';
-                }
-            }
-            
             document.getElementById('cartCount').innerText = cart.length;
-            document.getElementById('totalPrice').innerText = total;
-            document.getElementById('modalTotal').innerText = total;
+            let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            let discount = subtotal * 0.05;
+            let finalTotal = subtotal - discount;
+            
+            document.getElementById('cartTotal').innerText = Math.round(finalTotal);
+            document.getElementById('modalSubTotal').innerText = subtotal;
+            document.getElementById('modalDiscount').innerText = Math.round(discount);
+            document.getElementById('modalFinalTotal').innerText = Math.round(finalTotal);
         }
 
-        function sendOrder() {
+        function renderCartItems() {
+            let list = document.getElementById('cartItemsList');
             if (cart.length === 0) {
-                alert("سلتك فارغة! أضف بعض المنتجات أولاً.");
+                list.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 20px 0;">السلة فارغة حالياً!</p>';
                 return;
             }
-            
-            var total = 0;
-            for (var i = 0; i < cart.length; i++) {
-                total += cart[i].price;
-            }
-
-            var discount = Math.round(total * 0.05); 
-            var rawFinal = total - discount;
-            var finalTotal = Math.ceil(rawFinal / 10) * 10;
-
-            var msg = "مرحباً مكتبة المصطفى، أود طلب القائمة التالية عبر الموقع (مع خصم 5%):\n\n";
-            for (var j = 0; j < cart.length; j++) {
-                msg += (j + 1) + ". " + cart[j].title + " (" + cart[j].price + " ل.س)\n";
-            }
-            
-            msg += "\n----------------------";
-            msg += "\nالمجموع الأصلي: " + total + " ل.س";
-            msg += "\nقيمة الخصم (5%): " + discount + " ل.س";
-            msg += "\nالمجموع النهائي بعد الخصم والجبر: " + finalTotal + " ل.س";
-            
-            var whatsappUrl = "https://wa.me/963990835712?text=" + encodeURIComponent(msg);
-            window.location.href = whatsappUrl;
+            list.innerHTML = '';
+            cart.forEach((item, index) => {
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.price} ل.س</small>
+                        </div>
+                        <button class="btn-remove" onclick="removeFromCart(${index})">حذف</button>
+                    </div>
+                `;
+            });
         }
 
-        function normalizeText(text) {
-            if (!text) return "";
-            return text.toLowerCase()
-                .replace(/[أإآ]/g, 'ا')
-                .replace(/ة/g, 'ه')
-                .replace(/ى/g, 'ي')
-                .trim();
+        function toggleCartModal() {
+            let modal = document.getElementById('cartModal');
+            modal.classList.toggle('show');
+            renderCartItems();
         }
 
-        function filterProducts() {
-            var search = normalizeText(document.getElementById('searchInput').value);
-            var cards = document.querySelectorAll('.card');
-            
-            cards.forEach(function(card) {
-                var name = normalizeText(card.getAttribute('data-name'));
-                var cat = card.getAttribute('data-category');
-                var matchesCategory = (currentCategory === 'all' || cat === currentCategory);
-                var matchesSearch = name.includes(search);
+        function showToast(text) {
+            let toast = document.getElementById('toast');
+            toast.innerText = text;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 2000);
+        }
 
-                if (matchesCategory && matchesSearch) {
+        function filterCategory(category, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
@@ -442,13 +406,38 @@
             });
         }
 
-        function filterCategory(cat, btn) {
-            currentCategory = cat;
-            document.querySelectorAll('.cat-btn').forEach(function(b) {
-                b.classList.remove('active');
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
-            btn.classList.add('active');
-            filterProducts();
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                alert('السلة فارغة!');
+                return;
+            }
+            let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            let discount = subtotal * 0.05;
+            let finalTotal = subtotal - discount;
+
+            let text = "مرحباً مكتبة المصطفى، أريد طلب المنتجات التالية عبر الموقع:%0A%0A";
+            cart.forEach((item, index) => {
+                text += `${index + 1}. ${item.name} - ${item.price} ل.س%0A`;
+            });
+            text += `%0A--------------------------`;
+            text += `%0Aالمجموع: ${subtotal} ل.س`;
+            text += `%0Aخصم الموقع (5%): -${Math.round(discount)} ل.س`;
+            text += `%0A*المجموع النهائي: ${Math.round(finalTotal)} ل.س*`;
+
+            window.open('https://wa.me/963990835712?text=' + text, '_blank');
         }
     </script>
 </body>
