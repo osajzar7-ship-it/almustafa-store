@@ -241,13 +241,17 @@
             <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن دفتر، قلم، باقة مدرسية..." onkeyup="filterProducts()">
         </div>
         
-        <div class="category-buttons">
-            <button class="cat-btn active" onclick="filterCategory('all', this)">الكل 🛍️</button>
-            <button class="cat-btn" onclick="filterCategory('school-bundles', this)">باقات المدارس 🎒</button>
-            <button class="cat-btn" onclick="filterCategory('stationery', this)">أقلام وقرطاسية 📝</button>
-            <button class="cat-btn" onclick="filterCategory('toys-gifts', this)">ألعاب وهدايا 🎁</button>
-            <button class="cat-btn" onclick="filterCategory('caps-acc', this)">طواقي وإكسسوارات 🧢</button>
-     
+        <!-- أزرار الأقسام الجديدة -->
+<div class="category-buttons">
+    <button class="cat-btn active" onclick="filterCategory('all', this)">الكل 🛍️</button>
+    <button class="cat-btn" onclick="filterCategory('school-bundles', this)">باقات المدارس 🎒</button>
+    <button class="cat-btn" onclick="filterCategory('stationery', this)">أقلام وقرطاسية 📝</button>
+    <button class="cat-btn" onclick="filterCategory('toys', this)">ألعاب الأطفال 🧸</button>
+    <button class="cat-btn" onclick="filterCategory('gifts', this)">هدايا 🎁</button>
+    <button class="cat-btn" onclick="filterCategory('flowers-wrap', this)">ورد وتغليف 💐</button>
+    <button class="cat-btn" onclick="filterCategory('caps-acc', this)">طواقي وإكسسوارات 🧢</button>
+</div>
+
     </div>
 
 <div class="card" data-category="stationery" data-name="القرآن الكريم حجم صغير">
