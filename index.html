@@ -295,7 +295,6 @@
             <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن دفتر، قلم، باقة مدرسية، لعبة..." onkeyup="filterProducts()">
         </div>
         
-        <!-- أزرار الأقسام -->
         <div class="category-buttons">
             <button class="cat-btn active" onclick="filterCategory('all', this)">الكل 🛍️</button>
             <button class="cat-btn" onclick="filterCategory('school-bundles', this)">باقات المدارس 🎒</button>
@@ -306,6 +305,360 @@
             <button class="cat-btn" onclick="filterCategory('caps-acc', this)">طواقي وإكسسوارات 🧢</button>
         </div>
 
+        <div class="products-grid">
+
+            <div class="card" data-category="school-bundles" data-name="باقة الابتدائي المكتملة">
+                <span class="card-tag">خصم 5%</span>
+                <div class="card-img-wrapper"><img src="images/primary-bundle.jpg" alt="باقة الابتدائي"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">باقة الابتدائي المكتملة 🎒</div>
+                        <div class="card-desc">تحتوي على: 5 دفاتر، علبة ألوان، أقلام رصاص، محاية، براية ومسطرة.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">1200 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('باقة الابتدائي المكتملة', 1200)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="stationery" data-name="دفتر مذكرات انيق">
+                <div class="card-img-wrapper"><img src="images/diary-elegant.jpg" alt="دفتر مذكرات"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">دفتر مذكرات أنيق</div>
+                        <div class="card-desc">غلاف مقوى فاخر مع ورقات سطر واضحة ونظيفة.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">220 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('دفتر مذكرات أنيق', 220)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="stationery" data-name="دفتر عربي 5 اقسام">
+                <div class="card-img-wrapper"><img src="images/notebook-5sec.jpg" alt="دفتر عربي"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">دفتر عربي (5 أقسام)</div>
+                        <div class="card-desc">سلك ممتاز وعملي للمدرسة والجامعة.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">120 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('دفتر عربي 5 أقسام', 120)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="toys" data-name="لعبة مكعبات تركيب">
+                <div class="card-img-wrapper"><img src="images/toy-blocks.jpg" alt="لعبة مكعبات"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">لعبة مكعبات تركيب 🧸</div>
+                        <div class="card-desc">تنمي مهارات التفكير والإبداع لدى الأطفال.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">150 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('لعبة مكعبات تركيب', 150)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="gifts" data-name="ساعة يد انيقة">
+                <div class="card-img-wrapper"><img src="images/watch.jpg" alt="ساعة يد"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">ساعة يد أنيقة 🎁</div>
+                        <div class="card-desc">هدية فاخرة ومناسبة لجميع المناسبات.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">300 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('ساعة يد أنيقة', 300)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="flowers-wrap" data-name="باقة ورد وتغليف فاخر">
+                <div class="card-img-wrapper"><img src="images/flowers.jpg" alt="ورد وتغليف"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">باقة ورد وتغليف فاخر 💐</div>
+                        <div class="card-desc">تنسيق ورد جميل مع تغليف هدايا احترافي.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">200 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('باقة ورد وتغليف فاخر', 200)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="caps-acc" data-name="طاقية شبابية صيفية">
+                <div class="card-img-wrapper"><img src="images/cap-summer.jpg" alt="طاقية شبابية"></div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">طاقية شبابية صيفية 🧢</div>
+                        <div class="card-desc">خامة ممتازة ومريحة للأيام الحارة.</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">180 <span>ل.س</span></div>
+                        <button class="btn-add" onclick="addItemToCart('طاقية شبابية صيفية', 180)">+ أضف</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cart-bar-wrapper">
+        <div class="cart-bar" onclick="openCartModal()">
+            <div>🛒 سلة الطلبات <span id="cartCount" class="cart-count-badge">0</span></div>
+            <div>المجموع: <span id="totalPrice">0</span> ل.س</div>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:18px; color:var(--navy-dark); font-size:1.2rem;">طلباتك من مكتبة المصطفى 🛒</h3>
+            
+            <div id="cartItemsList"></div>
+
+            <div class="delivery-options">
+                <p style="font-weight:800; font-size:0.85rem; margin-bottom:8px; color:var(--navy-main);">اختر طريقة الاستلام:</p>
+                <label>
+                    <input type="radio" name="deliveryMethod" value="pickup" checked onchange="updateCartUI()">
+                    📍 استلام مباشر من المكتبة (مجاني)
+                </label>
+                <label>
+                    <input type="radio" name="deliveryMethod" value="delivery" onchange="updateCartUI()">
+                    🚚 توصيل لداخل قباسين
+                </label>
+            </div>
+
+            <hr style="margin:15px 0; border:0; border-top:1px solid #f1f5f9;">
+            
+            <p style="font-size:1.1rem; margin-bottom:18px;"><strong>المجموع الإجمالي: <span id="modalTotal">0</span> ل.س</strong></p>
+            
+            <button onclick="sendOrder()" style="background:#25d366; color:white; width:100%; border:none; padding:14px; border-radius:14px; font-size:1rem; font-weight:800; cursor:pointer; box-shadow:0 4px 12px rgba(37,211,102,0.25);">إرسال للواتساب وحجز الخصم 💬</button>
+            <button onclick="closeCartModal()" style="background:#f1f5f9; color:#475569; width:100%; border:none; padding:12px; border-radius:14px; margin-top:10px; cursor:pointer; font-weight:700;">إغلاق</button>
+        </div>
+    </div>
+
+    <div id="toast">تمت إضافة المنتج إلى السلة!</div>
+
+    <script>
+        var myCart = [];
+        var DISCOUNT_RATE = 0.05;
+        var DELIVERY_FEE = 80;
+        var FREE_DELIVERY_LIMIT = 350;
+        var WHATSAPP_NUMBER = "963900000000";
+
+        function addItemToCart(name, price) {
+            var found = false;
+            for (var i = 0; i < myCart.length; i++) {
+                if (myCart[i].name === name) {
+                    myCart[i].quantity += 1;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                myCart.push({ name: name, price: price, quantity: 1 });
+            }
+            updateCartUI();
+            showToast('تمت إضافة المنتج إلى السلة!');
+        }
+
+        function removeItemFromCart(index) {
+            myCart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            var cartCount = document.getElementById('cartCount');
+            var totalPrice = document.getElementById('totalPrice');
+            var modalTotal = document.getElementById('modalTotal');
+            var cartItemsList = document.getElementById('cartItemsList');
+
+            var totalItems = 0;
+            var rawTotal = 0;
+
+            for (var i = 0; i < myCart.length; i++) {
+                totalItems += myCart[i].quantity;
+                rawTotal += (myCart[i].price * myCart[i].quantity);
+            }
+            
+            var discountAmount = rawTotal * DISCOUNT_RATE;
+            var totalAfterDiscount = rawTotal - discountAmount;
+            
+            var deliveryRadios = document.getElementsByName('deliveryMethod');
+            var deliveryMethod = 'pickup';
+            for (var j = 0; j < deliveryRadios.length; j++) {
+                if (deliveryRadios[j].checked) {
+                    deliveryMethod = deliveryRadios[j].value;
+                    break;
+                }
+            }
+            
+            var currentDelivery = 0;
+            if (rawTotal > 0 && deliveryMethod === 'delivery') {
+                currentDelivery = (rawTotal < FREE_DELIVERY_LIMIT) ? DELIVERY_FEE : 0;
+            }
+
+            var finalTotal = totalAfterDiscount + currentDelivery;
+
+            cartCount.innerText = totalItems;
+            totalPrice.innerText = Math.round(finalTotal);
+            modalTotal.innerText = Math.round(finalTotal);
+
+            cartItemsList.innerHTML = '';
+
+            if (myCart.length === 0) {
+                cartItemsList.innerHTML = '<p style="text-align:center; color: #64748b; padding: 15px 0;">السلة فارغة حالياً</p>';
+                return;
+            }
+
+            for (var k = 0; k < myCart.length; k++) {
+                var item = myCart[k];
+                var itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = '<div><strong style="color: #0a192f;">' + item.name + '</strong>' +
+                    '<div style="font-size:0.85rem; color: #64748b; margin-top:2px;">' +
+                    item.price + ' ل.س × ' + item.quantity + ' = ' + (item.price * item.quantity) + ' ل.س</div></div>' +
+                    '<button class="btn-remove" onclick="removeItemFromCart(' + k + ')">حذف</button>';
+                cartItemsList.appendChild(itemElement);
+            }
+
+            var summaryDiv = document.createElement('div');
+            summaryDiv.style.cssText = "margin-top:10px; font-size:0.88rem; color:#475569; padding-top:8px;";
+            
+            var deliveryText = 'مجاني (استلام مكتبة)';
+            var tipMessage = '';
+
+            if (deliveryMethod === 'delivery') {
+                if (currentDelivery === 0) {
+                    deliveryText = '<strong style="color:green;">مجاني 🎉</strong>';
+                } else {
+                    deliveryText = DELIVERY_FEE + ' ل.س';
+                    var remaining = FREE_DELIVERY_LIMIT - rawTotal;
+                    tipMessage = '<small style="color:#d97706; display:block; margin-top:4px;">💡 أضف منتجات بقيمة ' + remaining + ' ل.س للحصول على توصيل مجاني!</small>';
+                }
+            }
+
+            summaryDiv.innerHTML = '<div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>خصم الموقع (5%):</span><span style="color:green;">-' + Math.round(discountAmount) + ' ل.س</span></div>' +
+                '<div style="display:flex; justify-content:space-between;"><span>رسوم التوصيل:</span><span>' + deliveryText + '</span></div>' + tipMessage;
+            
+            cartItemsList.appendChild(summaryDiv);
+        }
+
+        function filterCategory(category, button) {
+            var buttons = document.querySelectorAll('.cat-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            button.classList.add('active');
+
+            var cards = document.querySelectorAll('.card');
+            for (var j = 0; j < cards.length; j++) {
+                var cardCategory = cards[j].getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
+                    cards[j].style.display = 'flex';
+                } else {
+                    cards[j].style.display = 'none';
+                }
+            }
+        }
+
+        function filterProducts() {
+            var searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            var cards = document.querySelectorAll('.card');
+
+            for (var i = 0; i < cards.length; i++) {
+                var cardName = (cards[i].getAttribute('data-name') || '').toLowerCase();
+                var cardTitle = cards[i].querySelector('.card-title').innerText.toLowerCase();
+                var cardDesc = cards[i].querySelector('.card-desc').innerText.toLowerCase();
+
+                if (cardName.indexOf(searchQuery) !== -1 || cardTitle.indexOf(searchQuery) !== -1 || cardDesc.indexOf(searchQuery) !== -1) {
+                    cards[i].style.display = 'flex';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+        }
+
+        function openCartModal() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 2500);
+        }
+
+        function sendOrder() {
+            if (myCart.length === 0) {
+                alert('السلة فارغة!');
+                return;
+            }
+
+            var deliveryRadios = document.getElementsByName('deliveryMethod');
+            var deliveryMethod = 'pickup';
+            for (var i = 0; i < deliveryRadios.length; i++) {
+                if (deliveryRadios[i].checked) {
+                    deliveryMethod = deliveryRadios[i].value;
+                    break;
+                }
+            }
+
+            var deliveryTextHeader = (deliveryMethod === 'delivery') ? "توصيل لداخل قباسين" : "استلام مباشر من المكتبة";
+            var textLines = [];
+
+            textLines.push("مرحباً مكتبة المصطفى 👋");
+            textLines.push("أرغب في تأكيد الطلب (" + deliveryTextHeader + "):");
+            textLines.push("");
+
+            var rawTotal = 0;
+            for (var j = 0; j < myCart.length; j++) {
+                var itemTotal = myCart[j].price * myCart[j].quantity;
+                rawTotal += itemTotal;
+                textLines.push((j + 1) + ". *" + myCart[j].name + "*");
+                textLines.push("   العدد: " + myCart[j].quantity + " | السعر: " + itemTotal + " ل.س");
+            }
+
+            var discountAmount = rawTotal * DISCOUNT_RATE;
+            var totalAfterDiscount = rawTotal - discountAmount;
+            
+            var deliveryFee = 0;
+            if (deliveryMethod === 'delivery') {
+                deliveryFee = (rawTotal < FREE_DELIVERY_LIMIT) ? DELIVERY_FEE : 0;
+            }
+            
+            var finalTotal = totalAfterDiscount + deliveryFee;
+
+            textLines.push("------------------------------");
+            textLines.push("📍 طريقة الاستلام: " + deliveryTextHeader);
+            textLines.push("💰 المجموع قبل الخصم: " + rawTotal + " ل.س");
+            textLines.push("🎁 خصم الموقع (5%): -" + Math.round(discountAmount) + " ل.س");
+            
+            if (deliveryMethod === 'delivery') {
+                var delFeeText = (deliveryFee === 0) ? 'مجاني' : (deliveryFee + ' ل.س');
+                textLines.push("🚚 أجور التوصيل: " + delFeeText);
+            }
+            
+            textLines.push("✅ *الإجمالي النهائي: " + Math.round(finalTotal) + " ل.س*");
+
+            var fullText = textLines.join("\n");
+            var encodedMessage = encodeURIComponent(fullText);
+            window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodedMessage, '_blank');
+        }
+    </script>
+</body>
+</html>
         <!-- شبكة المنتجات -->
         <div class="products-grid">
 
