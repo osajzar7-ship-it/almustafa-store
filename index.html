@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مكتبة المصطفى</title>
-  <!-- Google Fonts & Font Awesome Icons -->
+  <title>مكتبة المصطفى | Al-Mustafa Bookstore</title>
+  
+  <!-- الخطوط والأيقونات -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --primary-color: #2c3e50;
-      --accent-color: #e67e22;
-      --bg-light: #f8f9fa;
+      --primary: #1a252f;      /* اللون الكحلي الأساسي */
+      --accent: #d4af37;       /* اللون الذهبي */
+      --accent-hover: #b89628;
+      --bg-light: #f4f6f9;
       --white: #ffffff;
+      --text: #2c3e50;
       --shadow: 0 4px 15px rgba(0,0,0,0.08);
       --radius: 12px;
     }
@@ -27,13 +30,14 @@
 
     body {
       background-color: var(--bg-light);
-      color: #333;
+      color: var(--text);
       padding-bottom: 60px;
     }
 
-    /* Header & Navbar */
+    /* الهيدر الهيكلي الأساسي */
     header {
-      background-color: var(--white);
+      background-color: var(--primary);
+      color: var(--white);
       box-shadow: var(--shadow);
       position: sticky;
       top: 0;
@@ -52,11 +56,12 @@
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
+    /* مكان اللوجو الخاص بالمكتبة */
     .logo-img {
-      max-height: 50px;
+      max-height: 48px;
       width: auto;
       object-fit: contain;
     }
@@ -64,20 +69,20 @@
     .brand-title {
       font-size: 1.4rem;
       font-weight: 800;
-      color: var(--primary-color);
+      color: var(--accent);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 18px;
     }
 
     .menu-btn, .cart-icon-btn {
       background: none;
       border: none;
       font-size: 1.4rem;
-      color: var(--primary-color);
+      color: var(--white);
       cursor: pointer;
       position: relative;
     }
@@ -85,9 +90,9 @@
     .cart-badge {
       position: absolute;
       top: -8px;
-      right: -8px;
-      background: var(--accent-color);
-      color: white;
+      right: -10px;
+      background: var(--accent);
+      color: var(--primary);
       font-size: 0.75rem;
       font-weight: bold;
       width: 20px;
@@ -98,13 +103,10 @@
       justify-content: center;
     }
 
-    /* Sidebar Drawer */
+    /* القائمة الجانبية (الشُرَط الثلاث ☰) */
     .sidebar-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.5);
       z-index: 1100;
       display: none;
@@ -112,10 +114,8 @@
 
     .sidebar {
       position: fixed;
-      top: 0;
-      right: -320px;
-      width: 300px;
-      height: 100%;
+      top: 0; right: -320px;
+      width: 300px; height: 100%;
       background: var(--white);
       z-index: 1200;
       box-shadow: -5px 0 15px rgba(0,0,0,0.1);
@@ -125,18 +125,18 @@
       flex-direction: column;
     }
 
-    .sidebar.active {
-      right: 0;
-    }
+    .sidebar.active { right: 0; }
 
     .sidebar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #eee;
+      border-bottom: 2px solid var(--bg-light);
       padding-bottom: 15px;
       margin-bottom: 20px;
     }
+
+    .sidebar-header h3 { color: var(--primary); }
 
     .close-btn {
       background: none;
@@ -150,59 +150,59 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
     }
 
     .sidebar-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px;
+      padding: 12px 15px;
       border-radius: var(--radius);
-      color: var(--primary-color);
+      color: var(--primary);
       text-decoration: none;
       font-weight: 600;
-      background: #f8f9fa;
+      background: var(--bg-light);
       cursor: pointer;
       transition: 0.2s;
     }
 
     .sidebar-item:hover {
-      background: #e9ecef;
+      background: #e2e8f0;
     }
 
-    /* Main Content */
+    /* الحاوية الرئيسية */
     .container {
       max-width: 1200px;
-      margin: 20px auto;
+      margin: 25px auto;
       padding: 0 15px;
     }
 
-    /* Elegant Search Section */
+    /* شريط البحث الأنيق فوق كلمة جميع المنتجات */
     .search-section {
       margin-bottom: 25px;
     }
 
     .search-box {
       position: relative;
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
     }
 
     .search-input {
       width: 100%;
-      padding: 14px 45px 14px 20px;
+      padding: 14px 48px 14px 20px;
       font-size: 1rem;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #cbd5e1;
       border-radius: 30px;
       outline: none;
       transition: 0.3s;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
     .search-input:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 4px 15px rgba(230, 126, 34, 0.15);
+      border-color: var(--accent);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
     }
 
     .search-icon {
@@ -210,32 +210,35 @@
       right: 18px;
       top: 50%;
       transform: translateY(-50%);
-      color: #a0aec0;
+      color: #94a3b8;
       font-size: 1.1rem;
     }
 
     .section-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: var(--primary-color);
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--primary);
+      border-right: 4px solid var(--accent);
+      padding-right: 10px;
     }
 
-    /* Products Grid */
+    /* شبكة المنتجات */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
       gap: 20px;
     }
 
     .product-card {
       background: var(--white);
       border-radius: var(--radius);
-      padding: 15px;
+      padding: 16px;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      border: 1px solid #e2e8f0;
       transition: transform 0.2s;
     }
 
@@ -245,38 +248,39 @@
 
     .product-title {
       font-weight: 700;
+      color: var(--primary);
       margin: 10px 0 5px;
     }
 
     .product-price {
-      color: var(--accent-color);
+      color: #c59b27;
       font-weight: 800;
+      font-size: 1.1rem;
       margin-bottom: 12px;
     }
 
     .add-to-cart-btn {
-      background: var(--primary-color);
-      color: white;
+      background: var(--primary);
+      color: var(--white);
       border: none;
       padding: 10px;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       width: 100%;
       transition: 0.2s;
     }
 
     .add-to-cart-btn:hover {
-      background: #1a252f;
+      background: var(--accent);
+      color: var(--primary);
     }
 
-    /* Cart Modal / Section */
+    /* سلة التسوق الجانبية */
     .cart-drawer {
       position: fixed;
-      top: 0;
-      left: -380px;
-      width: 350px;
-      height: 100%;
+      top: 0; left: -380px;
+      width: 350px; height: 100%;
       background: var(--white);
       z-index: 1200;
       box-shadow: 5px 0 15px rgba(0,0,0,0.1);
@@ -286,11 +290,9 @@
       flex-direction: column;
     }
 
-    .cart-drawer.active {
-      left: 0;
-    }
+    .cart-drawer.active { left: 0; }
 
-    /* Elegant Empty Cart */
+    /* تصميم واجهة السلة الفارغة */
     .empty-cart-view {
       text-align: center;
       padding: 40px 10px;
@@ -299,22 +301,23 @@
 
     .empty-cart-icon {
       font-size: 4rem;
-      color: #cbd5e0;
+      color: #cbd5e1;
       margin-bottom: 15px;
     }
 
     .empty-cart-text {
-      color: #718096;
+      color: #64748b;
       font-weight: 600;
       margin-bottom: 20px;
     }
 
-    /* Options inside Cart */
+    /* خيارات الاستلام في السلة */
     .delivery-options {
       margin: 15px 0;
-      background: #f7fafc;
+      background: var(--bg-light);
       padding: 12px;
       border-radius: 8px;
+      border: 1px solid #e2e8f0;
     }
 
     .delivery-options label {
@@ -322,13 +325,13 @@
       margin-bottom: 8px;
       font-weight: 600;
       cursor: pointer;
+      color: var(--primary);
     }
 
-    /* Elegant Toast Notifications */
+    /* نظام التنبيهات المنبثقة الأنيق (Toast) */
     .toast-container {
       position: fixed;
-      bottom: 20px;
-      left: 50%;
+      bottom: 20px; left: 50%;
       transform: translateX(-50%);
       z-index: 2000;
       display: flex;
@@ -337,11 +340,11 @@
     }
 
     .toast {
-      background: #333;
+      background: var(--primary);
       color: white;
       padding: 12px 24px;
       border-radius: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -350,14 +353,14 @@
     }
 
     .toast.error { background: #e53e3e; }
-    .toast.success { background: #38a169; }
+    .toast.success { background: #2f855a; }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate(-50%, 20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
     }
 
-    /* Modal Styling for Forms */
+    /* النوافذ المنبثقة Modals */
     .modal {
       display: none;
       position: fixed;
@@ -385,6 +388,7 @@
       display: block;
       margin-bottom: 5px;
       font-weight: 600;
+      color: var(--primary);
     }
 
     .form-group input {
@@ -392,27 +396,38 @@
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
     }
 
     .btn-submit {
       width: 100%;
-      padding: 10px;
-      background: var(--accent-color);
-      color: white;
+      padding: 12px;
+      background: var(--primary);
+      color: var(--white);
       border: none;
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent);
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Header -->
+  <!-- الهيدر العلوي -->
   <header>
     <div class="top-bar">
       <div class="logo-container">
-        <!-- مكان اللوجو الخاص بالمكتبة -->
+        <!-- شعار المكتبة -->
         <img src="logo.png" alt="شعار مكتبة المصطفى" class="logo-img" onerror="this.style.display='none'">
         <span class="brand-title">مكتبة المصطفى</span>
       </div>
@@ -428,7 +443,7 @@
     </div>
   </header>
 
-  <!-- Sidebar Overlay & Menu -->
+  <!-- القائمة الجانبية (الشُرَط الثلاث ☰) -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -459,43 +474,61 @@
     </ul>
   </aside>
 
-  <!-- Cart Drawer -->
+  <!-- سلة التسوق -->
   <div class="cart-drawer" id="cartDrawer">
     <div class="sidebar-header">
       <h3>سلة التسوق</h3>
       <button class="close-btn" onclick="toggleCart()">&times;</button>
     </div>
     <div id="cartContent" style="flex: 1; display: flex; flex-direction: column;">
-      <!-- ديناميكياً يظهر المحتوى هنا -->
+      <!-- المحتوى التفاعلي يظهر هنا -->
     </div>
   </div>
 
-  <!-- Main Container -->
+  <!-- المحتوى الرئيسي -->
   <div class="container">
     
-    <!-- قسم البحث الذكي الأنيق -->
+    <!-- خانة البحث فوق كلمة جميع المنتجات -->
     <div class="search-section">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن كتاب، قرطاسية، أو أي منتج..." oninput="handleSearch()">
+        <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن دفتر، كتاب، قرطاسية..." oninput="handleSearch()">
       </div>
     </div>
 
     <!-- قائمة المنتجات -->
     <h2 class="section-title">جميع المنتجات</h2>
     <div class="products-grid" id="productsGrid">
-      <!-- المنتجات تضاف تلقائياً -->
+      <!-- يتم تحميل المنتجات بواسطة JavaScript -->
     </div>
   </div>
 
-  <!-- Modal: معلومات العميل الإضافية -->
+  <!-- نافذة تسجيل الدخول (بريد إلكتروني وكلمة سر فقط بدون توجيه خارجي) -->
+  <div class="modal" id="authModal">
+    <div class="modal-content">
+      <h3 style="margin-bottom: 15px; color: var(--primary);">تسجيل الدخول</h3>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>البريد الإلكتروني / اسم المستخدم:</label>
+          <input type="text" id="loginUser" required placeholder="أدخل البريد أو اسم المستخدم">
+        </div>
+        <div class="form-group">
+          <label>كلمة السر:</label>
+          <input type="password" id="loginPass" required placeholder="أدخل كلمة السر">
+        </div>
+        <button type="submit" class="btn-submit">دخول</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- نافذة إدخال المعلومات الإضافية (الاسم، رقم الهاتف، مكان السكن) -->
   <div class="modal" id="profileModal">
     <div class="modal-content">
-      <h3 style="margin-bottom: 15px;">معلومات الحساب والتوصيل</h3>
+      <h3 style="margin-bottom: 15px; color: var(--primary);">زودنا بمعلومات إضافية</h3>
       <form id="profileForm" onsubmit="saveProfileInfo(event)">
         <div class="form-group">
           <label>الاسم الكامل:</label>
-          <input type="text" id="custName" required placeholder="أدخل اسمك الكريم">
+          <input type="text" id="custName" required placeholder="أدخل الاسم">
         </div>
         <div class="form-group">
           <label>رقم الهاتف:</label>
@@ -505,34 +538,16 @@
           <label>مكان السكن / العنوان:</label>
           <input type="text" id="custAddress" required placeholder="مثال: قباسين - بالقرب من...">
         </div>
-        <button type="submit" class="btn-submit">حفظ البيانات</button>
+        <button type="submit" class="btn-submit">حفظ وتثبيت البيانات</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal: تسجيل الدخول -->
-  <div class="modal" id="authModal">
-    <div class="modal-content">
-      <h3 style="margin-bottom: 15px;">تسجيل الدخول</h3>
-      <form onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label>اسم المستخدم / البريد:</label>
-          <input type="text" id="loginUser" required>
-        </div>
-        <div class="form-group">
-          <label>كلمة المرور:</label>
-          <input type="password" id="loginPass" required>
-        </div>
-        <button type="submit" class="btn-submit">تسجيل الدخول</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Container للتنبيهات الأنيقة Toast -->
+  <!-- container التنبيهات المنبثقة Toast -->
   <div class="toast-container" id="toastContainer"></div>
 
   <script>
-    // المنتجات التجريبية
+    // المنتجات
     const products = [
       { id: 1, name: "دفتر 100 طاق سلك", price: "15.00 ل.س" },
       { id: 2, name: "كتاب المنهاج السوري للصف الأول", price: "45.00 ل.س" },
@@ -543,7 +558,7 @@
 
     let cart = [];
 
-    // إظهار تنبيه أنيق (Toast)
+    // عرض التنبيه الأنيق بدلاً من alert المزعج
     function showToast(message, type = 'error') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
@@ -556,13 +571,13 @@
       }, 3500);
     }
 
-    // عرض المنتجات وتنسيق البحث اللحظي الجزئي
+    // عرض المنتجات
     function renderProducts(itemsToRender = products) {
       const grid = document.getElementById('productsGrid');
       grid.innerHTML = '';
       
       if(itemsToRender.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777;">لا توجد نتائج تطابق بحثك.</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 20px;">لا توجد نتائج تطابق بحثك.</p>`;
         return;
       }
 
@@ -579,7 +594,7 @@
       });
     }
 
-    // البحث الذكي التعرف على الكلمة من أجزائها (Fuzzy/Partial search)
+    // البحث الجزئي والمرن (عند كتابة كت أو تاب يظهر كتاب)
     function handleSearch() {
       const query = document.getElementById('searchInput').value.trim().toLowerCase();
       if (!query) {
@@ -589,14 +604,13 @@
       
       const filtered = products.filter(p => {
         const name = p.name.toLowerCase();
-        // البحث الجزئي المرن
         return name.includes(query) || query.split('').every(char => name.includes(char));
       });
       
       renderProducts(filtered);
     }
 
-    // السلة والتنقل
+    // إدارة القائمة والسلة
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
@@ -617,7 +631,7 @@
       showToast(`تمت إضافة "${product.name}" إلى السلة`, 'success');
     }
 
-    // عرض محتوى السلة مع تصميم السلة الفارغة الخيالي وخيارات التوصيل
+    // عرض السلة بالتصميم الأنيق خالي من المزعجات ومع خيارات الاستلام
     function renderCartView() {
       const container = document.getElementById('cartContent');
       if (cart.length === 0) {
@@ -631,19 +645,19 @@
         return;
       }
 
-      let listHtml = cart.map((item, index) => `
+      let listHtml = cart.map((item) => `
         <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
           <span>${item.name}</span>
-          <span style="font-weight:bold;">${item.price}</span>
+          <span style="font-weight:bold; color:var(--primary);">${item.price}</span>
         </div>
       `).join('');
 
       container.innerHTML = `
         <div style="flex:1; overflow-y:auto;">${listHtml}</div>
         
-        <!-- خيار التوصيل أو الاستلام -->
+        <!-- خيار الاستلام من المكتبة أو التوصيل -->
         <div class="delivery-options">
-          <div style="font-weight:bold; margin-bottom:8px;">طريقة الاستلام:</div>
+          <div style="font-weight:bold; margin-bottom:8px; color:var(--primary);">طريقة الاستلام:</div>
           <label>
             <input type="radio" name="deliveryType" value="pickup" checked> 🏪 الاستلام من المكتبة (شارع احموش)
           </label>
@@ -656,10 +670,9 @@
       `;
     }
 
-    // النوافذ المنبثقة للبيانات وتسجيل الدخول
+    // فتح النوافذ المنبثقة
     function openProfileModal() {
       toggleSidebar();
-      // تحميل البيانات المسجلة سابقاً
       document.getElementById('custName').value = localStorage.getItem('cust_name') || '';
       document.getElementById('custPhone').value = localStorage.getItem('cust_phone') || '';
       document.getElementById('custAddress').value = localStorage.getItem('cust_address') || '';
@@ -671,6 +684,7 @@
       document.getElementById('authModal').style.display = 'flex';
     }
 
+    // حفظ البيانات بشكل دائم في المتصفح
     function saveProfileInfo(e) {
       e.preventDefault();
       localStorage.setItem('cust_name', document.getElementById('custName').value);
@@ -681,37 +695,36 @@
       showToast('تم حفظ بياناتك بنجاح!', 'success');
     }
 
+    // تسجيل الدخول العادي عبر البريد والرمز مع تنبيه أنيق
     function handleLogin(e) {
       e.preventDefault();
-      // محاكاة فشل الدخول لإظهار الرسالة الأنيقة
       document.getElementById('authModal').style.display = 'none';
-      showToast('اسم المستخدم أو كلمة المرور غير صحيحة!', 'error');
+      showToast('اسم المستخدم أو كلمة السر غير صحيحة!', 'error');
     }
 
+    // إظهار البيانات المسجلة في لوحة الأدمن
     function openAdminPanel() {
       toggleSidebar();
       const name = localStorage.getItem('cust_name') || 'غير مدخل';
       const phone = localStorage.getItem('cust_phone') || 'غير مدخل';
       const address = localStorage.getItem('cust_address') || 'غير مدخل';
 
-      alert(`[لوحة الأدمن - تفاصيل العميل]\n\nالاسم: ${name}\nرقم الهاتف: ${phone}\nالعنوان: ${address}`);
+      alert(`[لوحة الأدمن - تفاصيل العميل]\n\nالاسم: ${name}\nرقم الهاتف: ${phone}\nالعنوان / مكان السكن: ${address}`);
     }
 
     function checkout() {
-      showToast('تم إرسال طلبك بنجاح! سنتم التواصل معك قريبًا.', 'success');
+      showToast('تم إرسال طلبك بنجاح! سنقوم بالتواصل معك قريباً.', 'success');
       cart = [];
       document.getElementById('cartBadge').innerText = '0';
       toggleCart();
     }
 
-    // إغلاق النوافذ عند النقر خارجها
     window.onclick = function(event) {
       if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
       }
     }
 
-    // التشغيل الأولي
     renderProducts();
   </script>
 </body>
