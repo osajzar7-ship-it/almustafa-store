@@ -34,7 +34,7 @@
       direction: rtl;
     }
 
-    /* Top Bar & Header */
+    /* Header & Menu Button */
     header {
       background-color: var(--primary-navy);
       color: var(--text-light);
@@ -44,48 +44,17 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .header-top {
+    .menu-toggle-btn {
       position: absolute;
-      left: 15px;
-      top: 15px;
-    }
-
-    .btn-login {
-      background-color: var(--accent-yellow);
-      color: var(--primary-navy);
+      right: 15px;
+      top: 18px;
+      background: transparent;
       border: none;
-      padding: 7px 15px;
-      border-radius: 20px;
-      font-weight: bold;
+      color: var(--accent-yellow);
+      font-size: 1.6rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      transition: 0.2s;
-    }
-
-    .btn-login:hover {
-      background-color: var(--yellow-hover);
-    }
-
-    .user-badge {
-      background: rgba(255,255,255,0.15);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .user-code {
-      background: var(--accent-yellow);
-      color: var(--primary-navy);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-weight: bold;
+      z-index: 100;
+      padding: 5px;
     }
 
     .logo-centered {
@@ -100,26 +69,13 @@
     }
 
     .logo-img {
-      max-width: 80px;
-      height: auto;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
       border-radius: 50%;
       border: 2px solid var(--accent-yellow);
       padding: 3px;
       background: #fff;
-    }
-
-    .logo-icon-fallback {
-      font-size: 2.5rem;
-      color: var(--accent-yellow);
-      background: rgba(255, 255, 255, 0.08);
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--accent-yellow);
-      margin-bottom: 5px;
     }
 
     .logo-title {
@@ -135,7 +91,96 @@
       margin-top: 3px;
     }
 
-    /* Categories Navigation Bar */
+    /* Side Navigation Drawer */
+    .side-drawer {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--primary-navy);
+      color: white;
+      z-index: 2500;
+      box-shadow: -4px 0 15px rgba(0,0,0,0.3);
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: 20px;
+      background: var(--secondary-navy);
+      border-bottom: 2px solid var(--accent-yellow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-header h3 {
+      color: var(--accent-yellow);
+      font-size: 1.1rem;
+    }
+
+    .close-drawer-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .drawer-menu {
+      list-style: none;
+      padding: 15px 0;
+    }
+
+    .drawer-menu li {
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .drawer-menu li:hover {
+      background: var(--secondary-navy);
+      color: var(--accent-yellow);
+    }
+
+    .drawer-menu li i {
+      width: 20px;
+      color: var(--accent-yellow);
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2400;
+      display: none;
+    }
+
+    .drawer-overlay.show {
+      display: block;
+    }
+
+    .user-profile-summary {
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Categories Nav */
     .categories-nav {
       background-color: var(--secondary-navy);
       padding: 10px 0;
@@ -177,7 +222,7 @@
       color: var(--primary-navy);
     }
 
-    /* Main Products Section */
+    /* Products Grid */
     .container {
       max-width: 1200px;
       margin: 25px auto;
@@ -208,10 +253,36 @@
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.2s;
+      position: relative;
     }
 
     .product-card:hover {
       transform: translateY(-4px);
+    }
+
+    /* Heart / Favorite Button */
+    .btn-favorite {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ccc;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: 0.2s;
+      z-index: 10;
+    }
+
+    .btn-favorite.active {
+      color: #e74c3c;
     }
 
     .product-img {
@@ -315,7 +386,7 @@
       gap: 8px;
     }
 
-    /* Modal / Cart Drawer */
+    /* Modal Styling */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -326,7 +397,7 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 2000;
+      z-index: 3000;
     }
 
     .modal-content {
@@ -356,6 +427,38 @@
       font-size: 1.5rem;
       cursor: pointer;
       color: #888;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: var(--primary-navy);
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-submit-info {
+      width: 100%;
+      background: var(--primary-navy);
+      color: var(--accent-yellow);
+      border: none;
+      padding: 11px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
     }
 
     .cart-item {
@@ -421,6 +524,7 @@
       margin-top: 15px;
     }
 
+    /* Toast Notification */
     .toast-notification {
       position: fixed;
       top: 20px;
@@ -437,7 +541,7 @@
       gap: 12px;
       font-weight: bold;
       font-size: 0.95rem;
-      z-index: 3000;
+      z-index: 4000;
       opacity: 0;
       transition: all 0.4s ease;
     }
@@ -462,18 +566,13 @@
       color: #ddd;
       margin-bottom: 12px;
     }
-
-    .empty-cart-view p {
-      font-size: 1rem;
-      font-weight: 500;
-    }
   </style>
 
   <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDzL37FIGSHqOBLw7iccszX4aAGVEv-NEo",
@@ -499,9 +598,10 @@
         const user = result.user;
         await handleUserRegistration(user);
         window.showToast("تم تسجيل الدخول بنجاح!", "success", "fa-check-circle");
+        window.closeSideDrawer();
       } catch (error) {
         console.error("Login failed:", error);
-        window.showToast("عذراً، تعذر تسجيل الدخول. يرجى المحاولة لاحقاً.", "error", "fa-exclamation-triangle");
+        window.showToast("عذراً، تعذر تسجيل الدخول.", "error", "fa-exclamation-triangle");
       }
     };
 
@@ -516,7 +616,11 @@
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists()) {
-        currentUserCode = userSnap.data().userCode;
+        const data = userSnap.data();
+        currentUserCode = data.userCode;
+        if (data.gender) document.getElementById('user-gender').value = data.gender;
+        if (data.age) document.getElementById('user-age').value = data.age;
+        if (data.address) document.getElementById('user-address').value = data.address;
       } else {
         currentUserCode = Math.floor(100000 + Math.random() * 900000).toString();
         await setDoc(userRef, {
@@ -531,14 +635,41 @@
 
     function updateUserUI(user) {
       currentUser = user;
-      document.getElementById('auth-btn-area').innerHTML = `
-        <div class="user-badge">
-          <i class="fas fa-user-circle"></i> ${user.displayName.split(' ')[0]}
-          <span class="user-code">#${currentUserCode}</span>
-          <i class="fas fa-sign-out-alt" onclick="logout()" style="cursor:pointer; margin-right:4px;" title="تسجيل الخروج"></i>
-        </div>
+      document.getElementById('drawer-auth-item').innerHTML = `
+        <i class="fas fa-sign-out-alt" style="color:#e74c3c;"></i>
+        <span onclick="logout()">تسجيل الخروج (${user.displayName.split(' ')[0]})</span>
       `;
+      
+      document.getElementById('drawer-user-info').style.display = 'block';
+      document.getElementById('drawer-user-name').innerText = user.displayName;
+      document.getElementById('drawer-user-code').innerText = '#' + currentUserCode;
+      document.getElementById('drawer-extra-info-option').style.display = 'flex';
     }
+
+    window.saveExtraUserInfo = async function() {
+      if (!currentUser) {
+        window.showToast("يرجى تسجيل الدخول أولاً!", "error", "fa-lock");
+        return;
+      }
+
+      const gender = document.getElementById('user-gender').value;
+      const age = document.getElementById('user-age').value;
+      const address = document.getElementById('user-address').value;
+
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        await updateDoc(userRef, {
+          gender: gender,
+          age: age,
+          address: address
+        });
+        window.showToast("تم حفظ البيانات بنجاح!", "success", "fa-check");
+        window.toggleInfoModal();
+      } catch (err) {
+        console.error("Error saving info:", err);
+        window.showToast("حدث خطأ أثناء الحفظ", "error", "fa-exclamation-triangle");
+      }
+    };
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -563,38 +694,70 @@
           console.error("Order save error:", e);
         }
       }
-    }
+    };
   </script>
 </head>
 <body>
 
-  <!-- Custom Elegant Toast Message Container -->
+  <!-- Toast Container -->
   <div id="toast-container" class="toast-notification">
-    <i id="toast-icon" class="fas fa-info-circle" style="color: var(--accent-yellow);"></i>
+    <i id="toast-icon" class="fas fa-info-circle"></i>
     <span id="toast-message">تنبيه</span>
   </div>
 
+  <!-- Side Drawer Navigation -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeSideDrawer()"></div>
+  <aside class="side-drawer" id="side-drawer">
+    <div class="drawer-header">
+      <h3><i class="fas fa-bars"></i> قائمة المتجر</h3>
+      <button class="close-drawer-btn" onclick="closeSideDrawer()">&times;</button>
+    </div>
+
+    <div class="user-profile-summary" id="drawer-user-info" style="display: none;">
+      <i class="fas fa-user-circle" style="font-size: 1.5rem; color: var(--accent-yellow);"></i>
+      <span id="drawer-user-name" style="font-weight: bold; margin-right: 6px;"></span>
+      <span id="drawer-user-code" style="background: var(--accent-yellow); color: var(--primary-navy); padding: 2px 6px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; margin-right: 6px;"></span>
+    </div>
+
+    <ul class="drawer-menu">
+      <li id="drawer-auth-item" onclick="loginWithGoogle()">
+        <i class="fab fa-google"></i>
+        <span>تسجيل الدخول عبر جوجل</span>
+      </li>
+
+      <li id="drawer-extra-info-option" style="display: none;" onclick="toggleInfoModal()">
+        <i class="fas fa-id-card"></i>
+        <span>زودنا بمعلومات إضافية</span>
+      </li>
+
+      <li onclick="showFavoritesOnly()">
+        <i class="fas fa-heart" style="color: #e74c3c;"></i>
+        <span>قائمة المفضلة والإعجابات</span>
+      </li>
+
+      <li onclick="toggleSupportModal()">
+        <i class="fas fa-headset"></i>
+        <span>الدعم الفني والإبلاغ عن مشكلة</span>
+      </li>
+    </ul>
+  </aside>
+
   <!-- Top Header with Centered Logo -->
   <header>
-    <div class="header-top" id="auth-btn-area">
-      <button class="btn-login" onclick="loginWithGoogle()">
-        <i class="fab fa-google"></i> دخول
-      </button>
-    </div>
+    <button class="menu-toggle-btn" onclick="openSideDrawer()" title="القائمة">
+      <i class="fas fa-bars"></i>
+    </button>
 
     <div class="logo-centered">
       <div class="logo-img-wrapper">
-        <img src="images/logo.jpg" alt="لوجو مكتبة المصطفى" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
-        <div id="logo-fallback" class="logo-icon-fallback" style="display: none;">
-          <i class="fas fa-book-open"></i>
-        </div>
+        <img src="صور/logo.jpg" alt="لوجو مكتبة المصطفى" class="logo-img">
       </div>
       <h1 class="logo-title">مكتبة المصطفى</h1>
       <p class="logo-subtitle">شارع احموش - قباسين | قرطاسية - ألعاب - هدايا</p>
     </div>
   </header>
 
-  <!-- Categories Horizontal Bar -->
+  <!-- Categories Bar -->
   <nav class="categories-nav">
     <div class="categories-container">
       <button class="cat-btn active" onclick="filterCategory('all')">الكل</button>
@@ -606,12 +769,10 @@
     </div>
   </nav>
 
-  <!-- Main Content Area -->
+  <!-- Main Products Area -->
   <main class="container">
     <h2 class="section-title" id="current-cat-title">جميع المنتجات</h2>
-    <div class="products-grid" id="products-container">
-      <!-- Products Dynamic Render -->
-    </div>
+    <div class="products-grid" id="products-container"></div>
   </main>
 
   <!-- Floating Cart Bar -->
@@ -625,42 +786,114 @@
     </button>
   </div>
 
-  <!-- Cart Modal Drawer -->
+  <!-- Cart Modal -->
   <div class="modal-overlay" id="cart-modal">
     <div class="modal-content">
       <div class="modal-header">
         <h3><i class="fas fa-shopping-basket"></i> سلة مشترياتك</h3>
         <span class="close-modal" onclick="toggleCartModal()">&times;</span>
       </div>
-
-      <div id="cart-items-list">
-        <!-- Cart Items -->
-      </div>
-
+      <div id="cart-items-list"></div>
       <div class="discount-badge">
         <i class="fas fa-percent"></i> خصم خاص 5% مُطبق تلقائياً للطلب عبر الموقع!
       </div>
-
-      <div class="delivery-box" id="delivery-info-box">
-        <!-- Delivery Fee Info -->
-      </div>
-
+      <div class="delivery-box" id="delivery-info-box"></div>
       <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 1.1rem; font-weight: bold; text-align: left;">
         المجموع النهائي: <span id="modal-total-price" style="color: var(--primary-navy);">0</span> ل.س
       </div>
-
       <button class="btn-whatsapp-send" onclick="sendOrderViaWhatsApp()">
         <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> تأكيد وإرسال الطلب عبر الواتساب
       </button>
     </div>
   </div>
 
-  <!-- ربط ملف المنتجات المنفصل -->
-  <script src="products.js"></script>
+  <!-- Additional Info Modal -->
+  <div class="modal-overlay" id="info-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-edit"></i> معلومات إضافية عن الحساب</h3>
+        <span class="close-modal" onclick="toggleInfoModal()">&times;</span>
+      </div>
+      <div class="form-group">
+        <label>الجنس:</label>
+        <select id="user-gender">
+          <option value="ذكر">ذكر</option>
+          <option value="أنثى">أنثى</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>العمر:</label>
 
-  <!-- سكريبت التشغيل وخدمات السلة -->
+        <input type="number" id="user-age" placeholder="أدخل عمرك">
+      </div>
+      <div class="form-group">
+        <label>مكان السكن (الحي / الشارع):</label>
+        <input type="text" id="user-address" placeholder="مثال: قباسين - الشارع العام">
+      </div>
+      <button class="btn-submit-info" onclick="saveExtraUserInfo()">حفظ البيانات</button>
+    </div>
+  </div>
+
+  <!-- Support / Report Modal -->
+  <div class="modal-overlay" id="support-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-headset"></i> الدعم الفني والإبلاغ عن مشكلة</h3>
+        <span class="close-modal" onclick="toggleSupportModal()">&times;</span>
+      </div>
+      <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">يسعدنا تواصلك معنا لطرح أي استفسار أو الإبلاغ عن أي مشكلة برمجية أو تقنية في الموقع:</p>
+      <div class="form-group">
+        <label>وصف المشكلة أو الاستفسار:</label>
+        <textarea id="support-msg" rows="4" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;" placeholder="اكتب تفاصيل المشكلة هنا..."></textarea>
+      </div>
+      <button class="btn-whatsapp-send" onclick="sendSupportMessage()">
+        <i class="fab fa-whatsapp"></i> إرسال عبر الواتساب للإدارة
+      </button>
+    </div>
+  </div>
+
   <script>
+    const products = [
+      { id: 1, category: 'stationery', name: 'دفتر سلك 100 ورقة', desc: 'غلاف مقوى أنيق - ورق ممتازة', price: 150, img: 'images/notebook.jpg' },
+      { id: 2, category: 'stationery', name: 'طقم أقلام حبر (4 ألوان)', desc: 'أزرق، أسود، أحمر، أخضر', price: 60, img: 'images/pens.jpg' },
+      { id: 3, category: 'stationery', name: 'علبة أقلام رصاص مع محاية', desc: 'درزينة أقلام فابر كاستل عالية الجودة', price: 110, img: 'images/pencils.jpg' },
+      { id: 4, category: 'school-packages', name: 'باقة الصفوف الأولى', desc: 'دفاتر مسطرة، أقلام رصاص، تلوين، ومحاية', price: 280, img: 'images/package-primary.jpg' },
+      { id: 5, category: 'school-packages', name: 'باقة المدارس المتكاملة', desc: 'دفاتر، أقلام حبر ورصاص، مقلمة، وأدوات هندسية', price: 390, img: 'images/package-full.jpg' },
+      { id: 6, category: 'toys-gifts', name: 'سيارة ألعاب تحكم عن بعد', desc: 'حجم متوسط شاملة البطاريات', price: 320, img: 'images/toy-car.jpg' },
+      { id: 7, category: 'toys-gifts', name: 'صندوق هدية جاهز', desc: 'مغلف مسبقاً مع بطاقات المعايدة', price: 210, img: 'images/gift-box.jpg' },
+      { id: 8, category: 'hats-accessories', name: 'طاقية صوف دافئة', desc: 'خامة ممتازة - ألوان متعددة', price: 130, img: 'images/hat.jpg' },
+      { id: 9, category: 'hats-accessories', name: 'طقم إكسسوارات بناتي', desc: 'تشكيلة ملونة وأنيقة لشعر الأطفال', price: 90, img: 'images/accessories.jpg' },
+      { id: 10, category: 'flowers-wrapping', name: 'باقة ورد تنسيق خاص', desc: 'ورد طبيعي / صناعي للهدايا', price: 290, img: 'images/flower-bouquet.jpg' },
+      { id: 11, category: 'flowers-wrapping', name: 'تغليف هدية محترف', desc: 'ورق فاخر وشريط زينة مميز', price: 70, img: 'images/wrapping.jpg' }
+    ];
+
     let cart = [];
+    let favorites = JSON.parse(localStorage.getItem('almustafa_favs')) || [];
+
+    function openSideDrawer() {
+      document.getElementById('side-drawer').classList.add('open');
+      document.getElementById('drawer-overlay').classList.add('show');
+    }
+
+    function closeSideDrawer() {
+      document.getElementById('side-drawer').classList.remove('open');
+      document.getElementById('drawer-overlay').classList.remove('show');
+    }
+    window.closeSideDrawer = closeSideDrawer;
+
+    function toggleInfoModal() {
+      closeSideDrawer();
+      const modal = document.getElementById('info-modal');
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+    window.toggleInfoModal = toggleInfoModal;
+
+    function toggleSupportModal() {
+      closeSideDrawer();
+      const modal = document.getElementById('support-modal');
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+    window.toggleSupportModal = toggleSupportModal;
 
     function showToast(message, type = "info", iconClass = "fa-shopping-basket") {
       const toast = document.getElementById('toast-container');
@@ -685,6 +918,67 @@
     }
     window.showToast = showToast;
 
+    function toggleFavorite(id, event) {
+      event.stopPropagation();
+      const index = favorites.indexOf(id);
+      if (index > -1) {
+        favorites.splice(index, 1);
+        showToast("تمت إزالة المنتج من المفضلة", "info", "fa-heart-broken");
+      } else {
+        favorites.push(id);
+        showToast("تمت إضافة المنتج للمفضلة ❤", "success", "fa-heart");
+      }
+      localStorage.setItem('almustafa_favs', JSON.stringify(favorites));
+      renderProducts();
+    }
+
+    function showFavoritesOnly() {
+      closeSideDrawer();
+      document.getElementById('current-cat-title').innerText = "قائمة المفضلة والإعجابات";
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+
+      const favProducts = products.filter(p => favorites.includes(p.id));
+
+      if (favProducts.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align:center; padding: 40px 10px; color: #777;">
+            <i class="fas fa-heart-broken" style="font-size:3rem; color:#ccc; margin-bottom:10px;"></i>
+            <p>لا توجد لديك منتجات في قائمة المفضلة حالياً</p>
+          </div>
+        `;
+        return;
+      }
+
+      favProducts.forEach(p => {
+        container.innerHTML += createProductCardHTML(p);
+      });
+    }
+
+    function createProductCardHTML(p) {
+      const isFav = favorites.includes(p.id);
+      return `
+        <div class="product-card">
+          <button class="btn-favorite ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="إضافة للمفضلة">
+            <i class="fas fa-heart"></i>
+          </button>
+          <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=مكتبة+المصطفى'">
+          <div class="product-info">
+            <div>
+              <div class="product-title">${p.name}</div>
+              <div class="product-desc">${p.desc}</div>
+            </div>
+            <div>
+              <div class="product-price">${p.price.toLocaleString()} ل.س</div>
+              <button class="btn-add" onclick="addToCart(${p.id})">
+                <i class="fas fa-cart-plus"></i> إضافة للسلة
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderProducts(cat = 'all') {
       const container = document.getElementById('products-container');
       container.innerHTML = '';
@@ -692,29 +986,14 @@
       const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
       
       filtered.forEach(p => {
-        container.innerHTML += `
-          <div class="product-card">
-            <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=مكتبة+المصطفى'">
-            <div class="product-info">
-              <div>
-                <div class="product-title">${p.name}</div>
-                <div class="product-desc">${p.desc}</div>
-              </div>
-              <div>
-                <div class="product-price">${p.price.toLocaleString()} ل.س</div>
-                <button class="btn-add" onclick="addToCart(${p.id})">
-                  <i class="fas fa-cart-plus"></i> إضافة للسلة
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
+        container.innerHTML += createProductCardHTML(p);
       });
     }
 
     function filterCategory(cat) {
       document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
+      document.getElementById('current-cat-title').innerText = "جميع المنتجات";
       renderProducts(cat);
     }
 
@@ -728,7 +1007,7 @@
         cart.push({ ...product, qty: 1 });
       }
       updateCartUI();
-      showToast(`تمت إضافة "${product.name}" إلى السلة بنجاح`);
+      showToast(`تمت إضافة "${product.name}" إلى السلة`);
     }
 
     function calculateCartTotals() {
@@ -769,7 +1048,6 @@
           <div class="empty-cart-view">
             <i class="fas fa-shopping-bag"></i>
             <p>سلتك فارغة حالياً</p>
-            <small style="color:#999;">تصفح المنتجات وأضف ما يعجبك إلى السلة</small>
           </div>
         `;
         deliveryBox.innerHTML = '🚚 خدمة التوصيل: 80 ل.س (ومجانية للطلبات بقيمة 350 ل.س أو أكثر)';
@@ -796,9 +1074,9 @@
       const totals = calculateCartTotals();
 
       if (totals.deliveryFee === 0) {
-        deliveryBox.innerHTML = `🚚 <strong>خدمة التوصيل: <span style="color:green;">مجانية</span></strong> (لأن الطلب يتجاوز 350 ل.س)`;
+        deliveryBox.innerHTML = `🚚 <strong>خدمة التوصيل: <span style="color:green;">مجانية</span></strong>`;
       } else {
-        deliveryBox.innerHTML = `🚚 <strong>خدمة التوصيل: 80 ل.س</strong> (أضف منتجات بقيمة ${(350 - totals.netSubtotal).toLocaleString()} ل.س أخرى للحصول على توصيل مجاني!)`;
+        deliveryBox.innerHTML = `🚚 <strong>خدمة التوصيل: 80 ل.س</strong>`;
       }
 
       document.getElementById('modal-total-price').innerText = totals.finalTotal.toLocaleString();
@@ -818,16 +1096,16 @@
 
     function sendOrderViaWhatsApp() {
       if (cart.length === 0) {
-        showToast("عذراً، سلتك فارغة! يرجى إضافة منتجات أولاً.", "error", "fa-shopping-cart");
+        showToast("سلتك فارغة!", "error", "fa-shopping-cart");
         return;
       }
 
       const totals = calculateCartTotals();
       let message = `السلام عليكم ورحمة الله، أرغب بتأكيد طلب من مكتبة المصطفى:\n\n`;
 
-      const userBadge = document.querySelector('.user-code');
-      if (userBadge) {
-        message += `👤 *كود الزبون:* ${userBadge.innerText}\n`;
+      const userCodeSpan = document.getElementById('drawer-user-code');
+      if (userCodeSpan && userCodeSpan.innerText) {
+        message += `👤 *كود الزبون:* ${userCodeSpan.innerText}\n`;
       }
 
       message += `🛍️ *الأغراض المطلوبة:*\n`;
@@ -837,13 +1115,6 @@
 
       message += `\n💵 *المجموع قبل الخصم:* ${totals.subtotal.toLocaleString()} ل.س`;
       message += `\n🎁 *خصم الموقع (5%):* -${totals.discount.toLocaleString()} ل.س`;
-      
-      if (totals.deliveryFee === 0) {
-        message += `\n🚚 *التوصيل:* مجاني`;
-      } else {
-        message += `\n🚚 *التوصيل:* 80 ل.س`;
-      }
-
       message += `\n💰 *المجموع النهائي للطلب:* ${totals.finalTotal.toLocaleString()} ل.س\n`;
 
       if (window.saveOrderToFirestore) {
@@ -858,6 +1129,19 @@
 
       const whatsappUrl = `https://wa.me/963990835712?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
+    }
+
+    function sendSupportMessage() {
+      const msg = document.getElementById('support-msg').value.trim();
+      if (!msg) {
+        showToast("يرجى كتابة نص الرسالة أولاً", "error", "fa-exclamation-circle");
+        return;
+      }
+
+      let text = `🆘 *رسالة دعم فني / إبلاغ عن مشكلة - مكتبة المصطفى:*\n\n${msg}`;
+      const whatsappUrl = `https://wa.me/963990835712?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+      toggleSupportModal();
     }
 
     renderProducts();
