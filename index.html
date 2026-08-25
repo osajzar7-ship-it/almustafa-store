@@ -120,6 +120,7 @@
       align-items: center;
       justify-content: center;
       border: 2px solid var(--accent-yellow);
+      margin-bottom: 5px;
     }
 
     .logo-title {
@@ -585,7 +586,6 @@
 
     <div class="logo-centered">
       <div class="logo-img-wrapper">
-        <!-- يمكن استبدال images/logo.png برابط الشعار الخاص بك -->
         <img src="images/logo.png" alt="لوجو مكتبة المصطفى" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
         <div id="logo-fallback" class="logo-icon-fallback" style="display: none;">
           <i class="fas fa-book-open"></i>
@@ -658,33 +658,22 @@
   </div>
 
   <script>
-    // Products linked directly to images/ directory with realistic pricing
     const products = [
-      // القرطاسية والأقلام
       { id: 1, category: 'stationery', name: 'دفتر سلك 100 ورقة', desc: 'غلاف مقوى أنيق - ورق ممتازة', price: 150, img: 'images/notebook.jpg' },
       { id: 2, category: 'stationery', name: 'طقم أقلام حبر (4 ألوان)', desc: 'أزرق، أسود، أحمر، أخضر', price: 60, img: 'images/pens.jpg' },
       { id: 3, category: 'stationery', name: 'علبة أقلام رصاص مع محاية', desc: 'درزينة أقلام فابر كاستل عالية الجودة', price: 110, img: 'images/pencils.jpg' },
-      
-      // باقات المدارس
       { id: 4, category: 'school-packages', name: 'باقة الصفوف الأولى', desc: 'دفاتر مسطرة، أقلام رصاص، تلوين، ومحاية', price: 280, img: 'images/package-primary.jpg' },
       { id: 5, category: 'school-packages', name: 'باقة المدارس المتكاملة', desc: 'دفاتر، أقلام حبر ورصاص، مقلمة، وأدوات هندسية', price: 390, img: 'images/package-full.jpg' },
-
-      // الألعاب والهدايا
       { id: 6, category: 'toys-gifts', name: 'سيارة ألعاب تحكم عن بعد', desc: 'حجم متوسط شاملة البطاريات', price: 320, img: 'images/toy-car.jpg' },
       { id: 7, category: 'toys-gifts', name: 'صندوق هدية جاهز', desc: 'مغلف مسبقاً مع بطاقات المعايدة', price: 210, img: 'images/gift-box.jpg' },
-
-      // الطواقي والإكسسوارات
       { id: 8, category: 'hats-accessories', name: 'طاقية صوف دافئة', desc: 'خامة ممتازة - ألوان متعددة', price: 130, img: 'images/hat.jpg' },
       { id: 9, category: 'hats-accessories', name: 'طقم إكسسوارات بناتي', desc: 'تشكيلة ملونة وأنيقة لشعر الأطفال', price: 90, img: 'images/accessories.jpg' },
-
-      // الورد والتغليف
       { id: 10, category: 'flowers-wrapping', name: 'باقة ورد تنسيق خاص', desc: 'ورد طبيعي / صناعي للهدايا', price: 290, img: 'images/flower-bouquet.jpg' },
       { id: 11, category: 'flowers-wrapping', name: 'تغليف هدية محترف', desc: 'ورق فاخر وشريط زينة مميز', price: 70, img: 'images/wrapping.jpg' }
     ];
 
     let cart = [];
 
-    // Custom Toast Notification Function (Replaces browser Alert)
     function showToast(message, type = "info", iconClass = "fa-shopping-basket") {
       const toast = document.getElementById('toast-container');
       const toastMsg = document.getElementById('toast-message');
@@ -756,12 +745,12 @@
 
     function calculateCartTotals() {
       const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      const discount = Math.round(subtotal * 0.05); // 5% Discount
+      const discount = Math.round(subtotal * 0.05);
       const netSubtotal = subtotal - discount;
       
       let deliveryFee = 0;
       if (cart.length > 0) {
-        deliveryFee = netSubtotal >= 350 ? 0 : 80; // 80 LS delivery if less than 350 LS
+        deliveryFee = netSubtotal >= 350 ? 0 : 80;
       }
 
       const finalTotal = Math.round(netSubtotal + deliveryFee);
@@ -879,7 +868,6 @@
         });
       }
 
-      // Correct WhatsApp Number (+963 990 835 712)
       const whatsappUrl = `https://wa.me/963990835712?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
     }
