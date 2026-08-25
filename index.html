@@ -16,6 +16,8 @@
       --card-bg: #ffffff;
       --text-dark: #1a1a1a;
       --text-light: #ffffff;
+      --danger-color: #e74c3c;
+      --warning-color: #f39c12;
     }
 
     * {
@@ -93,10 +95,31 @@
       justify-content: center;
     }
 
-    .logo-icon {
+    /* Logo Image Style & Icon Container */
+    .logo-img-wrapper {
+      margin-bottom: 8px;
+    }
+
+    .logo-img {
+      max-width: 80px;
+      height: auto;
+      border-radius: 50%;
+      border: 2px solid var(--accent-yellow);
+      padding: 3px;
+      background: #fff;
+    }
+
+    .logo-icon-fallback {
       font-size: 2.5rem;
       color: var(--accent-yellow);
-      margin-bottom: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--accent-yellow);
     }
 
     .logo-title {
@@ -397,6 +420,54 @@
       gap: 8px;
       margin-top: 15px;
     }
+
+    /* Elegant Custom Toast Notification & Inline Empty Cart Styling */
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      right: 50%;
+      transform: translateX(50%) translateY(-100px);
+      background-color: #ffffff;
+      color: var(--primary-navy);
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      border-right: 5px solid var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      z-index: 3000;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    .toast-notification.error {
+      border-right-color: var(--danger-color);
+    }
+
+    .toast-notification.show {
+      transform: translateX(50%) translateY(0);
+      opacity: 1;
+    }
+
+    .empty-cart-view {
+      text-align: center;
+      padding: 30px 15px;
+      color: #666;
+    }
+
+    .empty-cart-view i {
+      font-size: 3.5rem;
+      color: #ddd;
+      margin-bottom: 12px;
+    }
+
+    .empty-cart-view p {
+      font-size: 1rem;
+      font-weight: 500;
+    }
   </style>
 
   <!-- Firebase SDK -->
@@ -428,9 +499,10 @@
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
         await handleUserRegistration(user);
+        window.showToast("تم تسجيل الدخول بنجاح!", "success", "fa-check-circle");
       } catch (error) {
         console.error("Login failed:", error);
-        alert("فشل تسجيل الدخول، يرجى المحاولة مرة أخرى.");
+        window.showToast("عذراً، تعذر تسجيل الدخول. يرجى المحاولة لاحقاً.", "error", "fa-exclamation-triangle");
       }
     };
 
@@ -497,6 +569,12 @@
 </head>
 <body>
 
+  <!-- Custom Elegant Toast Message Container -->
+  <div id="toast-container" class="toast-notification">
+    <i id="toast-icon" class="fas fa-info-circle" style="color: var(--accent-yellow);"></i>
+    <span id="toast-message">تنبيه</span>
+  </div>
+
   <!-- Top Header with Centered Logo -->
   <header>
     <div class="header-top" id="auth-btn-area">
@@ -506,7 +584,13 @@
     </div>
 
     <div class="logo-centered">
-      <i class="fas fa-book-open logo-icon"></i>
+      <div class="logo-img-wrapper">
+        <!-- يمكن استبدال images/logo.png برابط الشعار الخاص بك -->
+        <img src="images/logo.png" alt="لوجو مكتبة المصطفى" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
+        <div id="logo-fallback" class="logo-icon-fallback" style="display: none;">
+          <i class="fas fa-book-open"></i>
+        </div>
+      </div>
       <h1 class="logo-title">مكتبة المصطفى</h1>
       <p class="logo-subtitle">شارع احموش - قباسين | قرطاسية - ألعاب - هدايا</p>
     </div>
@@ -590,7 +674,7 @@
       { id: 7, category: 'toys-gifts', name: 'صندوق هدية جاهز', desc: 'مغلف مسبقاً مع بطاقات المعايدة', price: 210, img: 'images/gift-box.jpg' },
 
       // الطواقي والإكسسوارات
-      { id: 8, category: 'hats-accessories', name: 'طاقية صوف دافئة', desc: 'خامةممتازة - ألوان متعددة', price: 130, img: 'images/hat.jpg' },
+      { id: 8, category: 'hats-accessories', name: 'طاقية صوف دافئة', desc: 'خامة ممتازة - ألوان متعددة', price: 130, img: 'images/hat.jpg' },
       { id: 9, category: 'hats-accessories', name: 'طقم إكسسوارات بناتي', desc: 'تشكيلة ملونة وأنيقة لشعر الأطفال', price: 90, img: 'images/accessories.jpg' },
 
       // الورد والتغليف
@@ -599,6 +683,30 @@
     ];
 
     let cart = [];
+
+    // Custom Toast Notification Function (Replaces browser Alert)
+    function showToast(message, type = "info", iconClass = "fa-shopping-basket") {
+      const toast = document.getElementById('toast-container');
+      const toastMsg = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMsg.innerText = message;
+      toastIcon.className = `fas ${iconClass}`;
+      
+      if (type === "error") {
+        toast.classList.add('error');
+        toastIcon.style.color = "var(--danger-color)";
+      } else {
+        toast.classList.remove('error');
+        toastIcon.style.color = "var(--accent-yellow)";
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    window.showToast = showToast;
 
     function renderProducts(cat = 'all') {
       const container = document.getElementById('products-container');
@@ -643,6 +751,7 @@
         cart.push({ ...product, qty: 1 });
       }
       updateCartUI();
+      showToast(`تمت إضافة "${product.name}" إلى السلة بنجاح`);
     }
 
     function calculateCartTotals() {
@@ -679,7 +788,13 @@
       listContainer.innerHTML = '';
 
       if (cart.length === 0) {
-        listContainer.innerHTML = '<p style="text-align:center; color:#888; padding: 15px 0;">السلة فارغة حالياً.</p>';
+        listContainer.innerHTML = `
+          <div class="empty-cart-view">
+            <i class="fas fa-shopping-bag"></i>
+            <p>سلتك فارغة حالياً</p>
+            <small style="color:#999;">تصفح المنتجات وأضف ما يعجبك إلى السلة</small>
+          </div>
+        `;
         deliveryBox.innerHTML = '🚚 خدمة التوصيل: 80 ل.س (ومجانية للطلبات بقيمة 350 ل.س أو أكثر)';
         document.getElementById('modal-total-price').innerText = '0';
         return;
@@ -726,7 +841,7 @@
 
     function sendOrderViaWhatsApp() {
       if (cart.length === 0) {
-        alert("سلتك فارغة!");
+        showToast("عذراً، سلتك فارغة! يرجى إضافة منتجات أولاً.", "error", "fa-shopping-cart");
         return;
       }
 
