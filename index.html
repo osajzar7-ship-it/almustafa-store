@@ -34,7 +34,7 @@
       direction: rtl;
     }
 
-    /* Top Bar & Header (Centered Logo & Dark Navy) */
+    /* Top Bar & Header */
     header {
       background-color: var(--primary-navy);
       color: var(--text-light);
@@ -95,7 +95,6 @@
       justify-content: center;
     }
 
-    /* Logo Image Style & Icon Container */
     .logo-img-wrapper {
       margin-bottom: 8px;
     }
@@ -422,7 +421,6 @@
       margin-top: 15px;
     }
 
-    /* Elegant Custom Toast Notification & Inline Empty Cart Styling */
     .toast-notification {
       position: fixed;
       top: 20px;
@@ -586,8 +584,7 @@
 
     <div class="logo-centered">
       <div class="logo-img-wrapper">
-        <img src="صور/logo.jpg" alt="لوجو مكتبة المصطفى" class="logo-img"
-
+        <img src="images/logo.jpg" alt="لوجو مكتبة المصطفى" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
         <div id="logo-fallback" class="logo-icon-fallback" style="display: none;">
           <i class="fas fa-book-open"></i>
         </div>
@@ -658,21 +655,11 @@
     </div>
   </div>
 
-  <script>
-    const products = [
-      { id: 1, category: 'stationery', name: 'دفتر سلك 100 ورقة', desc: 'غلاف مقوى أنيق - ورق ممتازة', price: 150, img: 'images/notebook.jpg' },
-      { id: 2, category: 'stationery', name: 'طقم أقلام حبر (4 ألوان)', desc: 'أزرق، أسود، أحمر، أخضر', price: 60, img: 'images/pens.jpg' },
-      { id: 3, category: 'stationery', name: 'علبة أقلام رصاص مع محاية', desc: 'درزينة أقلام فابر كاستل عالية الجودة', price: 110, img: 'images/pencils.jpg' },
-      { id: 4, category: 'school-packages', name: 'باقة الصفوف الأولى', desc: 'دفاتر مسطرة، أقلام رصاص، تلوين، ومحاية', price: 280, img: 'images/package-primary.jpg' },
-      { id: 5, category: 'school-packages', name: 'باقة المدارس المتكاملة', desc: 'دفاتر، أقلام حبر ورصاص، مقلمة، وأدوات هندسية', price: 390, img: 'images/package-full.jpg' },
-      { id: 6, category: 'toys-gifts', name: 'سيارة ألعاب تحكم عن بعد', desc: 'حجم متوسط شاملة البطاريات', price: 320, img: 'images/toy-car.jpg' },
-      { id: 7, category: 'toys-gifts', name: 'صندوق هدية جاهز', desc: 'مغلف مسبقاً مع بطاقات المعايدة', price: 210, img: 'images/gift-box.jpg' },
-      { id: 8, category: 'hats-accessories', name: 'طاقية صوف دافئة', desc: 'خامة ممتازة - ألوان متعددة', price: 130, img: 'images/hat.jpg' },
-      { id: 9, category: 'hats-accessories', name: 'طقم إكسسوارات بناتي', desc: 'تشكيلة ملونة وأنيقة لشعر الأطفال', price: 90, img: 'images/accessories.jpg' },
-      { id: 10, category: 'flowers-wrapping', name: 'باقة ورد تنسيق خاص', desc: 'ورد طبيعي / صناعي للهدايا', price: 290, img: 'images/flower-bouquet.jpg' },
-      { id: 11, category: 'flowers-wrapping', name: 'تغليف هدية محترف', desc: 'ورق فاخر وشريط زينة مميز', price: 70, img: 'images/wrapping.jpg' }
-    ];
+  <!-- ربط ملف المنتجات المنفصل -->
+  <script src="products.js"></script>
 
+  <!-- سكريبت التشغيل وخدمات السلة -->
+  <script>
     let cart = [];
 
     function showToast(message, type = "info", iconClass = "fa-shopping-basket") {
