@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مكتبة المصطفى | قباسين</title>
-  <!-- Google Fonts & FontAwesome Icons -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary-color: #00838f;
-      --secondary-color: #00acc1;
-      --accent-color: #ff9800;
-      --bg-color: #f4f7f6;
+      --primary-navy: #0a192f;
+      --secondary-navy: #172a45;
+      --accent-yellow: #ffc107;
+      --yellow-hover: #e0a800;
+      --bg-color: #f4f6f9;
       --card-bg: #ffffff;
-      --text-color: #333333;
-      --light-text: #666666;
+      --text-dark: #1a1a1a;
+      --text-light: #ffffff;
     }
 
     * {
@@ -26,97 +27,99 @@
 
     body {
       background-color: var(--bg-color);
-      color: var(--text-color);
-      padding-bottom: 80px;
+      color: var(--text-dark);
+      padding-bottom: 90px;
       direction: rtl;
     }
 
-    /* Header & Navigation */
+    /* Top Bar & Header (Centered Logo & Dark Navy) */
     header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      background-color: var(--primary-navy);
+      color: var(--text-light);
+      padding: 20px 15px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .logo-area h1 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo-area p {
-      font-size: 0.8rem;
-      opacity: 0.9;
-    }
-
-    .user-auth-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .header-top {
+      position: absolute;
+      left: 15px;
+      top: 15px;
     }
 
     .btn-login {
-      background-color: white;
-      color: var(--primary-color);
+      background-color: var(--accent-yellow);
+      color: var(--primary-navy);
       border: none;
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 0.85rem;
       transition: 0.2s;
     }
 
     .btn-login:hover {
-      background-color: #e0f7fa;
+      background-color: var(--yellow-hover);
     }
 
     .user-badge {
-      background: rgba(255,255,255,0.2);
-      padding: 6px 14px;
+      background: rgba(255,255,255,0.15);
+      padding: 6px 12px;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      color: #fff;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .user-code {
-      background: var(--accent-color);
-      color: white;
+      background: var(--accent-yellow);
+      color: var(--primary-navy);
       padding: 2px 8px;
       border-radius: 10px;
       font-weight: bold;
-      letter-spacing: 1px;
     }
 
-    /* Categories Horizontal Scroll */
+    .logo-centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon {
+      font-size: 2.5rem;
+      color: var(--accent-yellow);
+      margin-bottom: 5px;
+    }
+
+    .logo-title {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.85rem;
+      color: var(--accent-yellow);
+      margin-top: 3px;
+    }
+
+    /* Categories Navigation Bar */
     .categories-nav {
-      background: white;
-      padding: 12px 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      background-color: var(--secondary-navy);
+      padding: 10px 0;
       position: sticky;
-      top: 67px;
+      top: 0;
       z-index: 999;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     .categories-container {
@@ -134,48 +137,50 @@
     }
 
     .cat-btn {
-      background-color: #f0f0f0;
-      border: none;
-      padding: 8px 18px;
+      background: transparent;
+      border: 1px solid var(--accent-yellow);
+      color: var(--accent-yellow);
+      padding: 7px 16px;
       border-radius: 20px;
       white-space: nowrap;
       cursor: pointer;
-      font-weight: 600;
-      color: var(--light-text);
-      transition: 0.2s;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: 0.3s;
     }
 
     .cat-btn.active, .cat-btn:hover {
-      background-color: var(--primary-color);
-      color: white;
+      background-color: var(--accent-yellow);
+      color: var(--primary-navy);
     }
 
-    /* Main Content */
+    /* Main Products Section */
     .container {
       max-width: 1200px;
-      margin: 20px auto;
+      margin: 25px auto;
       padding: 0 15px;
     }
 
     .section-title {
       font-size: 1.3rem;
-      margin-bottom: 15px;
-      color: var(--primary-color);
-      border-right: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+      color: var(--primary-navy);
+      border-right: 4px solid var(--accent-yellow);
       padding-right: 10px;
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 20px;
     }
 
     .product-card {
       background: var(--card-bg);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border: 1px solid #eef2f5;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -190,7 +195,7 @@
       width: 100%;
       height: 160px;
       object-fit: cover;
-      background-color: #eee;
+      background-color: #f0f0f0;
     }
 
     .product-info {
@@ -204,28 +209,29 @@
     .product-title {
       font-size: 1rem;
       font-weight: bold;
-      margin-bottom: 6px;
+      color: var(--primary-navy);
+      margin-bottom: 5px;
     }
 
     .product-desc {
-      font-size: 0.82rem;
-      color: var(--light-text);
+      font-size: 0.8rem;
+      color: #666;
       margin-bottom: 10px;
       line-height: 1.3;
     }
 
     .product-price {
-      font-size: 1.1rem;
-      color: var(--primary-color);
+      font-size: 1.15rem;
+      color: var(--primary-navy);
       font-weight: bold;
       margin-bottom: 10px;
     }
 
     .btn-add {
       width: 100%;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
+      background-color: var(--primary-navy);
+      color: var(--accent-yellow);
+      border: 1px solid var(--primary-navy);
       padding: 9px;
       border-radius: 8px;
       font-weight: bold;
@@ -238,7 +244,7 @@
     }
 
     .btn-add:hover {
-      background-color: #006064;
+      background-color: var(--secondary-navy);
     }
 
     /* Floating Cart Bar */
@@ -247,8 +253,9 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: white;
-      box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+      background: var(--primary-navy);
+      color: white;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
       padding: 12px 20px;
       display: flex;
       justify-content: space-between;
@@ -262,21 +269,21 @@
     }
 
     .cart-total-text {
-      font-size: 0.85rem;
-      color: var(--light-text);
+      font-size: 0.8rem;
+      color: #ccc;
     }
 
     .cart-total-amount {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: bold;
-      color: var(--primary-color);
+      color: var(--accent-yellow);
     }
 
     .btn-view-cart {
-      background-color: var(--accent-color);
-      color: white;
+      background-color: var(--accent-yellow);
+      color: var(--primary-navy);
       border: none;
-      padding: 10px 22px;
+      padding: 10px 20px;
       border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
@@ -292,7 +299,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       display: none;
       justify-content: center;
       align-items: center;
@@ -302,7 +309,7 @@
     .modal-content {
       background: white;
       width: 90%;
-      max-width: 550px;
+      max-width: 500px;
       border-radius: 15px;
       padding: 20px;
       max-height: 85vh;
@@ -313,15 +320,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #eee;
+      border-bottom: 2px solid var(--accent-yellow);
       padding-bottom: 10px;
       margin-bottom: 15px;
     }
 
+    .modal-header h3 {
+      color: var(--primary-navy);
+    }
+
     .close-modal {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      color: #999;
+      color: #888;
     }
 
     .cart-item {
@@ -329,7 +340,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
-      border-bottom: 1px dashed #eee;
+      border-bottom: 1px dashed #ddd;
     }
 
     .cart-item-qty {
@@ -342,17 +353,32 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      border: 1px solid #ccc;
+      border: 1px solid var(--primary-navy);
       background: white;
+      color: var(--primary-navy);
       cursor: pointer;
       font-weight: bold;
     }
 
-    .delivery-option {
-      margin: 15px 0;
-      background: #f9f9f9;
+    .discount-badge {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .delivery-box {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
       padding: 10px;
       border-radius: 8px;
+      margin: 10px 0;
+      font-size: 0.85rem;
     }
 
     .btn-whatsapp-send {
@@ -397,7 +423,6 @@
     let currentUser = null;
     let currentUserCode = null;
 
-    // Google Sign-In Function
     window.loginWithGoogle = async function() {
       try {
         const result = await signInWithPopup(auth, provider);
@@ -439,7 +464,7 @@
         <div class="user-badge">
           <i class="fas fa-user-circle"></i> ${user.displayName.split(' ')[0]}
           <span class="user-code">#${currentUserCode}</span>
-          <i class="fas fa-sign-out-alt" onclick="logout()" style="cursor:pointer; margin-right:5px;" title="تسجيل الخروج"></i>
+          <i class="fas fa-sign-out-alt" onclick="logout()" style="cursor:pointer; margin-right:4px;" title="تسجيل الخروج"></i>
         </div>
       `;
     }
@@ -450,7 +475,6 @@
       }
     });
 
-    // Save order to Firestore
     window.saveOrderToFirestore = async function(orderData) {
       if (currentUserCode) {
         try {
@@ -458,8 +482,10 @@
             userCode: currentUserCode,
             userName: currentUser ? currentUser.displayName : "زائر",
             items: orderData.items,
+            subtotal: orderData.subtotal,
+            discount: orderData.discount,
+            deliveryFee: orderData.deliveryFee,
             totalPrice: orderData.total,
-            hasDelivery: orderData.delivery,
             date: new Date().toISOString()
           });
         } catch (e) {
@@ -471,22 +497,22 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Header with Centered Logo -->
   <header>
-    <div class="header-container">
-      <div class="logo-area">
-        <h1><i class="fas fa-book-open"></i> مكتبة المصطفى</h1>
-        <p>شارع احموش - قباسين | خدمة التوصيل متوفرة</p>
-      </div>
-      <div class="user-auth-area" id="auth-btn-area">
-        <button class="btn-login" onclick="loginWithGoogle()">
-          <i class="fab fa-google"></i> تسجيل الدخول
-        </button>
-      </div>
+    <div class="header-top" id="auth-btn-area">
+      <button class="btn-login" onclick="loginWithGoogle()">
+        <i class="fab fa-google"></i> دخول
+      </button>
+    </div>
+
+    <div class="logo-centered">
+      <i class="fas fa-book-open logo-icon"></i>
+      <h1 class="logo-title">مكتبة المصطفى</h1>
+      <p class="logo-subtitle">شارع احموش - قباسين | قرطاسية - ألعاب - هدايا</p>
     </div>
   </header>
 
-  <!-- Categories Horizontal Navigation -->
+  <!-- Categories Horizontal Bar -->
   <nav class="categories-nav">
     <div class="categories-container">
       <button class="cat-btn active" onclick="filterCategory('all')">الكل</button>
@@ -498,18 +524,18 @@
     </div>
   </nav>
 
-  <!-- Main Display -->
+  <!-- Main Content Area -->
   <main class="container">
     <h2 class="section-title" id="current-cat-title">جميع المنتجات</h2>
     <div class="products-grid" id="products-container">
-      <!-- Products Loaded via JavaScript -->
+      <!-- Products Dynamic Render -->
     </div>
   </main>
 
-  <!-- Bottom Floating Cart Bar -->
+  <!-- Floating Cart Bar -->
   <div class="cart-bar" id="cart-bar">
     <div class="cart-summary">
-      <span class="cart-total-text">إجمالي المشتريات:</span>
+      <span class="cart-total-text">إجمالي السلة (بعد الخصم):</span>
       <span class="cart-total-amount" id="cart-total-display">0 ل.س</span>
     </div>
     <button class="btn-view-cart" onclick="toggleCartModal()">
@@ -517,11 +543,11 @@
     </button>
   </div>
 
-  <!-- Cart Modal -->
+  <!-- Cart Modal Drawer -->
   <div class="modal-overlay" id="cart-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3><i class="fas fa-shopping-basket"></i> سلة التباعد والطلبات</h3>
+        <h3><i class="fas fa-shopping-basket"></i> سلة مشترياتك</h3>
         <span class="close-modal" onclick="toggleCartModal()">&times;</span>
       </div>
 
@@ -529,46 +555,47 @@
         <!-- Cart Items -->
       </div>
 
-      <div class="delivery-option">
-        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-          <input type="checkbox" id="delivery-checkbox" onchange="renderCart()">
-          <span>إضافة خدمة التوصيل داخل قباسين (+2,000 ل.س)</span>
-        </label>
+      <div class="discount-badge">
+        <i class="fas fa-percent"></i> خصم خاص 5% مُطبق تلقائياً للطلب عبر الموقع!
       </div>
 
-      <div style="margin-top: 15px; text-align: left; font-size: 1.1rem; font-weight: bold;">
-        المجموع الكلي: <span id="modal-total-price" style="color: var(--primary-color);">0</span> ل.س
+      <div class="delivery-box" id="delivery-info-box">
+        <!-- Delivery Fee Info -->
+      </div>
+
+      <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 1.1rem; font-weight: bold; text-align: left;">
+        المجموع النهائي: <span id="modal-total-price" style="color: var(--primary-navy);">0</span> ل.س
       </div>
 
       <button class="btn-whatsapp-send" onclick="sendOrderViaWhatsApp()">
-        <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> إرسال الطلب عبر الواتساب
+        <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> تأكيد وإرسال الطلب عبر الواتساب
       </button>
     </div>
   </div>
 
   <script>
-    // Products Data
+    // Products linked directly to images/ directory with realistic pricing
     const products = [
       // القرطاسية والأقلام
-      { id: 1, category: 'stationery', name: 'دفتر سلك 100 ورقة', desc: 'نوعية ممتازة غلاف مقوى', price: 12000, img: 'https://via.placeholder.com/200?text=دفتر' },
-      { id: 2, category: 'stationery', name: 'طقم أقلام حبر (4 ألوان)', desc: 'أزرق، أسود، أحمر، أخضر', price: 5000, img: 'https://via.placeholder.com/200?text=أقلام' },
-      { id: 3, category: 'stationery', name: 'قلم رصاص مع محاية (درزينة)', desc: 'نوعية فابر كاستل أو ما يعادلها', price: 9000, img: 'https://via.placeholder.com/200?text=رصاص' },
+      { id: 1, category: 'stationery', name: 'دفتر سلك 100 ورقة', desc: 'غلاف مقوى أنيق - ورق ممتازة', price: 150, img: 'images/notebook.jpg' },
+      { id: 2, category: 'stationery', name: 'طقم أقلام حبر (4 ألوان)', desc: 'أزرق، أسود، أحمر، أخضر', price: 60, img: 'images/pens.jpg' },
+      { id: 3, category: 'stationery', name: 'علبة أقلام رصاص مع محاية', desc: 'درزينة أقلام فابر كاستل عالية الجودة', price: 110, img: 'images/pencils.jpg' },
       
       // باقات المدارس
-      { id: 4, category: 'school-packages', name: 'باقة الصف الأول / الثاني', desc: 'تضم دفاتر، أقلام رصاص، تلوين، ومحاية', price: 35000, img: 'https://via.placeholder.com/200?text=باقة+ابتدائي' },
-      { id: 5, category: 'school-packages', name: 'باقة الصف الثالث / الرابع', desc: 'دفاتر مسطرة، أقلام حبر، مقلمة، وأدوات رسم', price: 45000, img: 'https://via.placeholder.com/200?text=باقة+إعدادي' },
+      { id: 4, category: 'school-packages', name: 'باقة الصفوف الأولى', desc: 'دفاتر مسطرة، أقلام رصاص، تلوين، ومحاية', price: 280, img: 'images/package-primary.jpg' },
+      { id: 5, category: 'school-packages', name: 'باقة المدارس المتكاملة', desc: 'دفاتر، أقلام حبر ورصاص، مقلمة، وأدوات هندسية', price: 390, img: 'images/package-full.jpg' },
 
       // الألعاب والهدايا
-      { id: 6, category: 'toys-gifts', name: 'سيارة ألعاب بريموت كود', desc: 'حجم متوسط مع بطاريات', price: 65000, img: 'https://via.placeholder.com/200?text=لعبة+سيارة' },
-      { id: 7, category: 'toys-gifts', name: 'صندوق هدية مميز', desc: 'جاهز مع التغليف والكرت', price: 25000, img: 'https://via.placeholder.com/200?text=هدية' },
+      { id: 6, category: 'toys-gifts', name: 'سيارة ألعاب تحكم عن بعد', desc: 'حجم متوسط شاملة البطاريات', price: 320, img: 'images/toy-car.jpg' },
+      { id: 7, category: 'toys-gifts', name: 'صندوق هدية جاهز', desc: 'مغلف مسبقاً مع بطاقات المعايدة', price: 210, img: 'images/gift-box.jpg' },
 
       // الطواقي والإكسسوارات
-      { id: 8, category: 'hats-accessories', name: 'طاقية صوف شبابية', desc: 'ألوان متعددة خامة دافئة', price: 18000, img: 'https://via.placeholder.com/200?text=طاقية' },
-      { id: 9, category: 'hats-accessories', name: 'إكسسوارات شعر بناتي', desc: 'تشكيلة ملونة وأنيقة', price: 8000, img: 'https://via.placeholder.com/200?text=إكسسوار' },
+      { id: 8, category: 'hats-accessories', name: 'طاقية صوف دافئة', desc: 'خامةممتازة - ألوان متعددة', price: 130, img: 'images/hat.jpg' },
+      { id: 9, category: 'hats-accessories', name: 'طقم إكسسوارات بناتي', desc: 'تشكيلة ملونة وأنيقة لشعر الأطفال', price: 90, img: 'images/accessories.jpg' },
 
       // الورد والتغليف
-      { id: 10, category: 'flowers-wrapping', name: 'اقة ورد طبيعي / صناعي مميز', desc: 'تنسيق محترف للهدايا والمناسبات', price: 40000, img: 'https://via.placeholder.com/200?text=باقة+ورد' },
-      { id: 11, category: 'flowers-wrapping', name: 'تغليف هدية محترف', desc: 'ورق فاخر + شريط زينة', price: 7000, img: 'https://via.placeholder.com/200?text=تغليف' }
+      { id: 10, category: 'flowers-wrapping', name: 'باقة ورد تنسيق خاص', desc: 'ورد طبيعي / صناعي للهدايا', price: 290, img: 'images/flower-bouquet.jpg' },
+      { id: 11, category: 'flowers-wrapping', name: 'تغليف هدية محترف', desc: 'ورق فاخر وشريط زينة مميز', price: 70, img: 'images/wrapping.jpg' }
     ];
 
     let cart = [];
@@ -582,7 +609,7 @@
       filtered.forEach(p => {
         container.innerHTML += `
           <div class="product-card">
-            <img src="${p.img}" alt="${p.name}" class="product-img">
+            <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=مكتبة+المصطفى'">
             <div class="product-info">
               <div>
                 <div class="product-title">${p.name}</div>
@@ -618,12 +645,26 @@
       updateCartUI();
     }
 
+    function calculateCartTotals() {
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const discount = Math.round(subtotal * 0.05); // 5% Discount
+      const netSubtotal = subtotal - discount;
+      
+      let deliveryFee = 0;
+      if (cart.length > 0) {
+        deliveryFee = netSubtotal >= 350 ? 0 : 80; // 80 LS delivery if less than 350 LS
+      }
+
+      const finalTotal = Math.round(netSubtotal + deliveryFee);
+      return { subtotal, discount, netSubtotal, deliveryFee, finalTotal };
+    }
+
     function updateCartUI() {
       const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const totals = calculateCartTotals();
 
       document.getElementById('cart-count').innerText = totalCount;
-      document.getElementById('cart-total-display').innerText = totalPrice.toLocaleString() + ' ل.س';
+      document.getElementById('cart-total-display').innerText = totals.finalTotal.toLocaleString() + ' ل.س';
     }
 
     function toggleCartModal() {
@@ -634,19 +675,17 @@
 
     function renderCart() {
       const listContainer = document.getElementById('cart-items-list');
+      const deliveryBox = document.getElementById('delivery-info-box');
       listContainer.innerHTML = '';
 
       if (cart.length === 0) {
-        listContainer.innerHTML = '<p style="text-align:center; color:#888;">السلة فارغة حالياً.</p>';
+        listContainer.innerHTML = '<p style="text-align:center; color:#888; padding: 15px 0;">السلة فارغة حالياً.</p>';
+        deliveryBox.innerHTML = '🚚 خدمة التوصيل: 80 ل.س (ومجانية للطلبات بقيمة 350 ل.س أو أكثر)';
         document.getElementById('modal-total-price').innerText = '0';
         return;
       }
 
-      let subtotal = 0;
       cart.forEach(item => {
-        const itemTotal = item.price * item.qty;
-        subtotal += itemTotal;
-
         listContainer.innerHTML += `
           <div class="cart-item">
             <div>
@@ -662,10 +701,15 @@
         `;
       });
 
-      const hasDelivery = document.getElementById('delivery-checkbox').checked;
-      const finalTotal = Math.round(subtotal + (hasDelivery ? 2000 : 0));
+      const totals = calculateCartTotals();
 
-      document.getElementById('modal-total-price').innerText = finalTotal.toLocaleString();
+      if (totals.deliveryFee === 0) {
+        deliveryBox.innerHTML = `🚚 <strong>خدمة التوصيل: <span style="color:green;">مجانية</span></strong> (لأن الطلب يتجاوز 350 ل.س)`;
+      } else {
+        deliveryBox.innerHTML = `🚚 <strong>خدمة التوصيل: 80 ل.س</strong> (أضف منتجات بقيمة ${(350 - totals.netSubtotal).toLocaleString()} ل.س أخرى للحصول على توصيل مجاني!)`;
+      }
+
+      document.getElementById('modal-total-price').innerText = totals.finalTotal.toLocaleString();
     }
 
     function changeQty(id, delta) {
@@ -686,43 +730,45 @@
         return;
       }
 
-      let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      const hasDelivery = document.getElementById('delivery-checkbox').checked;
-      const finalTotal = Math.round(subtotal + (hasDelivery ? 2000 : 0));
-
+      const totals = calculateCartTotals();
       let message = `السلام عليكم ورحمة الله، أرغب بتأكيد طلب من مكتبة المصطفى:\n\n`;
 
-      // إضافة كود الزبون إن وجد
       const userBadge = document.querySelector('.user-code');
       if (userBadge) {
         message += `👤 *كود الزبون:* ${userBadge.innerText}\n`;
       }
 
-      message += `🛍️ *الطلبات:*\n`;
+      message += `🛍️ *الأغراض المطلوبة:*\n`;
       cart.forEach(item => {
         message += `- ${item.name} (عدد: ${item.qty}) = ${(item.price * item.qty).toLocaleString()} ل.س\n`;
       });
 
-      if (hasDelivery) {
-        message += `\n🚚 *خدمة التوصيل:* داخل قباسين (2,000 ل.س)`;
+      message += `\n💵 *المجموع قبل الخصم:* ${totals.subtotal.toLocaleString()} ل.س`;
+      message += `\n🎁 *خصم الموقع (5%):* -${totals.discount.toLocaleString()} ل.س`;
+      
+      if (totals.deliveryFee === 0) {
+        message += `\n🚚 *التوصيل:* مجاني`;
+      } else {
+        message += `\n🚚 *التوصيل:* 80 ل.س`;
       }
 
-      message += `\n💰 *المجموع الإجمالي:* ${finalTotal.toLocaleString()} ل.س\n`;
+      message += `\n💰 *المجموع النهائي للطلب:* ${totals.finalTotal.toLocaleString()} ل.س\n`;
 
-      // حفظ الطلب في Firestore
       if (window.saveOrderToFirestore) {
         window.saveOrderToFirestore({
           items: cart,
-          total: finalTotal,
-          delivery: hasDelivery
+          subtotal: totals.subtotal,
+          discount: totals.discount,
+          deliveryFee: totals.deliveryFee,
+          total: totals.finalTotal
         });
       }
 
-      const whatsappUrl = `https://wa.me/963712835990?text=${encodeURIComponent(message)}`;
+      // Correct WhatsApp Number (+963 990 835 712)
+      const whatsappUrl = `https://wa.me/963990835712?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
     }
 
-    // Initialize Page
     renderProducts();
   </script>
 </body>
