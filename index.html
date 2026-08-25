@@ -45,10 +45,91 @@
             border-bottom: 3px solid var(--gold-accent);
             position: relative;
         }
+
+        /* زر القائمة الثلاث خطوط في الزاوية اليمنى العليا */
+        .menu-toggle-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: var(--gold-accent);
+            font-size: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s ease;
+        }
+        .menu-toggle-btn:active { transform: scale(0.95); }
+
+        /* النافذة الجانبية للمنيو */
+        .side-drawer {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 260px;
+            height: 100%;
+            background: var(--navy-dark);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.4);
+            z-index: 500;
+            transition: right 0.3s ease;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .side-drawer.open { right: 0; }
+
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.6);
+            z-index: 499;
+        }
+        .drawer-overlay.active { display: block; }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .drawer-header h3 { color: var(--gold-accent); font-size: 1.1rem; }
+        .close-drawer-btn { background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; }
+
+        .drawer-menu { list-style: none; }
+        .drawer-menu li { margin-bottom: 12px; }
+        .drawer-menu a, .drawer-menu button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            text-align: right;
+        }
+        .drawer-menu button:hover, .drawer-menu a:hover { background: rgba(245, 158, 11, 0.15); color: var(--gold-accent); }
+
         .logo-wrapper { width: 110px; height: 110px; margin: 0 auto 12px; }
         .logo-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid var(--gold-accent); background: #fff; }
         header h1 { font-size: 2.1rem; font-weight: 900; margin-bottom: 4px; }
-        .store-phone { font-size: 0.95rem; color: var(--gold-accent); font-weight: 700; margin-top: 6px; display: inline-block; direction: ltr; text-decoration: none; }
+        header p { color: #cbd5e1; font-size: 0.9rem; }
 
         .container { max-width: 1150px; margin: 20px auto 0; padding: 0 16px; }
 
@@ -89,37 +170,13 @@
         .cart-bar-wrapper { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; z-index: 100; }
         .cart-bar { background: var(--navy-dark); color: var(--white); padding: 14px 22px; border-radius: 50px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; box-shadow: var(--shadow-lg); }
         .cart-count-badge { background: var(--gold-accent); color: var(--navy-dark); padding: 2px 9px; border-radius: 12px; margin-right: 6px; font-weight: 900; }
-        
-        .support-btn-floating {
-            position: fixed;
-            bottom: 25px;
-            right: 20px;
-            background: #ef4444;
-            color: #ffffff;
-            border: none;
-            border-radius: 50px;
-            padding: 10px 16px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-            z-index: 99;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.7); z-index: 200; align-items: center; justify-content: center; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.7); z-index: 600; align-items: center; justify-content: center; }
         .modal-content { background: var(--white); width: 92%; max-width: 440px; padding: 25px; border-radius: 24px; max-height: 85vh; overflow-y: auto; }
         
         .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
         .qty-controls { display: flex; align-items: center; gap: 8px; background: #f1f5f9; padding: 4px 8px; border-radius: 10px; }
         .btn-qty { background: var(--white); color: var(--navy-dark); border: 1px solid #cbd5e1; width: 26px; height: 26px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
-
-        .form-group { margin-bottom: 12px; text-align: right; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--navy-dark); margin-bottom: 5px; }
-        .form-control { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; font-size: 0.9rem; }
-        textarea.form-control { height: 80px; resize: none; }
 
         .price-red { color: var(--danger); font-weight: 800; }
         .price-green { color: var(--success); font-weight: 800; }
@@ -128,7 +185,7 @@
         .delivery-options label { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 700; color: var(--navy-dark); cursor: pointer; margin-bottom: 8px; }
 
         #toast { 
-            visibility: hidden; min-width: 250px; background-color: var(--navy-dark); color: var(--white); text-align: center; border-radius: 30px; padding: 12px 20px; position: fixed; z-index: 300; left: 50%; bottom: 90px; transform: translateX(-50%); font-size: 0.9rem; font-weight: 700; border: 1px solid var(--gold-accent); box-shadow: var(--shadow-lg); transition: all 0.3s ease; opacity: 0;
+            visibility: hidden; min-width: 250px; background-color: var(--navy-dark); color: var(--white); text-align: center; border-radius: 30px; padding: 12px 20px; position: fixed; z-index: 700; left: 50%; bottom: 90px; transform: translateX(-50%); font-size: 0.9rem; font-weight: 700; border: 1px solid var(--gold-accent); box-shadow: var(--shadow-lg); transition: all 0.3s ease; opacity: 0;
         }
         #toast.show { visibility: visible; opacity: 1; }
     </style>
@@ -140,13 +197,32 @@
     </div>
 
     <header>
+        <!-- زر القائمة ☰ في الزاوية العليا اليمنى -->
+        <button class="menu-toggle-btn" onclick="toggleDrawer()">☰</button>
+
         <div class="logo-wrapper">
             <img src="images/logo.jpg" alt="شعار مكتبة المصطفى">
         </div>
         <h1>مكتبة المصطفى</h1>
         <p>قرطاسية • باقات مدرسية • ألعاب • هدايا • ورد وتغليف</p>
-        <a href="https://wa.me/963990835712" class="store-phone">📞 +963 990 835 712</a>
     </header>
+
+    <!-- القائمة الجانبية (Drawer) -->
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+    <div id="sideDrawer" class="side-drawer">
+        <div class="drawer-header">
+            <h3>خيارات المكتبة 📌</h3>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">✕</button>
+        </div>
+        <ul class="drawer-menu">
+            <li>
+                <button onclick="redirectToWhatsAppSupport()">🛠️ الدعم الفني والإبلاغ</button>
+            </li>
+            <li>
+                <a href="https://wa.me/963990835712" target="_blank">💬 التواصل عبر الواتساب</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="container">
         <div class="search-container">
@@ -281,11 +357,6 @@
         </div>
     </div>
 
-    <!-- زر الدعم الفني العائم -->
-    <button class="support-btn-floating" onclick="openSupportModal()">
-        ⚠️ الإبلاغ عن مشكلة
-    </button>
-
     <!-- شريط السلة السفلي -->
     <div class="cart-bar-wrapper">
         <div class="cart-bar" onclick="openCartModal()">
@@ -324,33 +395,6 @@
         </div>
     </div>
 
-    <!-- نافذة الدعم الفني (Support Modal) -->
-    <div id="supportModal" class="modal">
-        <div class="modal-content">
-            <h3 style="margin-bottom:12px; color:var(--navy-dark); font-size:1.2rem; text-align:center;">الدعم الفني والإبلاغ عن مشكلة 🛠️</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; margin-bottom:15px;">يسعدنا مساعدتك! يرجى اختيار نوع المشكلة وكتابة التوضيح ليتم إرساله لفريق الدعم.</p>
-            
-            <div class="form-group">
-                <label>نوع المشكلة:</label>
-                <select id="issueType" class="form-control">
-                    <option value="مشكلة في البحث والمنتجات">مشكلة في البحث أو عدم ظهور المنتجات</option>
-                    <option value="مشكلة في السلة والأنسعار">خطأ في السلة أو حساب الخصم</option>
-                    <option value="صورة لا تظهر">صورة منتج لا تظهر بشكل صحيح</option>
-                    <option value="مشكلة عند الإرسال للواتساب">مشكلة عند الضغط على إرسال للواتساب</option>
-                    <option value="اقتراح أو بلاغ آخر">اقتراح أو بلاغ آخر</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>تفاصيل المشكلة:</label>
-                <textarea id="issueDetails" class="form-control" placeholder="اكتب هنا التفاصيل أو الكلمة التي واجهت فيها المشكلة..."></textarea>
-            </div>
-
-            <button onclick="sendSupportReport()" style="background:var(--navy-main); color:white; width:100%; border:none; padding:12px; border-radius:12px; font-size:0.95rem; font-weight:800; cursor:pointer; margin-top:8px;">إرسال البلاغ والدعم الفني 📩</button>
-            <button onclick="closeSupportModal()" style="background:#f1f5f9; color:#475569; width:100%; border:none; padding:10px; border-radius:12px; margin-top:8px; cursor:pointer; font-weight:700;">إغلاق</button>
-        </div>
-    </div>
-
     <!-- التنبيه العائم -->
     <div id="toast"></div>
 
@@ -360,9 +404,23 @@
         var DELIVERY_FEE = 80;
         var FREE_DELIVERY_LIMIT = 350;
         
-        // تم الاعتماد والتصحيح المباشر للرقم لتفعيله على الواتساب
         var WHATSAPP_NUMBER = "963990835712"; 
         var currentActiveCategory = "all";
+
+        // التحكم بفتح وإغلاق القائمة الجانبية
+        function toggleDrawer() {
+            var drawer = document.getElementById('sideDrawer');
+            var overlay = document.getElementById('drawerOverlay');
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        // التوجيه المباشر للدعم الفني عبر الواتساب عند الضغط من القائمة
+        function redirectToWhatsAppSupport() {
+            var supportText = "مرحباً مكتبة المصطفى 👋\nاحتاج إلى استفسار / دعم فني بخصوص الكتالوج والمنتجات.";
+            window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(supportText), '_blank');
+            toggleDrawer();
+        }
 
         function addItemToCart(name, price) {
             var found = false;
@@ -520,33 +578,6 @@
 
         function closeCartModal() {
             document.getElementById('cartModal').style.display = 'none';
-        }
-
-        function openSupportModal() {
-            document.getElementById('supportModal').style.display = 'flex';
-        }
-
-        function closeSupportModal() {
-            document.getElementById('supportModal').style.display = 'none';
-        }
-
-        function sendSupportReport() {
-            var issueType = document.getElementById('issueType').value;
-            var details = document.getElementById('issueDetails').value.trim();
-
-            if (details === '') {
-                showToast('⚠️ يرجى كتابة تفاصيل المشكلة أولاً.');
-                return;
-            }
-
-            var text = "🚨 *بلاغ عن مشكلة في موقع مكتبة المصطفى* 🚨\n\n";
-            text += "📌 *نوع المشكلة:* " + issueType + "\n";
-            text += "📝 *التفاصيل:* " + details + "\n\n";
-            text += "شكراً لجهودكم في التحسين المباشر.";
-
-            window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text), '_blank');
-            closeSupportModal();
-            document.getElementById('issueDetails').value = '';
         }
 
         function showToast(message) {
