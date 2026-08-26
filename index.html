@@ -114,6 +114,8 @@
     .toast-notification.show { transform: translateX(50%) translateY(0); opacity: 1; }
   </style>
 
+  <script src="products.js"></script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -160,7 +162,7 @@
         userPoints = data.points || 0;
       } else {
         currentUserCode = Math.floor(100000 + Math.random() * 900000).toString();
-        userPoints = 10; // نقاط ترحيبية
+        userPoints = 10;
         await setDoc(userRef, {
           name: user.displayName,
           email: user.email,
@@ -184,13 +186,14 @@
       document.getElementById('user-points-count').innerText = userPoints;
     }
 
-    // جلب المنتجات ديناميكياً من Firestore
     onSnapshot(collection(db, "products"), (snapshot) => {
       if(!snapshot.empty) {
         window.dbProducts = [];
         snapshot.forEach(doc => window.dbProducts.push({ id: doc.id, ...doc.data() }));
         window.renderProducts();
       }
+    }, (error) => {
+      console.warn("Firestore access error, falling back to local products.js:", error);
     });
 
     window.saveOrderToFirestore = async function(orderData) {
@@ -264,12 +267,12 @@
 
   <nav class="categories-nav">
     <div class="categories-container">
-      <button class="cat-btn active" onclick="filterCategory('all')">الكل</button>
-      <button class="cat-btn" onclick="filterCategory('stationery')">القرطاسية والأقلام</button>
-      <button class="cat-btn" onclick="filterCategory('school-packages')">باقات المدارس</button>
-      <button class="cat-btn" onclick="filterCategory('toys-gifts')">الألعاب والهدايا</button>
-      <button class="cat-btn" onclick="filterCategory('hats-accessories')">الطواقي والإكسسوارات</button>
-      <button class="cat-btn" onclick="filterCategory('flowers-wrapping')">الورد والتغليف</button>
+      <button class="cat-btn active" onclick="filterCategory('all', event)">الكل</button>
+      <button class="cat-btn" onclick="filterCategory('stationery', event)">القرطاسية والأقلام</button>
+      <button class="cat-btn" onclick="filterCategory('school-packages', event)">باقات المدارس</button>
+      <button class="cat-btn" onclick="filterCategory('toys-gifts', event)">الألعاب والهدايا</button>
+      <button class="cat-btn" onclick="filterCategory('hats-accessories', event)">الطواقي والإكسسوارات</button>
+      <button class="cat-btn" onclick="filterCategory('flowers-wrapping', event)">الورد والتغليف</button>
     </div>
   </nav>
 
@@ -278,7 +281,6 @@
     <div class="products-grid" id="products-container"></div>
   </main>
 
-  <!-- Cart Bar -->
   <div class="cart-bar" id="cart-bar">
     <div>
       <span class="cart-total-text">المجموع (خصم 5% متوفر تلقائياً):</span>
@@ -289,7 +291,6 @@
     </button>
   </div>
 
-  <!-- Cart Modal -->
   <div class="modal-overlay" id="cart-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -298,7 +299,6 @@
       </div>
       <div id="cart-items-list"></div>
       
-      <!-- إضافة بطاقة معايدة مخصصة -->
       <div class="form-group" style="margin-top:15px;">
         <label><i class="fas fa-gift"></i> إلحاق بطاقة معايدة / ملاحظات مع الطلب:</label>
         <input type="text" id="gift-card-note" placeholder="اكتب عبارة التهنئة أو ملاحظاتك هنا...">
@@ -310,7 +310,6 @@
     </div>
   </div>
 
-  <!-- Print Modal -->
   <div class="modal-overlay" id="print-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -338,7 +337,6 @@
     </div>
   </div>
 
-  <!-- Support Modal -->
   <div class="modal-overlay" id="support-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -355,7 +353,12 @@
   <script>
     let cart = [];
     let favorites = JSON.parse(localStorage.getItem('almustafa_favs')) || [];
-    window.dbProducts = typeof products !== 'undefined' ? products : [];
+    
+    if (typeof products !== 'undefined') {
+      window.dbProducts = products;
+    } else {
+      window.dbProducts = [];
+    }
 
     function openSideDrawer() { document.getElementById('side-drawer').classList.add('open'); document.getElementById('drawer-overlay').classList.add('show'); }
     function closeSideDrawer() { document.getElementById('side-drawer').classList.remove('open'); document.getElementById('drawer-overlay').classList.remove('show'); }
@@ -389,13 +392,13 @@
       const isFav = favorites.includes(p.id);
       return `
         <div class="product-card">
-          <button class="btn-favorite ${isFav?'active':''}" onclick="toggleFavorite(${p.id}, event)"><i class="fas fa-heart"></i></button>
+          <button class="btn-favorite ${isFav?'active':''}" onclick="toggleFavorite('${p.id}', event)"><i class="fas fa-heart"></i></button>
           ${p.stockAlert ? `<span class="stock-tag">وشك على النفاد!</span>` : ''}
           <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=المصطفى'">
           <div class="product-info">
             <div>
               <div class="product-title">${p.name}</div>
-              <div class="product-desc">${p.desc}</div>
+              <div class="product-desc">${p.desc || ''}</div>
             </div>
             <div>
               <div class="product-price">${Number(p.price).toLocaleString()} ل.س</div>
@@ -408,16 +411,21 @@
 
     function renderProducts(cat = 'all') {
       const container = document.getElementById('products-container');
+      if (!container) return;
       container.innerHTML = '';
       const list = window.dbProducts || [];
       const filtered = cat === 'all' ? list : list.filter(p => p.category === cat);
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #777;">لا توجد منتجات متوفرة حالياً.</p>';
+        return;
+      }
       filtered.forEach(p => container.innerHTML += createProductCardHTML(p));
     }
     window.renderProducts = renderProducts;
 
-    function filterCategory(cat) {
+    function filterCategory(cat, evt) {
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+      if(evt && evt.target) evt.target.classList.add('active');
       renderProducts(cat);
     }
 
@@ -511,12 +519,9 @@
       toggleSupportModal();
     }
 
-    renderProducts();
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProducts();
+    });
   </script>
 </body>
-    <script src="products.js"></script>
-  <script>
-    let cart = [];
-    ...
-
 </html>
