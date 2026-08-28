@@ -154,6 +154,14 @@
     .toast-notification.show { transform: translateX(50%) translateY(0); opacity: 1; }
 
     .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+
+    /* Delivery Options Component */
+    .delivery-options-box {
+      background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px;
+      border-radius: 12px; margin: 15px 0; text-align: right; font-size: 0.85rem;
+    }
+    .delivery-radio-group { display: flex; gap: 15px; margin-top: 8px; }
+    .delivery-radio-group label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 600; }
   </style>
 
   <script src="products.js"></script>
@@ -234,7 +242,6 @@
       }
     });
 
-    // Spinning Wheel Engine
     window.spinWheel = async function() {
       if(!currentUser) {
         window.showToast("يرجى تسجيل الدخول أولاً للتدوير!", "error");
@@ -332,7 +339,6 @@
     <div class="products-grid" id="products-container"></div>
   </main>
 
-  <!-- Spin Wheel Floating Button -->
   <div id="wheel-trigger-btn" class="wheel-floating-btn" onclick="toggleWheelModal()">
     <i class="fas fa-dharmachakra"></i>
   </div>
@@ -360,13 +366,26 @@
     </div>
   </div>
 
-  <!-- Cart Modal -->
+  <!-- Cart Modal with Delivery Engine -->
   <div class="modal-overlay" id="cart-modal">
     <div class="modal-content">
       <button class="close-modal-btn" onclick="toggleCartModal()">&times;</button>
       <h3 style="color:var(--primary-navy); margin-bottom:15px;"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
-      <div id="cart-items-container" style="max-height:250px; overflow-y:auto; text-align:right;"></div>
-      <hr style="margin:15px 0; border:none; border-top:1px solid #eee;">
+      <div id="cart-items-container" style="max-height:200px; overflow-y:auto; text-align:right;"></div>
+      
+      <!-- Delivery Options -->
+      <div class="delivery-options-box">
+        <strong><i class="fas fa-truck"></i> طريقة الاستلام:</strong>
+        <div class="delivery-radio-group">
+          <label><input type="radio" name="delivery-option" value="pickup" checked onchange="updateCartDisplay()"> استلام من المكتبة</label>
+          <label><input type="radio" name="delivery-option" value="delivery" onchange="updateCartDisplay()"> توصيل للمنزل</label>
+        </div>
+        <div id="delivery-info-msg" style="margin-top:6px; font-size:0.75rem; color:#64748b;">
+          * التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.
+        </div>
+      </div>
+
+      <hr style="margin:10px 0; border:none; border-top:1px solid #eee;">
       <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem; margin-bottom:15px;">
         <span>المجموع الكلي:</span>
         <span id="cart-modal-total" style="color:var(--accent-gold);">0 ل.س</span>
@@ -426,6 +445,7 @@
       const m = document.getElementById('cart-modal');
       m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
       renderCartItems();
+      updateCartDisplay();
     }
     window.toggleCartModal = toggleCartModal;
 
@@ -452,7 +472,6 @@
     }
     window.showToast = showToast;
 
-    // Filter Categories
     window.filterCategory = function(catKey, event) {
       document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
       if(event) event.target.classList.add('active');
@@ -465,7 +484,6 @@
       }
     };
 
-    // Toggle Favorites
     window.toggleFav = function(id, event) {
       event.stopPropagation();
       const index = favorites.indexOf(id);
@@ -518,11 +536,31 @@
 
     function updateCartDisplay() {
       const totalQty = cart.reduce((s,i)=>s+i.qty,0);
-      const totalPrice = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      const subtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      
+      const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
+      let deliveryFee = 0;
+      const msgBox = document.getElementById('delivery-info-msg');
+
+      if(deliveryOption === 'delivery') {
+        if(subtotal >= 350) {
+          deliveryFee = 0;
+          if(msgBox) msgBox.innerHTML = `<span style="color:green; font-weight:bold;">🎉 مبروك! حصلت على توصيل مجاني.</span>`;
+        } else {
+          deliveryFee = 80;
+          if(msgBox) msgBox.innerHTML = `رسوم التوصيل: 80 ل.س (أضف بـ ${350 - subtotal} ل.س للحصول على توصيل مجاني)`;
+        }
+      } else {
+        if(msgBox) msgBox.innerText = `* التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.`;
+      }
+
+      const grandTotal = subtotal + deliveryFee;
+
       document.getElementById('cart-count').innerText = totalQty;
-      document.getElementById('cart-total-display').innerText = totalPrice.toLocaleString() + ' ل.س';
-      document.getElementById('cart-modal-total').innerText = totalPrice.toLocaleString() + ' ل.س';
+      document.getElementById('cart-total-display').innerText = grandTotal.toLocaleString() + ' ل.س';
+      document.getElementById('cart-modal-total').innerText = grandTotal.toLocaleString() + ' ل.س';
     }
+    window.updateCartDisplay = updateCartDisplay;
 
     function renderCartItems() {
       const c = document.getElementById('cart-items-container');
@@ -573,10 +611,20 @@
 
     window.checkoutWhatsApp = function() {
       if(cart.length === 0) return;
+      const subtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
+      let deliveryFee = (deliveryOption === 'delivery' && subtotal < 350) ? 80 : 0;
+      const grandTotal = subtotal + deliveryFee;
+
       let msg = "*طلب جديد من متجر مكتبة المصطفى*%0A%0A";
       cart.forEach(i => { msg += `- ${i.name} (الكمية: ${i.qty}) = ${i.price * i.qty} ل.س%0A`; });
-      const totalPrice = cart.reduce((s,i)=>s+(i.price*i.qty),0);
-      msg += `%0A*الإجمالي:* ${totalPrice.toLocaleString()} ل.س`;
+      
+      msg += `%0A*طريقة الاستلام:* ${deliveryOption === 'delivery' ? 'توصيل للمنزل' : 'استلام من المكتبة'}`;
+      if(deliveryOption === 'delivery') {
+        msg += `%0A*رسوم التوصيل:* ${deliveryFee === 0 ? 'مجاني 🎉' : '80 ل.س'}`;
+      }
+      msg += `%0A*الإجمالي النهائي:* ${grandTotal.toLocaleString()} ل.س`;
+
       window.open(`https://wa.me/?text=${msg}`, '_blank');
     };
 
