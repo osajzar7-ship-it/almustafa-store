@@ -26,7 +26,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
     body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 100px; direction: rtl; -webkit-tap-highlight-color: transparent; }
 
-    /* Header Design */
     header {
       background: linear-gradient(180deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
       color: white; padding: 30px 20px 25px; text-align: center; position: relative;
@@ -47,13 +46,6 @@
     header h1 { font-size: 1.5rem; font-weight: 800; margin-top: 12px; }
     .logo-subtitle { font-size: 0.82rem; color: #94a3b8; margin-top: 4px; font-weight: 500; }
 
-    .broadcast-box {
-      background: rgba(212, 175, 55, 0.12); border: 1px solid var(--accent-gold);
-      color: #fff; padding: 12px 16px; border-radius: var(--radius-md);
-      margin: 15px auto 0; max-width: 600px; font-size: 0.88rem; display: none;
-      align-items: center; gap: 10px;
-    }
-
     /* Side Drawer */
     .side-drawer {
       position: fixed; top: 0; right: -310px; width: 310px; height: 100%;
@@ -67,10 +59,16 @@
     .close-drawer-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.6rem; cursor: pointer; }
 
     .drawer-menu { list-style: none; padding: 15px 0; }
-    .drawer-menu li { padding: 16px 24px; cursor: pointer; display: flex; align-items: center; gap: 14px; font-size: 0.95rem; font-weight: 500; color: #e2e8f0; }
+    .drawer-menu li { padding: 16px 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 0.95rem; font-weight: 500; color: #e2e8f0; }
+    .drawer-menu-item-left { display: flex; align-items: center; gap: 14px; }
     .drawer-menu li i { width: 22px; color: var(--accent-gold); font-size: 1.1rem; }
     .drawer-overlay { position: fixed; inset: 0; background: rgba(10, 15, 29, 0.7); z-index: 2400; display: none; backdrop-filter: blur(5px); }
     .drawer-overlay.show { display: block; }
+
+    .menu-badge {
+      background: var(--danger-color); color: white; border-radius: 20px;
+      padding: 2px 8px; font-size: 0.75rem; font-weight: 800; display: none;
+    }
 
     .user-profile-summary { padding: 18px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); }
     .badge-loyalty { background: var(--gold-gradient); color: var(--primary-navy); padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; }
@@ -128,37 +126,26 @@
     .modal-overlay { position: fixed; inset: 0; background: rgba(10, 15, 29, 0.7); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(6px); }
     .modal-content { background: white; width: 92%; max-width: 480px; border-radius: 20px; padding: 22px; max-height: 85vh; overflow-y: auto; text-align: center; position: relative; }
     .close-modal-btn { position: absolute; top: 15px; left: 15px; border: none; background: transparent; font-size: 1.3rem; cursor: pointer; color: var(--text-muted); }
-    
-    .wheel-floating-btn {
-      position: fixed; bottom: 80px; right: 20px; background: var(--gold-gradient);
-      color: var(--primary-navy); width: 55px; height: 55px; border-radius: 50%;
-      display: none; align-items: center; justify-content: center; font-size: 1.4rem;
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); cursor: pointer; z-index: 1001;
-      border: 2px solid white;
-    }
 
-    /* Canvas Wheel Styling */
+    /* Canvas Wheel */
     .wheel-canvas-wrap { position: relative; width: 280px; height: 280px; margin: 15px auto; }
     .wheel-pointer-canvas { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid var(--danger-color); z-index: 10; }
 
-    .toast-notification { position: fixed; top: 20px; right: 50%; transform: translateX(50%) translateY(-100px); background: #ffffff; color: var(--primary-navy); padding: 12px 22px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-right: 5px solid var(--accent-gold); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88rem; z-index: 4000; opacity: 0; transition: all 0.4s ease; }
+    .toast-notification { position: fixed; top: 20px; right: 50%; transform: translateX(50%) translateY(-100px); background: #ffffff; color: var(--primary-navy); padding: 12px 22px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-right: 5px solid var(--accent-gold); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88rem; z-index: 4000; opacity: 0; transition: all 0.4s ease; text-align: right; }
     .toast-notification.show { transform: translateX(50%) translateY(0); opacity: 1; }
 
     .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
     .cart-qty-btn { background: #e2e8f0; border: none; width: 26px; height: 26px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-    /* Delivery Options Component */
-    .delivery-options-box {
-      background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px;
-      border-radius: 12px; margin: 15px 0; text-align: right; font-size: 0.85rem;
-    }
-    .delivery-radio-group { display: flex; gap: 15px; margin-top: 8px; }
-    .delivery-radio-group label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 600; }
+    .delivery-options-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 12px; margin: 12px 0; text-align: right; font-size: 0.85rem; }
+    .payment-method-box { background: #fffbe3; border: 1px solid #facc15; padding: 12px; border-radius: 12px; margin: 12px 0; text-align: right; font-size: 0.85rem; }
 
     .bill-details { background: #f1f5f9; padding: 12px; border-radius: 12px; margin: 12px 0; text-align: right; font-size: 0.9rem; }
     .bill-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
     .text-red { color: #ef4444; font-weight: bold; }
     .text-black { color: #000000; font-weight: bold; }
+    
+    .qabasin-notice { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 8px; border-radius: 8px; margin-bottom: 12px; font-size: 0.8rem; font-weight: bold; text-align: center; }
   </style>
 
   <script src="products.js"></script>
@@ -166,7 +153,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, collection, addDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDzL37FIGSHqOBLw7iccszX4aAGVEv-NEo",
@@ -182,9 +169,9 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    let currentUser = null;
-    let currentUserCode = null;
-    let userPoints = 0;
+    window.currentUser = null;
+    window.currentUserCode = null;
+    window.userPoints = 0;
     let lastSpinTime = 0;
 
     window.loginWithGoogle = async function() {
@@ -204,8 +191,8 @@
       onSnapshot(userRef, (docSnap) => {
         if(docSnap.exists()) {
           const data = docSnap.data();
-          currentUserCode = data.userCode;
-          userPoints = data.points || 0;
+          window.currentUserCode = data.userCode;
+          window.userPoints = data.points || 0;
           lastSpinTime = data.lastSpinTime || 0;
           updateUserUI(user);
         }
@@ -213,34 +200,53 @@
 
       const snap = await getDoc(userRef);
       if (!snap.exists()) {
-        currentUserCode = Math.floor(100000 + Math.random() * 900000).toString();
-        userPoints = 10;
-        await setDoc(userRef, { name: user.displayName, email: user.email, userCode: currentUserCode, points: userPoints, lastSpinTime: 0 });
+        window.currentUserCode = Math.floor(100000 + Math.random() * 900000).toString();
+        window.userPoints = 10;
+        await setDoc(userRef, { name: user.displayName, email: user.email, userCode: window.currentUserCode, points: window.userPoints, lastSpinTime: 0 });
       }
       
-      listenToUserMessages(currentUserCode);
+      listenToUserMessages(window.currentUserCode);
     }
 
     function updateUserUI(user) {
-      currentUser = user;
-      document.getElementById('drawer-auth-item').innerHTML = `<i class="fas fa-sign-out-alt" style="color:#ef4444;"></i><span onclick="logout()">خروج (${user.displayName.split(' ')[0]})</span>`;
+      window.currentUser = user;
+      document.getElementById('drawer-auth-item').innerHTML = `<div class="drawer-menu-item-left"><i class="fas fa-sign-out-alt" style="color:#ef4444;"></i><span onclick="logout()">خروج (${user.displayName.split(' ')[0]})</span></div>`;
       document.getElementById('drawer-user-info').style.display = 'block';
       document.getElementById('drawer-user-name').innerText = user.displayName;
-      document.getElementById('drawer-user-code').innerText = '#' + currentUserCode;
-      document.getElementById('user-points-count').innerText = userPoints;
-      document.getElementById('wheel-trigger-btn').style.display = 'flex';
+      document.getElementById('drawer-user-code').innerText = '#' + window.currentUserCode;
+      document.getElementById('user-points-count').innerText = window.userPoints;
       document.getElementById('messages-menu-item').style.display = 'flex';
+      
+      checkWheelAvailability();
+    }
+
+    function checkWheelAvailability() {
+      const hoursPassed = (Date.now() - lastSpinTime) / (1000 * 60 * 60);
+      const badge = document.getElementById('wheel-badge');
+      if (hoursPassed >= 22) {
+        badge.style.display = 'inline-block';
+        badge.innerText = 'جاهزة!';
+      } else {
+        badge.style.display = 'none';
+      }
     }
 
     function listenToUserMessages(userCode) {
       const q = query(collection(db, "messages"), where("targetUser", "in", ["all", userCode]));
       onSnapshot(q, (snapshot) => {
         const list = document.getElementById('messages-list-container');
+        const badge = document.getElementById('msg-badge');
         list.innerHTML = '';
+        
         if(snapshot.empty) {
           list.innerHTML = '<p style="color:#94a3b8; text-align:center;">لا توجد رسائل جديدة</p>';
+          badge.style.display = 'none';
           return;
         }
+
+        badge.style.display = 'inline-block';
+        badge.innerText = snapshot.size;
+
         snapshot.forEach(doc => {
           const msg = doc.data();
           list.innerHTML += `<div style="background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:8px; text-align:right;">
@@ -252,26 +258,24 @@
     }
 
     window.submitSupportTicket = async function() {
-      const title = document.getElementById('ticket-title').value;
-      const desc = document.getElementById('ticket-desc').value;
-      const fileInput = document.getElementById('ticket-file');
-
-      if(!title || !desc) {
-        window.showToast("يرجى تعبئة الأقسام المطلوبة!", "error");
+      if(!window.currentUser) {
+        window.showToast("عذراً! ميزة إرسال الشكاوى متاحة للأعضاء المسجلين فقط. يرجى تسجيل الدخول أولاً.", "error");
         return;
       }
 
-      let imgUrl = "";
-      if(fileInput.files.length > 0) {
-        imgUrl = "صورة مَرفقة";
+      const title = document.getElementById('ticket-title').value;
+      const desc = document.getElementById('ticket-desc').value;
+
+      if(!title || !desc) {
+        window.showToast("يرجى كتابة عنوان وشرح المشكلة!", "error");
+        return;
       }
 
       await addDoc(collection(db, "tickets"), {
-        userCode: currentUserCode || "زائر",
-        userName: currentUser ? currentUser.displayName : "زائر",
+        userCode: window.currentUserCode,
+        userName: window.currentUser.displayName,
         title: title,
         desc: desc,
-        hasImage: imgUrl,
         status: "سنقوم بمراجعة المشكلة",
         createdAt: Date.now()
       });
@@ -283,37 +287,37 @@
     };
 
     window.spinWheel = async function() {
-      if(!currentUser) {
-        window.showToast("يرجى تسجيل الدخول أولاً للتدوير!", "error");
+      if(!window.currentUser) {
+        window.showToast("يرجى تسجيل الدخول بحساب جوجل أولاً لكسب النقاط مجاناً!", "error");
         return;
       }
 
-      const now = Date.now();
-      const hoursPassed = (now - lastSpinTime) / (1000 * 60 * 60);
+      const hoursPassed = (Date.now() - lastSpinTime) / (1000 * 60 * 60);
 
       if (hoursPassed < 22) {
         const remainingHours = Math.ceil(22 - hoursPassed);
-        window.showToast(`يمكنك التدوير مجدداً بعد ${remainingHours} ساعة!`, "error");
+        window.showToast(`العجلة ممررة مؤقتاً! جرب مجدداً بعد ${remainingHours} ساعة.`, "error");
         return;
       }
 
       const rand = Math.random() * 100;
-      let winningIndex = 4; // حظ أوفر أحمر
+      let winningIndex = 2; // أحمر (حظ أوفر)
       let wonPoints = 0;
 
-      if(rand < 0.1) { winningIndex = 0; wonPoints = 30; }       // 30 نقطة - أخضر
-      else if(rand < 20.0) { winningIndex = 1; wonPoints = 10; }  // 10 نقاط - أخضر
-      else if(rand < 40.0) { winningIndex = 2; wonPoints = 5; }   // 5 نقاط - أصفر
-      else if(rand < 70.0) { winningIndex = 3; wonPoints = 3; }   // 3 نقاط - أصفر
-      else if(rand < 85.0) { winningIndex = 4; wonPoints = 0; }   // حظ أوفر - أحمر
-      else { winningIndex = 5; wonPoints = 0; }                  // حظ أوفر - أحمر
+      if(rand < 20.0) { winningIndex = 0; wonPoints = 5; }         // 5 نقاط - أصفر
+      else if(rand < 39.9) { winningIndex = 1; wonPoints = 10; }   // 10 نقاط - أخضر
+      else if(rand < 54.9) { winningIndex = 2; wonPoints = 0; }    // حظ أوفر - أحمر
+      else if(rand < 84.9) { winningIndex = 3; wonPoints = 3; }    // 3 نقاط - أصفر
+      else if(rand < 85.0) { winningIndex = 4; wonPoints = 30; }   // 30 نقطة - أخضر
+      else { winningIndex = 5; wonPoints = 0; }                   // حظ أوفر - أحمر
 
       window.rotateCanvasWheel(winningIndex, async () => {
-        userPoints += wonPoints;
-        const userRef = doc(db, "users", currentUser.uid);
-        await updateDoc(userRef, { points: userPoints, lastSpinTime: Date.now() });
-        if(wonPoints > 0) window.showToast(`مبروك! حصلت على ${wonPoints} نقطة مجانية! 🎉`);
-        else window.showToast("حظ أوفر في المرة القادمة! 😅");
+        window.userPoints += wonPoints;
+        const userRef = doc(db, "users", window.currentUser.uid);
+        await updateDoc(userRef, { points: window.userPoints, lastSpinTime: Date.now() });
+        if(wonPoints > 0) window.showToast(`مبروك! لقد ربحت ${wonPoints} نقاط مجانية! 🎉`);
+        else window.showToast("عذراً، حظ أوفر في المرة القادمة! 😅");
+        checkWheelAvailability();
       });
     };
 
@@ -346,12 +350,24 @@
     </div>
 
     <ul class="drawer-menu">
-      <li id="drawer-auth-item" onclick="loginWithGoogle()"><i class="fab fa-google"></i><span>تسجيل الدخول عبر جوجل</span></li>
-      <li id="messages-menu-item" style="display:none;" onclick="toggleMessagesModal()"><i class="fas fa-envelope" style="color:#3b82f6;"></i><span>رسائل من المكتبة</span></li>
-      <li onclick="toggleFavoritesModal()"><i class="fas fa-heart" style="color:var(--danger-color);"></i><span>المفضلة</span></li>
-      <li onclick="togglePrintModal()"><i class="fas fa-print"></i><span>خدمة طباعة الأوراق</span></li>
-      <li onclick="toggleWheelModal()"><i class="fas fa-dharmachakra"></i><span>عجلة الحظ اليومية</span></li>
-      <li onclick="toggleSupportModal()"><i class="fas fa-headset" style="color:#22c55e;"></i><span>الدعم الفني والشكاوى</span></li>
+      <li id="drawer-auth-item" onclick="loginWithGoogle()">
+        <div class="drawer-menu-item-left"><i class="fab fa-google"></i><span>تسجيل الدخول عبر جوجل</span></div>
+      </li>
+      <li id="messages-menu-item" style="display:none;" onclick="toggleMessagesModal()">
+        <div class="drawer-menu-item-left"><i class="fas fa-envelope" style="color:#3b82f6;"></i><span>رسائل من المكتبة</span></div>
+        <span class="menu-badge" id="msg-badge">0</span>
+      </li>
+      <li onclick="toggleFavoritesModal()">
+        <div class="drawer-menu-item-left"><i class="fas fa-heart" style="color:var(--danger-color);"></i><span>المفضلة</span></div>
+        <span class="menu-badge" id="fav-badge">0</span>
+      </li>
+      <li onclick="toggleWheelModal()">
+        <div class="drawer-menu-item-left"><i class="fas fa-dharmachakra"></i><span>عجلة الحظ اليومية</span></div>
+        <span class="menu-badge" id="wheel-badge" style="background: #22c55e;">جاهزة!</span>
+      </li>
+      <li onclick="toggleSupportModal()">
+        <div class="drawer-menu-item-left"><i class="fas fa-headset" style="color:#22c55e;"></i><span>الدعم الفني والشكاوى</span></div>
+      </li>
     </ul>
   </aside>
 
@@ -363,11 +379,6 @@
       </div>
       <h1>مكتبة المصطفى</h1>
       <p class="logo-subtitle">شارع احموش - قباسين | قرطاسية - ألعاب - هدايا - خدمات طباعة</p>
-    </div>
-
-    <div id="broadcast-box" class="broadcast-box">
-      <i class="fas fa-bullhorn" style="color:var(--accent-gold); font-size:1.2rem;"></i>
-      <span id="broadcast-text-content"></span>
     </div>
   </header>
 
@@ -385,16 +396,12 @@
     <div class="products-grid" id="products-container"></div>
   </main>
 
-  <div id="wheel-trigger-btn" class="wheel-floating-btn" onclick="toggleWheelModal()">
-    <i class="fas fa-dharmachakra"></i>
-  </div>
-
-  <!-- Wheel Canvas Modal -->
+  <!-- Wheel Modal -->
   <div class="modal-overlay" id="wheel-modal">
     <div class="modal-content">
       <button class="close-modal-btn" onclick="toggleWheelModal()">&times;</button>
-      <h3 style="color:var(--primary-navy); margin-bottom:10px;">عجلة الحظ اليومية</h3>
-      <p style="font-size:0.85rem; color:#64748b;">در العجلة كل 22 ساعة واكسب نقاط شراء مجانية!</p>
+      <h3 style="color:var(--primary-navy); margin-bottom:10px;">🎡 عجلة الحظ اليومية</h3>
+      <p style="font-size:0.85rem; color:#64748b;">در العجلة كل 22 ساعة واكسب نقاط مجانية بالمتجر!</p>
       
       <div class="wheel-canvas-wrap">
         <div class="wheel-pointer-canvas"></div>
@@ -409,28 +416,37 @@
   <div class="modal-overlay" id="cart-modal">
     <div class="modal-content">
       <button class="close-modal-btn" onclick="toggleCartModal()">&times;</button>
-      <h3 style="color:var(--primary-navy); margin-bottom:15px;"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
-      <div id="cart-items-container" style="max-height:200px; overflow-y:auto; text-align:right;"></div>
+      <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
+      
+      <div class="qabasin-notice">📍 التوصيل داخل بلدة قباسين فقط</div>
+
+      <div id="cart-items-container" style="max-height:180px; overflow-y:auto; text-align:right;"></div>
       
       <!-- Delivery Options -->
       <div class="delivery-options-box">
         <strong><i class="fas fa-truck"></i> طريقة الاستلام:</strong>
-        <div class="delivery-radio-group">
+        <div style="display:flex; gap:15px; margin-top:6px;">
           <label><input type="radio" name="delivery-option" value="pickup" checked onchange="updateCartDisplay()"> استلام من المكتبة</label>
           <label><input type="radio" name="delivery-option" value="delivery" onchange="updateCartDisplay()"> توصيل للمنزل</label>
         </div>
-        <div id="delivery-info-msg" style="margin-top:6px; font-size:0.75rem; color:#64748b;">
-          * التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.
+      </div>
+
+      <!-- Payment Method Options -->
+      <div class="payment-method-box">
+        <strong><i class="fas fa-wallet"></i> طريقة الدفع المفضلة:</strong>
+        <div style="display:flex; gap:15px; margin-top:6px;">
+          <label><input type="radio" name="payment-option" value="cash" checked onchange="updateCartDisplay()"> نقداً (كاش)</label>
+          <label><input type="radio" name="payment-option" value="points" onchange="updateCartDisplay()"> عبر نقاط الولاء</label>
         </div>
       </div>
 
       <!-- Bill Details Panel -->
       <div class="bill-details" id="bill-details-panel">
-        <div class="bill-row"><span>السعر الأساسي:</span> <span id="bill-subtotal" class="text-red">0 ل.س</span></div>
-        <div class="bill-row"><span>خصم الطلب بالموقع (5%):</span> <span id="bill-discount" class="text-red">0 ل.س</span></div>
-        <div class="bill-row"><span>قيمة التوصيل:</span> <span id="bill-delivery" class="text-black">0 ل.س</span></div>
+        <div class="bill-row"><span>سعر المنتجات:</span> <span id="bill-subtotal" class="text-red">0 ل.س</span></div>
+        <div class="bill-row"><span>خصم بالموقع (5%):</span> <span id="bill-discount" class="text-red">0 ل.س</span></div>
+        <div class="bill-row"><span>رسوم التوصيل (نقداً):</span> <span id="bill-delivery" class="text-black">0 ل.س</span></div>
         <hr style="margin: 6px 0; border:none; border-top: 1px solid #cbd5e1;">
-        <div class="bill-row" style="font-size:1.05rem;"><span>المجموع الكلي:</span> <span id="bill-grand-total" class="text-black">0 ل.س</span></div>
+        <div class="bill-row" style="font-size:1.05rem;"><span>المجموع الإجمالي:</span> <span id="bill-grand-total" class="text-black">0 ل.س</span></div>
       </div>
 
       <button class="btn-add" style="padding:12px;" onclick="checkoutWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب عبر الواتساب</button>
@@ -461,20 +477,8 @@
       <button class="close-modal-btn" onclick="toggleSupportModal()">&times;</button>
       <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-headset"></i> الدعم الفني والشكاوى</h3>
       <input type="text" id="ticket-title" placeholder="عنوان المشكلة" style="width:100%; margin-bottom:10px; padding:10px; border:1px solid #ddd; border-radius:8px;">
-      <textarea id="ticket-desc" placeholder="شرح المشكلة التفصيلي..." style="width:100%; height:80px; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px;"></textarea>
-      <input type="file" id="ticket-file" accept="image/*" style="width:100%; margin-bottom:12px; font-size:0.8rem;">
+      <textarea id="ticket-desc" placeholder="شرح المشكلة بالتفصيل..." style="width:100%; height:80px; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px;"></textarea>
       <button class="btn-add" style="padding:12px;" onclick="submitSupportTicket()">إرسال الشكوى للمراجعة</button>
-    </div>
-  </div>
-
-  <!-- Print Modal -->
-  <div class="modal-overlay" id="print-modal">
-    <div class="modal-content">
-      <button class="close-modal-btn" onclick="togglePrintModal()">&times;</button>
-      <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-print"></i> خدمة طباعة المستندات</h3>
-      <input type="file" id="print-file-input" style="width:100%; margin-bottom:12px; padding:10px; border:1px solid #ddd; border-radius:8px;">
-      <textarea id="print-notes" placeholder="ملاحظات الطباعة (مثلاً: ملون، وجهين، عدد النسخ...)" style="width:100%; height:70px; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;"></textarea>
-      <button class="btn-add" style="padding:12px;" onclick="sendPrintOrder()"><i class="fab fa-whatsapp"></i> إرسال المستند للطباعة</button>
     </div>
   </div>
 
@@ -492,14 +496,14 @@
     let favorites = [];
     if (typeof products !== 'undefined') window.dbProducts = products; else window.dbProducts = [];
 
-    // Wheel Segments Config
+    // Order Colors: Yellow, Green, Red, Yellow, Green, Red
     const segments = [
-      { text: "+30", color: "#22c55e", textColor: "#ffffff" }, // أخضر نادر
-      { text: "+10", color: "#16a34a", textColor: "#ffffff" }, // أخضر
-      { text: "+5",  color: "#eab308", textColor: "#000000" }, // أصفر
-      { text: "+3",  color: "#facc15", textColor: "#000000" }, // أصفر
-      { text: "حظ أوفر", color: "#ef4444", textColor: "#ffffff" }, // أحمر
-      { text: "حظ أوفر", color: "#dc2626", textColor: "#ffffff" }  // أحمر
+      { text: "+5 نقاط", color: "#facc15", textColor: "#000000" },  // أصفر
+      { text: "+10 نقاط", color: "#22c55e", textColor: "#ffffff" }, // أخضر
+      { text: "حظ أوفر", color: "#ef4444", textColor: "#ffffff" },  // أحمر
+      { text: "+3 نقاط", color: "#eab308", textColor: "#000000" },  // أصفر
+      { text: "+30 نقطة", color: "#16a34a", textColor: "#ffffff" }, // أخضر
+      { text: "حظ أوفر", color: "#dc2626", textColor: "#ffffff" }   // أحمر
     ];
 
     let currentRotation = 0;
@@ -527,8 +531,8 @@
         ctx.rotate(angle + anglePerSegment / 2);
         ctx.textAlign = "right";
         ctx.fillStyle = segments[i].textColor;
-        ctx.font = "bold 16px Tajawal";
-        ctx.fillText(segments[i].text, 110, 5);
+        ctx.font = "bold 15px Tajawal";
+        ctx.fillText(segments[i].text, 115, 5);
         ctx.restore();
       }
     }
@@ -561,6 +565,7 @@
     window.closeSideDrawer = closeSideDrawer;
 
     function toggleWheelModal() {
+      closeSideDrawer();
       const m = document.getElementById('wheel-modal');
       m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
       if(m.style.display === 'flex') drawWheel();
@@ -577,6 +582,10 @@
 
     function toggleFavoritesModal() {
       closeSideDrawer();
+      if(!window.currentUser) {
+        showToast("عذراً! ميزة المفضلة متاحة للأعضاء المسجلين فقط.", "error");
+        return;
+      }
       const m = document.getElementById('fav-modal');
       m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
       renderFavItems();
@@ -592,23 +601,20 @@
 
     function toggleSupportModal() {
       closeSideDrawer();
+      if(!window.currentUser) {
+        showToast("عذراً! ميزة الدعم الفني متاحة للأعضاء المسجلين فقط.", "error");
+        return;
+      }
       const m = document.getElementById('support-modal');
       m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
     }
     window.toggleSupportModal = toggleSupportModal;
 
-    function togglePrintModal() {
-      closeSideDrawer();
-      const m = document.getElementById('print-modal');
-      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
-    }
-    window.togglePrintModal = togglePrintModal;
-
     function showToast(msg, type="info") {
       const t = document.getElementById('toast-container');
       document.getElementById('toast-message').innerText = msg;
       t.className = `toast-notification ${type==='error'?'error':''} show`;
-      setTimeout(() => t.classList.remove('show'), 3000);
+      setTimeout(() => t.classList.remove('show'), 3500);
     }
     window.showToast = showToast;
 
@@ -626,6 +632,10 @@
 
     window.toggleFav = function(id, event) {
       event.stopPropagation();
+      if(!window.currentUser) {
+        showToast("يرجى تسجيل الدخول بحساب جوجل لإضافة المنتجات للمفضلة!", "error");
+        return;
+      }
       const index = favorites.indexOf(id);
       if(index > -1) {
         favorites.splice(index, 1);
@@ -634,6 +644,15 @@
         favorites.push(id);
         showToast("تم إضافة المنتج للمفضلة ❤️");
       }
+      
+      const badge = document.getElementById('fav-badge');
+      if(favorites.length > 0) {
+        badge.style.display = 'inline-block';
+        badge.innerText = favorites.length;
+      } else {
+        badge.style.display = 'none';
+      }
+
       renderProducts(window.dbProducts);
     };
 
@@ -643,7 +662,7 @@
       container.innerHTML = '';
 
       if(itemsToRender.length === 0) {
-        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:#94a3b8;">لا توجد منتجات في هذا القسم حالياً</div>';
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:#94a3b8;">لا توجد منتجات حالياً</div>';
         return;
       }
 
@@ -687,23 +706,11 @@
         const subtotalAfterDiscount = rawSubtotal - discountAmount;
         
         const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
-        const msgBox = document.getElementById('delivery-info-msg');
-
         if(deliveryOption === 'delivery') {
-          if(rawSubtotal >= 350) {
-            deliveryFee = 0;
-            if(msgBox) msgBox.innerHTML = `<span style="color:green; font-weight:bold;">🎉 مبروك! حصلت على توصيل مجاني.</span>`;
-          } else {
-            deliveryFee = 80;
-            if(msgBox) msgBox.innerHTML = `رسوم التوصيل: 80 ل.س (أضف بـ ${350 - rawSubtotal} ل.س للتوصيل المجاني)`;
-          }
-        } else {
-          if(msgBox) msgBox.innerText = `* التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.`;
+          deliveryFee = rawSubtotal >= 350 ? 0 : 80;
         }
 
         grandTotal = subtotalAfterDiscount + deliveryFee;
-      } else {
-        document.getElementById('delivery-info-msg').innerText = `* التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.`;
       }
 
       document.getElementById('cart-count').innerText = totalQty;
@@ -734,7 +741,7 @@
               <button class="cart-qty-btn" onclick="changeQty('${item.id}', -1)">-</button>
               <span style="font-weight:bold;">${item.qty}</span>
               <button class="cart-qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
-              <button style="border:none; background:transparent; color:red; cursor:pointer; margin-right:5px;" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
+              <button style="border:none; background:transparent; color:red; cursor:pointer;" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
             </div>
           </div>
         `;
@@ -783,31 +790,39 @@
 
     window.checkoutWhatsApp = function() {
       if(cart.length === 0) {
-        showToast("سلة المشتريات فارغة! يرجى إضافة بعض المنتجات أولاً لإتمام الطلب.", "error");
+        showToast("سلة المشتريات فارغة! يرجى إضافة منتجات أولاً.", "error");
         return;
       }
 
       const rawSubtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      const discount = rawSubtotal * 0.05;
+      const productsFinalPrice = rawSubtotal - discount;
+
+      const paymentOption = document.querySelector('input[name="payment-option"]:checked')?.value || 'cash';
       const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
       let deliveryFee = (deliveryOption === 'delivery' && rawSubtotal < 350) ? 80 : 0;
-      const grandTotal = rawSubtotal + deliveryFee;
+
+      if(paymentOption === 'points') {
+        if(!window.currentUser) {
+          showToast("يجب تسجيل الدخول لاستخدام نقاط الولاء!", "error");
+          return;
+        }
+        if(window.userPoints < productsFinalPrice) {
+          showToast(`رصيد نقاطك (${window.userPoints} نقطة) غير كافٍ لشراء المنتجات بقيمة ${productsFinalPrice} ل.س!`, "error");
+          return;
+        }
+      }
 
       let msg = "*طلب جديد من متجر مكتبة المصطفى*%0A%0A";
       cart.forEach(i => { msg += `- ${i.name} (الكمية: ${i.qty}) = ${i.price * i.qty} ل.س%0A`; });
       
       msg += `%0A*طريقة الاستلام:* ${deliveryOption === 'delivery' ? 'توصيل للمنزل' : 'استلام من المكتبة'}`;
+      msg += `%0A*طريقة الدفع:* ${paymentOption === 'points' ? `نقاط الولاء (خصم ${productsFinalPrice} نقطة)` : 'كاش نقداً'}`;
       if(deliveryOption === 'delivery') {
-        msg += `%0A*رسوم التوصيل:* ${deliveryFee === 0 ? 'مجاني 🎉' : '80 ل.س'}`;
+        msg += `%0A*رسوم التوصيل (نقداً):* ${deliveryFee === 0 ? 'مجاني 🎉' : '80 ل.س'}`;
       }
-      msg += `%0A*الإجمالي النهائي:* ${grandTotal.toLocaleString()} ل.س`;
+      msg += `%0A*نطاق التوصيل:* بلدة قباسين حصراً`;
 
-      window.open(`https://wa.me/?text=${msg}`, '_blank');
-    };
-
-    window.sendPrintOrder = function() {
-      const notes = document.getElementById('print-notes').value;
-      let msg = "*طلب خدمة طباعة أوراق جديد*%0A%0A";
-      msg += `الملاحظات: ${notes || 'لا يوجد'}`;
       window.open(`https://wa.me/?text=${msg}`, '_blank');
     };
 
