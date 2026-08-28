@@ -145,7 +145,8 @@
     .text-red { color: #ef4444; font-weight: bold; }
     .text-black { color: #000000; font-weight: bold; }
     
-    .qabasin-notice { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 8px; border-radius: 8px; margin-bottom: 12px; font-size: 0.8rem; font-weight: bold; text-align: center; }
+    .qabasin-notice { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 8px; border-radius: 8px; margin-bottom: 8px; font-size: 0.8rem; font-weight: bold; text-align: center; }
+    .discount-banner { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 8px; border-radius: 8px; margin-bottom: 12px; font-size: 0.82rem; font-weight: bold; text-align: center; }
   </style>
 
   <script src="products.js"></script>
@@ -378,7 +379,7 @@
         <img src="images/logo.jpg" alt="لوجو مكتبة المصطفى" class="logo-img" onerror="this.src='https://via.placeholder.com/100?text=المصطفى'">
       </div>
       <h1>مكتبة المصطفى</h1>
-      <p class="logo-subtitle">شارع احموش - قباسين | قرطاسية - ألعاب - هدايا - خدمات طباعة</p>
+      <p class="logo-subtitle">شارع احموش - قباسين | قرطاسية - ألعاب - هدايا - ورد وتغليف - خدمات طباعة</p>
     </div>
   </header>
 
@@ -387,7 +388,9 @@
       <button class="cat-btn active" onclick="filterCategory('all', event)">الكل</button>
       <button class="cat-btn" onclick="filterCategory('stationery', event)">القرطاسية والأقلام</button>
       <button class="cat-btn" onclick="filterCategory('school-packages', event)">باقات المدارس</button>
-      <button class="cat-btn" onclick="filterCategory('toys-gifts', event)">الألعاب والهدايا</button>
+      <button class="cat-btn" onclick="filterCategory('toys', event)">الألعاب</button>
+      <button class="cat-btn" onclick="filterCategory('gifts', event)">الهدايا</button>
+      <button class="cat-btn" onclick="filterCategory('flowers-wrapping', event)">الورود والتغليف</button>
     </div>
   </nav>
 
@@ -419,6 +422,7 @@
       <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
       
       <div class="qabasin-notice">📍 التوصيل داخل بلدة قباسين فقط</div>
+      <div class="discount-banner">🎁 خصم خاص 5% للطلبات عبر الموقع!</div>
 
       <div id="cart-items-container" style="max-height:180px; overflow-y:auto; text-align:right;"></div>
       
@@ -443,7 +447,7 @@
       <!-- Bill Details Panel -->
       <div class="bill-details" id="bill-details-panel">
         <div class="bill-row"><span>سعر المنتجات:</span> <span id="bill-subtotal" class="text-red">0 ل.س</span></div>
-        <div class="bill-row"><span>خصم بالموقع (5%):</span> <span id="bill-discount" class="text-red">0 ل.س</span></div>
+        <div class="bill-row"><span>خصم خصائص الموقع (5%):</span> <span id="bill-discount" class="text-red">0 ل.س</span></div>
         <div class="bill-row"><span>رسوم التوصيل (نقداً):</span> <span id="bill-delivery" class="text-black">0 ل.س</span></div>
         <hr style="margin: 6px 0; border:none; border-top: 1px solid #cbd5e1;">
         <div class="bill-row" style="font-size:1.05rem;"><span>المجموع الإجمالي:</span> <span id="bill-grand-total" class="text-black">0 ل.س</span></div>
@@ -496,14 +500,22 @@
     let favorites = [];
     if (typeof products !== 'undefined') window.dbProducts = products; else window.dbProducts = [];
 
-    // Order Colors: Yellow, Green, Red, Yellow, Green, Red
+    const categoryNames = {
+      'stationery': 'قسم القرطاسية والأقلام',
+      'school-packages': 'قسم باقات المدارس',
+      'toys': 'قسم الألعاب',
+      'gifts': 'قسم الهدايا',
+      'toys-gifts': 'قسم الألعاب والهدايا',
+      'flowers-wrapping': 'قسم الورود والتغليف'
+    };
+
     const segments = [
-      { text: "+5 نقاط", color: "#facc15", textColor: "#000000" },  // أصفر
-      { text: "+10 نقاط", color: "#22c55e", textColor: "#ffffff" }, // أخضر
-      { text: "حظ أوفر", color: "#ef4444", textColor: "#ffffff" },  // أحمر
-      { text: "+3 نقاط", color: "#eab308", textColor: "#000000" },  // أصفر
-      { text: "+30 نقطة", color: "#16a34a", textColor: "#ffffff" }, // أخضر
-      { text: "حظ أوفر", color: "#dc2626", textColor: "#ffffff" }   // أحمر
+      { text: "+5 نقاط", color: "#facc15", textColor: "#000000" },
+      { text: "+10 نقاط", color: "#22c55e", textColor: "#ffffff" },
+      { text: "حظ أوفر", color: "#ef4444", textColor: "#ffffff" },
+      { text: "+3 نقاط", color: "#eab308", textColor: "#000000" },
+      { text: "+30 نقطة", color: "#16a34a", textColor: "#ffffff" },
+      { text: "حظ أوفر", color: "#dc2626", textColor: "#ffffff" }
     ];
 
     let currentRotation = 0;
@@ -631,7 +643,7 @@
     };
 
     window.toggleFav = function(id, event) {
-      event.stopPropagation();
+      if(event) event.stopPropagation();
       if(!window.currentUser) {
         showToast("يرجى تسجيل الدخول بحساب جوجل لإضافة المنتجات للمفضلة!", "error");
         return;
@@ -654,6 +666,7 @@
       }
 
       renderProducts(window.dbProducts);
+      renderFavItems();
     };
 
     function renderProducts(itemsToRender = window.dbProducts) {
@@ -773,16 +786,21 @@
         return;
       }
       favProducts.forEach(item => {
+        const catTitle = categoryNames[item.category] || 'المتجر';
         c.innerHTML += `
           <div class="cart-item">
             <div style="display:flex; align-items:center; gap:10px;">
               <img src="${item.img}" style="width:45px; height:45px; object-fit:cover; border-radius:8px;" onerror="this.src='https://via.placeholder.com/45'">
               <div>
-                <strong>${item.name}</strong>
+                <span style="font-size:0.75rem; color:#64748b; display:block;">${catTitle}</span>
+                <strong style="font-size:0.9rem;">${item.name}</strong>
                 <div style="font-size:0.8rem; color:var(--primary-navy); font-weight:bold;">${Number(item.price).toLocaleString()} ل.س</div>
               </div>
             </div>
-            <button class="btn-add" style="width:auto; padding:5px 12px;" onclick="addToCart('${item.id}')">إضافة للسلة</button>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button class="btn-add" style="width:auto; padding:5px 10px;" onclick="addToCart('${item.id}')">إضافة للسلة</button>
+              <button style="border:none; background:transparent; color:#ef4444; font-size:1.1rem; cursor:pointer; padding:4px;" onclick="toggleFav('${item.id}', event)" title="إزالة من المفضلة">✖</button>
+            </div>
           </div>
         `;
       });
