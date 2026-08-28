@@ -3,27 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة إشراف مكتبة المصطفى الاحترافية</title>
+  <title>لوحة المطور والأدمن | مكتبة المصطفى</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
-    :root { var(--navy): #0a192f; --gold: #d4af37; --bg: #f4f7f6; }
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; direction: rtl; }
-    .container { max-width: 950px; margin: 0 auto; }
-    .header { background: linear-gradient(135deg, #0a192f, #172a45); color: white; padding: 22px; border-radius: 14px; text-align: center; margin-bottom: 25px; border-bottom: 3px solid #d4af37; }
-    .card { background: white; padding: 22px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 22px; }
-    .search-box, .product-form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-    input, select { flex: 1; min-width: 180px; padding: 10px 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; }
-    button { padding: 11px 22px; background: #0a192f; color: #d4af37; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-    button:hover { background: #172a45; }
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    th, td { border: 1px solid #eee; padding: 10px; text-align: right; }
-    th { background: #f9f9f9; color: #0a192f; }
-    .badge { background: #e0f7fa; color: #006064; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
+    :root {
+      --navy-main: #0a0f1d;
+      --navy-card: #141c2e;
+      --gold: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #edc967 100%);
+      --bg-color: #080c16;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-light); padding: 20px; direction: rtl; }
+
+    .header-panel {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--navy-card); padding: 20px; border-radius: var(--radius);
+      border: 1px solid rgba(212, 175, 55, 0.3); margin-bottom: 25px;
+    }
+    .header-panel h1 { font-size: 1.4rem; color: var(--gold); display: flex; align-items: center; gap: 10px; }
+
+    .grid-container { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 992px) { .grid-container { grid-template-columns: 1fr 1fr; } }
+
+    .card {
+      background: var(--navy-card); padding: 22px; border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 0.85rem; color: var(--text-muted); }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 11px 14px; border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px; background: rgba(255,255,255,0.03); color: white; font-size: 0.9rem;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); }
+
+    .btn-action {
+      background: var(--gold-gradient); color: var(--navy-main); border: none;
+      padding: 10px 18px; border-radius: 8px; font-weight: 800; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;
+    }
+    .btn-action:active { transform: scale(0.96); }
+    .btn-danger { background: var(--danger); color: white; }
+
+    /* Tables */
+    .table-responsive { overflow-x: auto; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; text-align: right; font-size: 0.88rem; }
+    th { background: rgba(255,255,255,0.05); color: var(--gold); padding: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #e2e8f0; }
+
+    .badge-code { background: rgba(212, 175, 55, 0.15); color: var(--gold); padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .quick-pts-btn { background: rgba(255,255,255,0.1); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; margin: 0 2px; }
+    .quick-pts-btn:hover { background: var(--gold); color: var(--navy-main); }
+
+    .toast {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+      background: var(--gold-gradient); color: var(--navy-main); padding: 12px 25px;
+      border-radius: 30px; font-weight: 800; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: all 0.3s ease; z-index: 9999; opacity: 0;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, query, where, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, doc, updateDoc, onSnapshot, setDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDzL37FIGSHqOBLw7iccszX4aAGVEv-NEo",
@@ -37,106 +91,170 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // 1. إضافة منتج جديد إلى Firebase
-    window.addNewProduct = async function() {
-      const name = document.getElementById('p-name').value;
-      const price = Number(document.getElementById('p-price').value);
-      const category = document.getElementById('p-cat').value;
-      const desc = document.getElementById('p-desc').value;
-      const img = document.getElementById('p-img').value || 'images/notebook.jpg';
-      const stockAlert = document.getElementById('p-stock').checked;
+    let allUsers = [];
 
-      if(!name || !price) { alert('يرجى كتابة الاسم والسعر!'); return; }
+    // Toast Notification
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
 
+    // Load Users Live
+    onSnapshot(collection(db, "users"), (snapshot) => {
+      allUsers = [];
+      snapshot.forEach(docSnap => {
+        allUsers.push({ uid: docSnap.id, ...docSnap.data() });
+      });
+      renderUsersTable(allUsers);
+    });
+
+    // Render Table
+    function renderUsersTable(users) {
+      const tbody = document.getElementById('users-table-body');
+      tbody.innerHTML = '';
+      if(users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8;">لا يوجد زبائن مسجلين بعد</td></tr>';
+        return;
+      }
+      users.forEach(u => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${u.name || 'بدون اسم'}</strong></td>
+            <td><span class="badge-code">#${u.userCode || '---'}</span></td>
+            <td style="color:var(--gold); font-weight:800;">${u.points || 0} نقطة</td>
+            <td>
+              <button class="quick-pts-btn" onclick="modifyPoints('${u.uid}', ${u.points || 0}, 5)">+5</button>
+              <button class="quick-pts-btn" onclick="modifyPoints('${u.uid}', ${u.points || 0}, 10)">+10</button>
+              <button class="quick-pts-btn" style="color:var(--danger);" onclick="modifyPoints('${u.uid}', ${u.points || 0}, -5)">-5</button>
+            </td>
+            <td><small style="color:#64748b;">${u.email || ''}</small></td>
+          </tr>
+        `;
+      });
+    }
+
+    // Modify User Points
+    window.modifyPoints = async function(uid, currentPoints, amount) {
+      const newPoints = Math.max(0, currentPoints + amount);
       try {
-        await addDoc(collection(db, "products"), { name, price, category, desc, img, stockAlert });
-        alert('تم إضافة المنتج بنجاح إلى المتجر!');
-        location.reload();
-      } catch(e) { alert('حدث خطأ أثناء الإضافة'); }
+        await updateDoc(doc(db, "users", uid), { points: newPoints });
+        showToast("تم تحديث النقاط بنجاح!");
+      } catch(e) {
+        showToast("حدث خطأ أثناء التعديل");
+      }
     };
 
-    // 2. البحث عن بيانات زبون وطلباته
-    window.searchCustomer = async function() {
-      const code = document.getElementById('search-code').value.trim().replace('#', '');
-      const resultDiv = document.getElementById('result');
-      if(!code) return;
+    // Manual Search & Add Points by User Code
+    window.handleManualPoints = async function() {
+      const code = document.getElementById('target-user-code').value.trim();
+      const ptsToAdd = parseInt(document.getElementById('points-amount').value);
 
-      resultDiv.innerHTML = '<p>جاري الاستعلام...</p>';
+      if(!code || isNaN(ptsToAdd)) {
+        showToast("يرجى إدخال كود الزبون وعدد النقاط بشكل صحيح");
+        return;
+      }
+
+      const target = allUsers.find(u => u.userCode === code);
+      if(!target) {
+        showToast("لم يتم العثور على زبون بهذا الكود!");
+        return;
+      }
+
+      await modifyPoints(target.uid, target.points || 0, ptsToAdd);
+      document.getElementById('target-user-code').value = '';
+      document.getElementById('points-amount').value = '';
+    };
+
+    // Broadcast Admin Message
+    window.publishBroadcastMessage = async function() {
+      const msg = document.getElementById('broadcast-text').value.trim();
+      if(!msg) return;
+
       try {
-        const qUser = query(collection(db, "users"), where("userCode", "==", code));
-        const userSnap = await getDocs(qUser);
-
-        if(userSnap.empty) { resultDiv.innerHTML = '<p style="color:red;">لم يتم العثور على زبون بهدا الكود.</p>'; return; }
-
-        let userData = null;
-        userSnap.forEach(d => userData = d.data());
-
-        const qOrders = query(collection(db, "orders"), where("userCode", "==", code));
-        const orderSnap = await getDocs(qOrders);
-
-        let ordersHTML = '';
-        orderSnap.forEach(d => {
-          const o = d.data();
-          ordersHTML += `<tr>
-            <td>${new Date(o.date).toLocaleDateString('ar-EG')}</td>
-            <td><strong>${o.totalPrice} ل.س</strong></td>
-            <td>${o.items.map(i=>i.name + ' (' + i.qty + ')').join(', ')}</td>
-            <td>${o.cardNote || '-'}</td>
-          </tr>`;
+        await setDoc(doc(db, "settings", "broadcast"), {
+          message: msg,
+          updatedAt: new Date().toISOString()
         });
+        showToast("تم نشر الرسالة للمسجلين بنجاح!");
+      } catch(e) {
+        showToast("فشل نشر الرسالة");
+      }
+    };
 
-        resultDiv.innerHTML = `
-          <div class="card">
-            <h3>بيانات الزبون:</h3>
-            <p><strong>الاسم:</strong> ${userData.name} | <strong>البريد:</strong> ${userData.email}</p>
-            <p><strong>كود الزبون:</strong> <span class="badge">#${userData.userCode}</span> | <strong>نقاط الولاء:</strong> ${userData.points || 0} نقطة</p>
-          </div>
-          <div class="card">
-            <h3>سجل الطلبات:</h3>
-            ${ordersHTML ? `<table><thead><tr><th>التاريخ</th><th>المبلغ</th><th>الأغراض</th><th>الملاحظات</th></tr></thead><tbody>${ordersHTML}</tbody></table>` : '<p>لا توجد طلبات مسجلة.</p>'}
-          </div>
-        `;
-      } catch(e) { console.error(e); }
+    // Filter Users
+    window.filterUsers = function() {
+      const query = document.getElementById('search-user-input').value.toLowerCase();
+      const filtered = allUsers.filter(u => 
+        (u.name && u.name.toLowerCase().includes(query)) ||
+        (u.userCode && u.userCode.includes(query))
+      );
+      renderUsersTable(filtered);
     };
   </script>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h2>لوحة إدارة مكتبة المصطفى</h2>
-      <p>إدارة المنتجات ونظام الاستعلام عن الزبائن والطلبات</p>
-    </div>
 
-    <!-- قسم إضافة منتج جديد -->
-    <div class="card">
-      <h3><i class="fas fa-plus-circle"></i> إضافة منتج جديد للمتجر مباشرة:</h3>
-      <div class="product-form">
-        <input type="text" id="p-name" placeholder="اسم المنتج">
-        <input type="number" id="p-price" placeholder="السعر (ل.س)">
-        <select id="p-cat">
-          <option value="stationery">القرطاسية والأقلام</option>
-          <option value="school-packages">باقات المدارس</option>
-          <option value="toys-gifts">الألعاب والهدايا</option>
-          <option value="hats-accessories">الطواقي والإكسسوارات</option>
-          <option value="flowers-wrapping">الورد والتغليف</option>
-        </select>
-        <input type="text" id="p-desc" placeholder="وصف قصير للمنتج">
-        <input type="text" id="p-img" placeholder="مسار الصورة (مثال: images/notebook.jpg)">
-        <label style="display:flex; align-items:center; gap:5px;"><input type="checkbox" id="p-stock"> تنبيه "وشك على النفاد"</label>
-        <button onclick="addNewProduct()" style="width:100%; margin-top:10px;"><i class="fas fa-save"></i> حفظ ونشر المنتج</button>
-      </div>
-    </div>
+  <div id="toast" class="toast">تنبيه</div>
 
-    <!-- قسم الاستعلام عن كود الزبون -->
-    <div class="card">
-      <h3><i class="fas fa-search"></i> استعلام عن زبون برقم الكود:</h3>
-      <div class="search-box">
-        <input type="text" id="search-code" placeholder="أدخل كود الزبون (6 أرقام)">
-        <button onclick="searchCustomer()"><i class="fas fa-search"></i> بحث</button>
-      </div>
-    </div>
-
-    <div id="result"></div>
+  <div class="header-panel">
+    <h1><i class="fas fa-user-shield"></i> لوحة تحكم المطور - إدارة النقاط والرسائل</h1>
+    <div><span class="badge-code">مكتبة المصطفى</span></div>
   </div>
+
+  <div class="grid-container">
+
+    <!-- Card 1: Direct Points Management -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-coins"></i> إسناد/خصم نقاط زبون (عبر المعرّف)</div>
+      <div class="form-group">
+        <label>كود الزبون (#User Code):</label>
+        <input type="text" id="target-user-code" placeholder="مثال: 482910">
+      </div>
+      <div class="form-group">
+        <label>عدد النقاط (موجب للإضافة / سالب للخصم):</label>
+        <input type="number" id="points-amount" placeholder="مثال: 50 أو -10">
+      </div>
+      <button class="btn-action" onclick="handleManualPoints()"><i class="fas fa-check-circle"></i> تطبيق التعديل</button>
+    </div>
+
+    <!-- Card 2: Broadcast Message to Logged-in Users -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-bullhorn"></i> إرسال رسالة للمستخدمين المسجلين</div>
+      <div class="form-group">
+        <label>نص الرسالة / الإعلان (سيظهر تلقائياً في واجهة الزبون المسجل):</label>
+        <textarea id="broadcast-text" rows="3" placeholder="مثال: أهلاً بك! لديك خصم خاص اليوم بقيمة 10% بمناسبة المولد النبوي..."></textarea>
+      </div>
+      <button class="btn-action" onclick="publishBroadcastMessage()"><i class="fas fa-paper-plane"></i> نشر الرسالة الآن</button>
+    </div>
+
+    <!-- Card 3: Users Directory and Quick Controls -->
+    <div class="card" style="grid-column: 1 / -1;">
+      <div class="card-title" style="justify-content: space-between;">
+        <span><i class="fas fa-users"></i> قائمة الزبائن والتحكم السريع بالنقاط</span>
+        <input type="text" id="search-user-input" onkeyup="filterUsers()" placeholder="بحث باسم أو كود الزبون..." style="width: 250px; padding: 6px 12px; font-size: 0.82rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white;">
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>اسم الزبون</th>
+              <th>الكود (#)</th>
+              <th>رصيد النقاط</th>
+              <th>تعديل سريع</th>
+              <th>البريد الإلكتروني</th>
+            </tr>
+          </thead>
+          <tbody id="users-table-body">
+            <!-- Dynamic Loading -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
 </body>
 </html>
