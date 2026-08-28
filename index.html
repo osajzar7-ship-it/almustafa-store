@@ -21,7 +21,6 @@
       --radius-lg: 18px;
       --radius-md: 12px;
       --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-      --shadow-md: 0 8px 25px rgba(10, 15, 29, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
@@ -38,30 +37,28 @@
       position: absolute; right: 20px; top: 25px; background: rgba(255,255,255,0.05);
       border: 1px solid rgba(212, 175, 55, 0.2); color: var(--accent-gold); 
       width: 42px; height: 42px; border-radius: 50%; font-size: 1.2rem; 
-      cursor: pointer; z-index: 100; transition: all 0.3s ease;
-      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 100; display: flex; align-items: center; justify-content: center;
     }
 
     .logo-centered { display: flex; flex-direction: column; align-items: center; }
     .logo-container { position: relative; padding: 4px; border-radius: 50%; background: var(--gold-gradient); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
     .logo-img { width: 95px; height: 95px; object-fit: cover; border-radius: 50%; border: 3px solid var(--primary-navy); display: block; background: #fff; }
     
-    header h1 { font-size: 1.5rem; font-weight: 800; margin-top: 12px; letter-spacing: -0.5px; }
+    header h1 { font-size: 1.5rem; font-weight: 800; margin-top: 12px; }
     .logo-subtitle { font-size: 0.82rem; color: #94a3b8; margin-top: 4px; font-weight: 500; }
 
-    /* Admin Broadcast Notice Box */
     .broadcast-box {
       background: rgba(212, 175, 55, 0.12); border: 1px solid var(--accent-gold);
       color: #fff; padding: 12px 16px; border-radius: var(--radius-md);
       margin: 15px auto 0; max-width: 600px; font-size: 0.88rem; display: none;
-      align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      align-items: center; gap: 10px;
     }
 
     /* Side Drawer */
     .side-drawer {
       position: fixed; top: 0; right: -310px; width: 310px; height: 100%;
       background: var(--primary-navy); color: white; z-index: 2500;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.35s ease; display: flex; flex-direction: column;
     }
     .side-drawer.open { right: 0; }
     .drawer-header { padding: 22px; background: var(--secondary-navy); border-bottom: 1px solid rgba(212, 175, 55, 0.2); display: flex; justify-content: space-between; align-items: center; }
@@ -69,8 +66,7 @@
     .close-drawer-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.6rem; cursor: pointer; }
 
     .drawer-menu { list-style: none; padding: 15px 0; }
-    .drawer-menu li { padding: 16px 24px; cursor: pointer; display: flex; align-items: center; gap: 14px; font-size: 0.95rem; font-weight: 500; transition: 0.2s; color: #e2e8f0; }
-    .drawer-menu li:hover { background: rgba(212, 175, 55, 0.08); color: var(--accent-gold); }
+    .drawer-menu li { padding: 16px 24px; cursor: pointer; display: flex; align-items: center; gap: 14px; font-size: 0.95rem; font-weight: 500; color: #e2e8f0; }
     .drawer-menu li i { width: 22px; color: var(--accent-gold); font-size: 1.1rem; }
     .drawer-overlay { position: fixed; inset: 0; background: rgba(10, 15, 29, 0.7); z-index: 2400; display: none; backdrop-filter: blur(5px); }
     .drawer-overlay.show { display: block; }
@@ -79,13 +75,13 @@
     .badge-loyalty { background: var(--gold-gradient); color: var(--primary-navy); padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; }
 
     /* Categories Nav */
-    .categories-nav { background: var(--secondary-navy); padding: 12px 0; position: sticky; top: 0; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .categories-nav { background: var(--secondary-navy); padding: 12px 0; position: sticky; top: 0; z-index: 999; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .categories-container { max-width: 1200px; margin: 0 auto; display: flex; gap: 8px; overflow-x: auto; padding: 0 16px; scrollbar-width: none; }
     .categories-container::-webkit-scrollbar { display: none; }
     .cat-btn { 
       background: rgba(255,255,255,0.04); border: 1px solid rgba(212, 175, 55, 0.25); 
       color: #cbd5e1; padding: 8px 18px; border-radius: 30px; white-space: nowrap; 
-      cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.25s ease; 
+      cursor: pointer; font-weight: 600; font-size: 0.85rem; 
     }
     .cat-btn.active, .cat-btn:hover { background: var(--gold-gradient); color: var(--primary-navy); border-color: transparent; font-weight: 700; }
 
@@ -101,19 +97,17 @@
       background: var(--card-bg); border-radius: var(--radius-lg); 
       overflow: hidden; box-shadow: var(--shadow-sm); 
       border: 1px solid #f1f5f9; display: flex; flex-direction: column; 
-      justify-content: space-between; transition: all 0.3s ease; position: relative; 
+      justify-content: space-between; position: relative; 
     }
-    .btn-favorite { position: absolute; top: 10px; left: 10px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #94a3b8; font-size: 0.9rem; z-index: 10; }
-    .btn-favorite.active { color: var(--danger-color); background: #fff; }
-    .stock-tag { position: absolute; top: 10px; right: 10px; background: var(--danger-color); color: white; padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 700; }
+    .btn-favorite { position: absolute; top: 10px; left: 10px; background: rgba(255, 255, 255, 0.9); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #94a3b8; font-size: 0.9rem; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .btn-favorite.active { color: var(--danger-color); }
 
     .product-img-wrap { width: 100%; height: 140px; background: #f8fafc; overflow: hidden; position: relative; }
     @media (min-width: 768px) { .product-img-wrap { height: 180px; } }
     .product-img { width: 100%; height: 100%; object-fit: cover; }
 
     .product-info { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .product-title { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; line-height: 1.35; }
-    .product-desc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .product-title { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
     .product-price { font-size: 1.05rem; color: var(--primary-navy); font-weight: 800; margin-bottom: 10px; }
 
     .btn-add { width: 100%; background: var(--primary-navy); color: var(--accent-gold); border: none; padding: 9px; border-radius: var(--radius-md); font-weight: 700; font-size: 0.82rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; }
@@ -121,7 +115,7 @@
     /* Cart Bar */
     .cart-bar { 
       position: fixed; bottom: 15px; left: 15px; right: 15px; max-width: 600px; margin: 0 auto;
-      background: rgba(10, 15, 29, 0.92); backdrop-filter: blur(12px); color: white; 
+      background: rgba(10, 15, 29, 0.95); color: white; 
       box-shadow: 0 10px 30px rgba(0,0,0,0.3); padding: 12px 20px; border-radius: 40px;
       display: flex; justify-content: space-between; align-items: center; z-index: 1000; 
       border: 1px solid rgba(212, 175, 55, 0.3); 
@@ -131,23 +125,35 @@
 
     /* Modals & Wheel Styling */
     .modal-overlay { position: fixed; inset: 0; background: rgba(10, 15, 29, 0.7); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(6px); }
-    .modal-content { background: white; width: 92%; max-width: 480px; border-radius: 20px; padding: 22px; max-height: 85vh; overflow-y: auto; text-align: center; }
+    .modal-content { background: white; width: 92%; max-width: 480px; border-radius: 20px; padding: 22px; max-height: 85vh; overflow-y: auto; text-align: center; position: relative; }
+    .close-modal-btn { position: absolute; top: 15px; left: 15px; border: none; background: transparent; font-size: 1.3rem; cursor: pointer; color: var(--text-muted); }
     
     .wheel-floating-btn {
       position: fixed; bottom: 80px; right: 20px; background: var(--gold-gradient);
       color: var(--primary-navy); width: 55px; height: 55px; border-radius: 50%;
       display: none; align-items: center; justify-content: center; font-size: 1.4rem;
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); cursor: pointer; z-index: 1001;
-      border: 2px solid white; transition: transform 0.3s ease;
+      border: 2px solid white;
     }
-    .wheel-floating-btn:hover { transform: scale(1.1) rotate(15deg); }
 
+    /* Numbers Wheel */
     .wheel-container { position: relative; width: 260px; height: 260px; margin: 20px auto; }
-    .wheel-spinner { width: 100%; height: 100%; border-radius: 50%; border: 6px solid var(--primary-navy); position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1); background: conic-gradient(var(--accent-gold) 0deg 60deg, #141c2e 60deg 120deg, var(--accent-gold) 120deg 180deg, #141c2e 180deg 240deg, var(--accent-gold) 240deg 300deg, #141c2e 300deg 360deg); }
+    .wheel-spinner { 
+      width: 100%; height: 100%; border-radius: 50%; border: 6px solid var(--primary-navy); 
+      position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1); 
+      background: conic-gradient(#d4af37 0deg 60deg, #141c2e 60deg 120deg, #d4af37 120deg 180deg, #141c2e 180deg 240deg, #d4af37 240deg 300deg, #141c2e 300deg 360deg); 
+    }
+    .wheel-number {
+      position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; color: #fff; text-shadow: 1px 1px 2px #000;
+    }
     .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid var(--danger-color); z-index: 10; }
 
     .toast-notification { position: fixed; top: 20px; right: 50%; transform: translateX(50%) translateY(-100px); background: #ffffff; color: var(--primary-navy); padding: 12px 22px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-right: 5px solid var(--accent-gold); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88rem; z-index: 4000; opacity: 0; transition: all 0.4s ease; }
     .toast-notification.show { transform: translateX(50%) translateY(0); opacity: 1; }
+
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
   </style>
 
   <script src="products.js"></script>
@@ -155,7 +161,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDzL37FIGSHqOBLw7iccszX4aAGVEv-NEo",
@@ -218,7 +224,6 @@
       document.getElementById('wheel-trigger-btn').style.display = 'flex';
     }
 
-    // Listen to Admin Broadcast
     onSnapshot(doc(db, "settings", "broadcast"), (docSnap) => {
       if(docSnap.exists() && currentUser) {
         const msg = docSnap.data().message;
@@ -229,8 +234,13 @@
       }
     });
 
-    // Spin Wheel Logic (22 hours limit)
+    // Spinning Wheel Engine
     window.spinWheel = async function() {
+      if(!currentUser) {
+        window.showToast("يرجى تسجيل الدخول أولاً للتدوير!", "error");
+        return;
+      }
+
       const now = Date.now();
       const hoursPassed = (now - lastSpinTime) / (1000 * 60 * 60);
 
@@ -280,13 +290,14 @@
         <span id="drawer-user-code" class="badge-loyalty"></span>
       </div>
       <div style="margin-top:8px; font-size:0.82rem; color:#94a3b8;">
-        ⭐ نقاط الولاء الممتازة: <strong id="user-points-count" style="color:var(--accent-gold);">0</strong> نقطة
+        ⭐ نقاط الولاء: <strong id="user-points-count" style="color:var(--accent-gold);">0</strong> نقطة
       </div>
     </div>
 
     <ul class="drawer-menu">
       <li id="drawer-auth-item" onclick="loginWithGoogle()"><i class="fab fa-google"></i><span>تسجيل الدخول عبر جوجل</span></li>
-      <li onclick="togglePrintModal()"><i class="fas fa-print"></i><span>خدمة طباعة الأوراق والمستندات</span></li>
+      <li onclick="toggleFavoritesModal()"><i class="fas fa-heart" style="color:var(--danger-color);"></i><span>المفضلة</span></li>
+      <li onclick="togglePrintModal()"><i class="fas fa-print"></i><span>خدمة طباعة الأوراق</span></li>
       <li onclick="toggleWheelModal()"><i class="fas fa-dharmachakra"></i><span>عجلة الحظ اليومية</span></li>
     </ul>
   </aside>
@@ -317,7 +328,7 @@
   </nav>
 
   <main class="container">
-    <h2 class="section-title">جميع المنتجات</h2>
+    <h2 class="section-title" id="section-title-heading">جميع المنتجات</h2>
     <div class="products-grid" id="products-container"></div>
   </main>
 
@@ -329,19 +340,65 @@
   <!-- Wheel Modal -->
   <div class="modal-overlay" id="wheel-modal">
     <div class="modal-content">
+      <button class="close-modal-btn" onclick="toggleWheelModal()">&times;</button>
       <h3 style="color:var(--primary-navy); margin-bottom:10px;">عجلة الحظ اليومية</h3>
       <p style="font-size:0.85rem; color:#64748b;">در العجلة كل 22 ساعة واكسب نقاط شراء مجانية!</p>
       
       <div class="wheel-container">
         <div class="wheel-pointer"></div>
-        <div class="wheel-spinner" id="wheel-spinner"></div>
+        <div class="wheel-spinner" id="wheel-spinner">
+          <div class="wheel-number" style="transform: rotate(0deg) translate(-20px, 40px);">5+</div>
+          <div class="wheel-number" style="transform: rotate(60deg) translate(-20px, 40px);">10+</div>
+          <div class="wheel-number" style="transform: rotate(120deg) translate(-20px, 40px);">15+</div>
+          <div class="wheel-number" style="transform: rotate(180deg) translate(-20px, 40px);">20+</div>
+          <div class="wheel-number" style="transform: rotate(240deg) translate(-20px, 40px);">25+</div>
+          <div class="wheel-number" style="transform: rotate(300deg) translate(-20px, 40px);">50+</div>
+        </div>
       </div>
 
       <button class="btn-add" style="padding:12px;" onclick="spinWheel()">ادِر العجلة الآن!</button>
-      <button class="btn-add" style="background:#e2e8f0; color:#333; margin-top:10px;" onclick="toggleWheelModal()">إغلاق</button>
     </div>
   </div>
 
+  <!-- Cart Modal -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="toggleCartModal()">&times;</button>
+      <h3 style="color:var(--primary-navy); margin-bottom:15px;"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
+      <div id="cart-items-container" style="max-height:250px; overflow-y:auto; text-align:right;"></div>
+      <hr style="margin:15px 0; border:none; border-top:1px solid #eee;">
+      <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem; margin-bottom:15px;">
+        <span>المجموع الكلي:</span>
+        <span id="cart-modal-total" style="color:var(--accent-gold);">0 ل.س</span>
+      </div>
+      <button class="btn-add" style="padding:12px;" onclick="checkoutWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب عبر الواتساب</button>
+    </div>
+  </div>
+
+  <!-- Favorites Modal -->
+  <div class="modal-overlay" id="fav-modal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="toggleFavoritesModal()">&times;</button>
+      <h3 style="color:var(--primary-navy); margin-bottom:15px;"><i class="fas fa-heart" style="color:var(--danger-color);"></i> المفضلة</h3>
+      <div id="fav-items-container" style="max-height:300px; overflow-y:auto; text-align:right;"></div>
+    </div>
+  </div>
+
+  <!-- Document Print Modal -->
+  <div class="modal-overlay" id="print-modal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="togglePrintModal()">&times;</button>
+      <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-print"></i> خدمة طباعة المستندات</h3>
+      <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">أرفق ملفاتك (PDF / صور) لإرسالها للطباعة مباشرة للمكتبة</p>
+      
+      <input type="file" id="print-file-input" style="width:100%; margin-bottom:12px; padding:10px; border:1px solid #ddd; border-radius:8px;">
+      <textarea id="print-notes" placeholder="ملاحظات الطباعة (مثلاً: ملون، وجهين، عدد النسخ...)" style="width:100%; height:70px; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;"></textarea>
+      
+      <button class="btn-add" style="padding:12px;" onclick="sendPrintOrder()"><i class="fab fa-whatsapp"></i> إرسال المستند للطباعة</button>
+    </div>
+  </div>
+
+  <!-- Bottom Cart Floating Bar -->
   <div class="cart-bar" id="cart-bar">
     <div>
       <span style="font-size: 0.75rem; color: #94a3b8;">المجموع:</span>
@@ -352,6 +409,7 @@
 
   <script>
     let cart = [];
+    let favorites = [];
     if (typeof products !== 'undefined') window.dbProducts = products; else window.dbProducts = [];
 
     function openSideDrawer() { document.getElementById('side-drawer').classList.add('open'); document.getElementById('drawer-overlay').classList.add('show'); }
@@ -364,6 +422,28 @@
     }
     window.toggleWheelModal = toggleWheelModal;
 
+    function toggleCartModal() {
+      const m = document.getElementById('cart-modal');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+      renderCartItems();
+    }
+    window.toggleCartModal = toggleCartModal;
+
+    function toggleFavoritesModal() {
+      closeSideDrawer();
+      const m = document.getElementById('fav-modal');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+      renderFavItems();
+    }
+    window.toggleFavoritesModal = toggleFavoritesModal;
+
+    function togglePrintModal() {
+      closeSideDrawer();
+      const m = document.getElementById('print-modal');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    }
+    window.togglePrintModal = togglePrintModal;
+
     function showToast(msg, type="info") {
       const t = document.getElementById('toast-container');
       document.getElementById('toast-message').innerText = msg;
@@ -372,13 +452,50 @@
     }
     window.showToast = showToast;
 
-    function renderProducts() {
+    // Filter Categories
+    window.filterCategory = function(catKey, event) {
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      if(event) event.target.classList.add('active');
+
+      if(catKey === 'all') {
+        renderProducts(window.dbProducts);
+      } else {
+        const filtered = window.dbProducts.filter(p => p.category === catKey);
+        renderProducts(filtered);
+      }
+    };
+
+    // Toggle Favorites
+    window.toggleFav = function(id, event) {
+      event.stopPropagation();
+      const index = favorites.indexOf(id);
+      if(index > -1) {
+        favorites.splice(index, 1);
+        showToast("تم إزالة المنتج من المفضلة");
+      } else {
+        favorites.push(id);
+        showToast("تم إضافة المنتج للمفضلة ❤️");
+      }
+      renderProducts(window.dbProducts);
+    };
+
+    function renderProducts(itemsToRender = window.dbProducts) {
       const container = document.getElementById('products-container');
       if (!container) return;
       container.innerHTML = '';
-      window.dbProducts.forEach(p => {
+
+      if(itemsToRender.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:#94a3b8;">لا توجد منتجات في هذا القسم حالياً</div>';
+        return;
+      }
+
+      itemsToRender.forEach(p => {
+        const isFav = favorites.includes(p.id);
         container.innerHTML += `
           <div class="product-card">
+            <button class="btn-favorite ${isFav ? 'active' : ''}" onclick="toggleFav('${p.id}', event)">
+              <i class="fas fa-heart"></i>
+            </button>
             <div class="product-img-wrap"><img src="${p.img}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=المصطفى'"></div>
             <div class="product-info">
               <div class="product-title">${p.name}</div>
@@ -390,17 +507,87 @@
       });
     }
 
-    function addToCart(id) {
+    window.addToCart = function(id) {
       const p = window.dbProducts.find(item => item.id == id);
       if(!p) return;
       const exist = cart.find(item => item.id == id);
       if(exist) exist.qty++; else cart.push({ ...p, qty: 1 });
-      document.getElementById('cart-count').innerText = cart.reduce((s,i)=>s+i.qty,0);
-      document.getElementById('cart-total-display').innerText = cart.reduce((s,i)=>s+(i.price*i.qty),0).toLocaleString() + ' ل.س';
+      updateCartDisplay();
       showToast(`تم إضافة ${p.name}`);
+    };
+
+    function updateCartDisplay() {
+      const totalQty = cart.reduce((s,i)=>s+i.qty,0);
+      const totalPrice = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      document.getElementById('cart-count').innerText = totalQty;
+      document.getElementById('cart-total-display').innerText = totalPrice.toLocaleString() + ' ل.س';
+      document.getElementById('cart-modal-total').innerText = totalPrice.toLocaleString() + ' ل.س';
     }
 
-    document.addEventListener("DOMContentLoaded", renderProducts);
+    function renderCartItems() {
+      const c = document.getElementById('cart-items-container');
+      c.innerHTML = '';
+      if(cart.length === 0) {
+        c.innerHTML = '<p style="text-align:center; color:#94a3b8; padding:20px;">سلة المشتريات فارغة</p>';
+        return;
+      }
+      cart.forEach(item => {
+        c.innerHTML += `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong>
+              <div style="font-size:0.8rem; color:#64748b;">${Number(item.price).toLocaleString()} ل.س × ${item.qty}</div>
+            </div>
+            <button style="border:none; background:transparent; color:red; cursor:pointer;" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
+          </div>
+        `;
+      });
+    }
+
+    window.removeFromCart = function(id) {
+      cart = cart.filter(i => i.id != id);
+      updateCartDisplay();
+      renderCartItems();
+    };
+
+    function renderFavItems() {
+      const c = document.getElementById('fav-items-container');
+      c.innerHTML = '';
+      const favProducts = window.dbProducts.filter(p => favorites.includes(p.id));
+      if(favProducts.length === 0) {
+        c.innerHTML = '<p style="text-align:center; color:#94a3b8; padding:20px;">لا توجد منتجات في المفضلة بعد</p>';
+        return;
+      }
+      favProducts.forEach(item => {
+        c.innerHTML += `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong>
+              <div style="font-size:0.8rem; color:var(--primary-navy); font-weight:bold;">${Number(item.price).toLocaleString()} ل.س</div>
+            </div>
+            <button class="btn-add" style="width:auto; padding:5px 12px;" onclick="addToCart('${item.id}')">إضافة للسلة</button>
+          </div>
+        `;
+      });
+    }
+
+    window.checkoutWhatsApp = function() {
+      if(cart.length === 0) return;
+      let msg = "*طلب جديد من متجر مكتبة المصطفى*%0A%0A";
+      cart.forEach(i => { msg += `- ${i.name} (الكمية: ${i.qty}) = ${i.price * i.qty} ل.س%0A`; });
+      const totalPrice = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      msg += `%0A*الإجمالي:* ${totalPrice.toLocaleString()} ل.س`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    };
+
+    window.sendPrintOrder = function() {
+      const notes = document.getElementById('print-notes').value;
+      let msg = "*طلب خدمة طباعة أوراق جديد*%0A%0A";
+      msg += `الملاحظات: ${notes || 'لا يوجد'}`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    };
+
+    document.addEventListener("DOMContentLoaded", () => renderProducts());
   </script>
 </body>
 </html>
