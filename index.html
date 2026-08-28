@@ -59,6 +59,7 @@
       position: fixed; top: 0; right: -310px; width: 310px; height: 100%;
       background: var(--primary-navy); color: white; z-index: 2500;
       box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.35s ease; display: flex; flex-direction: column;
+      overflow-y: auto;
     }
     .side-drawer.open { right: 0; }
     .drawer-header { padding: 22px; background: var(--secondary-navy); border-bottom: 1px solid rgba(212, 175, 55, 0.2); display: flex; justify-content: space-between; align-items: center; }
@@ -123,7 +124,7 @@
     .cart-total-amount { font-size: 1.15rem; font-weight: 800; color: var(--accent-gold); }
     .btn-view-cart { background: var(--gold-gradient); color: var(--primary-navy); border: none; padding: 9px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; }
 
-    /* Modals & Wheel Styling */
+    /* Modals */
     .modal-overlay { position: fixed; inset: 0; background: rgba(10, 15, 29, 0.7); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(6px); }
     .modal-content { background: white; width: 92%; max-width: 480px; border-radius: 20px; padding: 22px; max-height: 85vh; overflow-y: auto; text-align: center; position: relative; }
     .close-modal-btn { position: absolute; top: 15px; left: 15px; border: none; background: transparent; font-size: 1.3rem; cursor: pointer; color: var(--text-muted); }
@@ -136,24 +137,15 @@
       border: 2px solid white;
     }
 
-    /* Numbers Wheel */
-    .wheel-container { position: relative; width: 260px; height: 260px; margin: 20px auto; }
-    .wheel-spinner { 
-      width: 100%; height: 100%; border-radius: 50%; border: 6px solid var(--primary-navy); 
-      position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1); 
-      background: conic-gradient(#d4af37 0deg 60deg, #141c2e 60deg 120deg, #d4af37 120deg 180deg, #141c2e 180deg 240deg, #d4af37 240deg 300deg, #141c2e 300deg 360deg); 
-    }
-    .wheel-number {
-      position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 1rem; color: #fff; text-shadow: 1px 1px 2px #000;
-    }
-    .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid var(--danger-color); z-index: 10; }
+    /* Canvas Wheel Styling */
+    .wheel-canvas-wrap { position: relative; width: 280px; height: 280px; margin: 15px auto; }
+    .wheel-pointer-canvas { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid var(--danger-color); z-index: 10; }
 
     .toast-notification { position: fixed; top: 20px; right: 50%; transform: translateX(50%) translateY(-100px); background: #ffffff; color: var(--primary-navy); padding: 12px 22px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-right: 5px solid var(--accent-gold); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88rem; z-index: 4000; opacity: 0; transition: all 0.4s ease; }
     .toast-notification.show { transform: translateX(50%) translateY(0); opacity: 1; }
 
-    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .cart-qty-btn { background: #e2e8f0; border: none; width: 26px; height: 26px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
     /* Delivery Options Component */
     .delivery-options-box {
@@ -162,6 +154,11 @@
     }
     .delivery-radio-group { display: flex; gap: 15px; margin-top: 8px; }
     .delivery-radio-group label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 600; }
+
+    .bill-details { background: #f1f5f9; padding: 12px; border-radius: 12px; margin: 12px 0; text-align: right; font-size: 0.9rem; }
+    .bill-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .text-red { color: #ef4444; font-weight: bold; }
+    .text-black { color: #000000; font-weight: bold; }
   </style>
 
   <script src="products.js"></script>
@@ -169,7 +166,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDzL37FIGSHqOBLw7iccszX4aAGVEv-NEo",
@@ -220,6 +217,8 @@
         userPoints = 10;
         await setDoc(userRef, { name: user.displayName, email: user.email, userCode: currentUserCode, points: userPoints, lastSpinTime: 0 });
       }
+      
+      listenToUserMessages(currentUserCode);
     }
 
     function updateUserUI(user) {
@@ -230,17 +229,58 @@
       document.getElementById('drawer-user-code').innerText = '#' + currentUserCode;
       document.getElementById('user-points-count').innerText = userPoints;
       document.getElementById('wheel-trigger-btn').style.display = 'flex';
+      document.getElementById('messages-menu-item').style.display = 'flex';
     }
 
-    onSnapshot(doc(db, "settings", "broadcast"), (docSnap) => {
-      if(docSnap.exists() && currentUser) {
-        const msg = docSnap.data().message;
-        if(msg) {
-          document.getElementById('broadcast-text-content').innerText = msg;
-          document.getElementById('broadcast-box').style.display = 'flex';
+    function listenToUserMessages(userCode) {
+      const q = query(collection(db, "messages"), where("targetUser", "in", ["all", userCode]));
+      onSnapshot(q, (snapshot) => {
+        const list = document.getElementById('messages-list-container');
+        list.innerHTML = '';
+        if(snapshot.empty) {
+          list.innerHTML = '<p style="color:#94a3b8; text-align:center;">لا توجد رسائل جديدة</p>';
+          return;
         }
+        snapshot.forEach(doc => {
+          const msg = doc.data();
+          list.innerHTML += `<div style="background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:8px; text-align:right;">
+            <strong style="color:var(--primary-navy); display:block;">${msg.title || 'رسالة من المكتبة'}</strong>
+            <span style="font-size:0.85rem; color:#334155;">${msg.text}</span>
+          </div>`;
+        });
+      });
+    }
+
+    window.submitSupportTicket = async function() {
+      const title = document.getElementById('ticket-title').value;
+      const desc = document.getElementById('ticket-desc').value;
+      const fileInput = document.getElementById('ticket-file');
+
+      if(!title || !desc) {
+        window.showToast("يرجى تعبئة الأقسام المطلوبة!", "error");
+        return;
       }
-    });
+
+      let imgUrl = "";
+      if(fileInput.files.length > 0) {
+        imgUrl = "صورة مَرفقة";
+      }
+
+      await addDoc(collection(db, "tickets"), {
+        userCode: currentUserCode || "زائر",
+        userName: currentUser ? currentUser.displayName : "زائر",
+        title: title,
+        desc: desc,
+        hasImage: imgUrl,
+        status: "سنقوم بمراجعة المشكلة",
+        createdAt: Date.now()
+      });
+
+      window.showToast("تم إرسال بلاغ المشكلة بنجاح!");
+      document.getElementById('ticket-title').value = '';
+      document.getElementById('ticket-desc').value = '';
+      window.toggleSupportModal();
+    };
 
     window.spinWheel = async function() {
       if(!currentUser) {
@@ -257,20 +297,24 @@
         return;
       }
 
-      const degrees = Math.floor(1800 + Math.random() * 360);
-      const spinner = document.getElementById('wheel-spinner');
-      spinner.style.transform = `rotate(${degrees}deg)`;
+      const rand = Math.random() * 100;
+      let winningIndex = 4; // حظ أوفر أحمر
+      let wonPoints = 0;
 
-      const prizes = [5, 10, 15, 20, 25, 50];
-      const wonPoints = prizes[Math.floor(Math.random() * prizes.length)];
+      if(rand < 0.1) { winningIndex = 0; wonPoints = 30; }       // 30 نقطة - أخضر
+      else if(rand < 20.0) { winningIndex = 1; wonPoints = 10; }  // 10 نقاط - أخضر
+      else if(rand < 40.0) { winningIndex = 2; wonPoints = 5; }   // 5 نقاط - أصفر
+      else if(rand < 70.0) { winningIndex = 3; wonPoints = 3; }   // 3 نقاط - أصفر
+      else if(rand < 85.0) { winningIndex = 4; wonPoints = 0; }   // حظ أوفر - أحمر
+      else { winningIndex = 5; wonPoints = 0; }                  // حظ أوفر - أحمر
 
-      setTimeout(async () => {
+      window.rotateCanvasWheel(winningIndex, async () => {
         userPoints += wonPoints;
         const userRef = doc(db, "users", currentUser.uid);
         await updateDoc(userRef, { points: userPoints, lastSpinTime: Date.now() });
-        window.showToast(`مبروك! حصلت على ${wonPoints} نقطة مجانية! 🎉`);
-        window.toggleWheelModal();
-      }, 4000);
+        if(wonPoints > 0) window.showToast(`مبروك! حصلت على ${wonPoints} نقطة مجانية! 🎉`);
+        else window.showToast("حظ أوفر في المرة القادمة! 😅");
+      });
     };
 
     onAuthStateChanged(auth, async (user) => { if (user) await handleUserRegistration(user); });
@@ -303,9 +347,11 @@
 
     <ul class="drawer-menu">
       <li id="drawer-auth-item" onclick="loginWithGoogle()"><i class="fab fa-google"></i><span>تسجيل الدخول عبر جوجل</span></li>
+      <li id="messages-menu-item" style="display:none;" onclick="toggleMessagesModal()"><i class="fas fa-envelope" style="color:#3b82f6;"></i><span>رسائل من المكتبة</span></li>
       <li onclick="toggleFavoritesModal()"><i class="fas fa-heart" style="color:var(--danger-color);"></i><span>المفضلة</span></li>
       <li onclick="togglePrintModal()"><i class="fas fa-print"></i><span>خدمة طباعة الأوراق</span></li>
       <li onclick="toggleWheelModal()"><i class="fas fa-dharmachakra"></i><span>عجلة الحظ اليومية</span></li>
+      <li onclick="toggleSupportModal()"><i class="fas fa-headset" style="color:#22c55e;"></i><span>الدعم الفني والشكاوى</span></li>
     </ul>
   </aside>
 
@@ -343,30 +389,23 @@
     <i class="fas fa-dharmachakra"></i>
   </div>
 
-  <!-- Wheel Modal -->
+  <!-- Wheel Canvas Modal -->
   <div class="modal-overlay" id="wheel-modal">
     <div class="modal-content">
       <button class="close-modal-btn" onclick="toggleWheelModal()">&times;</button>
       <h3 style="color:var(--primary-navy); margin-bottom:10px;">عجلة الحظ اليومية</h3>
       <p style="font-size:0.85rem; color:#64748b;">در العجلة كل 22 ساعة واكسب نقاط شراء مجانية!</p>
       
-      <div class="wheel-container">
-        <div class="wheel-pointer"></div>
-        <div class="wheel-spinner" id="wheel-spinner">
-          <div class="wheel-number" style="transform: rotate(0deg) translate(-20px, 40px);">5+</div>
-          <div class="wheel-number" style="transform: rotate(60deg) translate(-20px, 40px);">10+</div>
-          <div class="wheel-number" style="transform: rotate(120deg) translate(-20px, 40px);">15+</div>
-          <div class="wheel-number" style="transform: rotate(180deg) translate(-20px, 40px);">20+</div>
-          <div class="wheel-number" style="transform: rotate(240deg) translate(-20px, 40px);">25+</div>
-          <div class="wheel-number" style="transform: rotate(300deg) translate(-20px, 40px);">50+</div>
-        </div>
+      <div class="wheel-canvas-wrap">
+        <div class="wheel-pointer-canvas"></div>
+        <canvas id="wheelCanvas" width="280" height="280"></canvas>
       </div>
 
       <button class="btn-add" style="padding:12px;" onclick="spinWheel()">ادِر العجلة الآن!</button>
     </div>
   </div>
 
-  <!-- Cart Modal with Delivery Engine -->
+  <!-- Cart Modal -->
   <div class="modal-overlay" id="cart-modal">
     <div class="modal-content">
       <button class="close-modal-btn" onclick="toggleCartModal()">&times;</button>
@@ -385,11 +424,15 @@
         </div>
       </div>
 
-      <hr style="margin:10px 0; border:none; border-top:1px solid #eee;">
-      <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem; margin-bottom:15px;">
-        <span>المجموع الكلي:</span>
-        <span id="cart-modal-total" style="color:var(--accent-gold);">0 ل.س</span>
+      <!-- Bill Details Panel -->
+      <div class="bill-details" id="bill-details-panel">
+        <div class="bill-row"><span>السعر الأساسي:</span> <span id="bill-subtotal" class="text-red">0 ل.س</span></div>
+        <div class="bill-row"><span>خصم الطلب بالموقع (5%):</span> <span id="bill-discount" class="text-red">0 ل.س</span></div>
+        <div class="bill-row"><span>قيمة التوصيل:</span> <span id="bill-delivery" class="text-black">0 ل.س</span></div>
+        <hr style="margin: 6px 0; border:none; border-top: 1px solid #cbd5e1;">
+        <div class="bill-row" style="font-size:1.05rem;"><span>المجموع الكلي:</span> <span id="bill-grand-total" class="text-black">0 ل.س</span></div>
       </div>
+
       <button class="btn-add" style="padding:12px;" onclick="checkoutWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب عبر الواتساب</button>
     </div>
   </div>
@@ -403,16 +446,34 @@
     </div>
   </div>
 
-  <!-- Document Print Modal -->
+  <!-- Messages Modal -->
+  <div class="modal-overlay" id="messages-modal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="toggleMessagesModal()">&times;</button>
+      <h3 style="color:var(--primary-navy); margin-bottom:15px;"><i class="fas fa-envelope"></i> رسائل من المكتبة</h3>
+      <div id="messages-list-container" style="max-height:300px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- Support Modal -->
+  <div class="modal-overlay" id="support-modal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="toggleSupportModal()">&times;</button>
+      <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-headset"></i> الدعم الفني والشكاوى</h3>
+      <input type="text" id="ticket-title" placeholder="عنوان المشكلة" style="width:100%; margin-bottom:10px; padding:10px; border:1px solid #ddd; border-radius:8px;">
+      <textarea id="ticket-desc" placeholder="شرح المشكلة التفصيلي..." style="width:100%; height:80px; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px;"></textarea>
+      <input type="file" id="ticket-file" accept="image/*" style="width:100%; margin-bottom:12px; font-size:0.8rem;">
+      <button class="btn-add" style="padding:12px;" onclick="submitSupportTicket()">إرسال الشكوى للمراجعة</button>
+    </div>
+  </div>
+
+  <!-- Print Modal -->
   <div class="modal-overlay" id="print-modal">
     <div class="modal-content">
       <button class="close-modal-btn" onclick="togglePrintModal()">&times;</button>
       <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-print"></i> خدمة طباعة المستندات</h3>
-      <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">أرفق ملفاتك (PDF / صور) لإرسالها للطباعة مباشرة للمكتبة</p>
-      
       <input type="file" id="print-file-input" style="width:100%; margin-bottom:12px; padding:10px; border:1px solid #ddd; border-radius:8px;">
       <textarea id="print-notes" placeholder="ملاحظات الطباعة (مثلاً: ملون، وجهين، عدد النسخ...)" style="width:100%; height:70px; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:12px;"></textarea>
-      
       <button class="btn-add" style="padding:12px;" onclick="sendPrintOrder()"><i class="fab fa-whatsapp"></i> إرسال المستند للطباعة</button>
     </div>
   </div>
@@ -431,6 +492,70 @@
     let favorites = [];
     if (typeof products !== 'undefined') window.dbProducts = products; else window.dbProducts = [];
 
+    // Wheel Segments Config
+    const segments = [
+      { text: "+30", color: "#22c55e", textColor: "#ffffff" }, // أخضر نادر
+      { text: "+10", color: "#16a34a", textColor: "#ffffff" }, // أخضر
+      { text: "+5",  color: "#eab308", textColor: "#000000" }, // أصفر
+      { text: "+3",  color: "#facc15", textColor: "#000000" }, // أصفر
+      { text: "حظ أوفر", color: "#ef4444", textColor: "#ffffff" }, // أحمر
+      { text: "حظ أوفر", color: "#dc2626", textColor: "#ffffff" }  // أحمر
+    ];
+
+    let currentRotation = 0;
+
+    function drawWheel() {
+      const canvas = document.getElementById('wheelCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const numSegments = segments.length;
+      const anglePerSegment = (2 * Math.PI) / numSegments;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < numSegments; i++) {
+        const angle = i * anglePerSegment + currentRotation;
+        ctx.beginPath();
+        ctx.fillStyle = segments[i].color;
+        ctx.moveTo(140, 140);
+        ctx.arc(140, 140, 130, angle, angle + anglePerSegment);
+        ctx.lineTo(140, 140);
+        ctx.fill();
+
+        ctx.save();
+        ctx.translate(140, 140);
+        ctx.rotate(angle + anglePerSegment / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = segments[i].textColor;
+        ctx.font = "bold 16px Tajawal";
+        ctx.fillText(segments[i].text, 110, 5);
+        ctx.restore();
+      }
+    }
+
+    window.rotateCanvasWheel = function(targetIndex, callback) {
+      const numSegments = segments.length;
+      const anglePerSegment = (2 * Math.PI) / numSegments;
+      const targetAngle = (3 * Math.PI / 2) - (targetIndex * anglePerSegment + anglePerSegment / 2);
+      const spins = 5 * 2 * Math.PI; 
+      const finalRotation = spins + targetAngle;
+
+      let start = null;
+      function animate(time) {
+        if (!start) start = time;
+        let progress = (time - start) / 4000;
+        if (progress > 1) progress = 1;
+
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        currentRotation = finalRotation * easeOut;
+        drawWheel();
+
+        if (progress < 1) requestAnimationFrame(animate);
+        else if (callback) callback();
+      }
+      requestAnimationFrame(animate);
+    };
+
     function openSideDrawer() { document.getElementById('side-drawer').classList.add('open'); document.getElementById('drawer-overlay').classList.add('show'); }
     function closeSideDrawer() { document.getElementById('side-drawer').classList.remove('open'); document.getElementById('drawer-overlay').classList.remove('show'); }
     window.closeSideDrawer = closeSideDrawer;
@@ -438,6 +563,7 @@
     function toggleWheelModal() {
       const m = document.getElementById('wheel-modal');
       m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+      if(m.style.display === 'flex') drawWheel();
     }
     window.toggleWheelModal = toggleWheelModal;
 
@@ -456,6 +582,20 @@
       renderFavItems();
     }
     window.toggleFavoritesModal = toggleFavoritesModal;
+
+    function toggleMessagesModal() {
+      closeSideDrawer();
+      const m = document.getElementById('messages-modal');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    }
+    window.toggleMessagesModal = toggleMessagesModal;
+
+    function toggleSupportModal() {
+      closeSideDrawer();
+      const m = document.getElementById('support-modal');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    }
+    window.toggleSupportModal = toggleSupportModal;
 
     function togglePrintModal() {
       closeSideDrawer();
@@ -536,29 +676,43 @@
 
     function updateCartDisplay() {
       const totalQty = cart.reduce((s,i)=>s+i.qty,0);
-      const subtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      const rawSubtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
       
-      const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
       let deliveryFee = 0;
-      const msgBox = document.getElementById('delivery-info-msg');
+      let discountAmount = 0;
+      let grandTotal = 0;
 
-      if(deliveryOption === 'delivery') {
-        if(subtotal >= 350) {
-          deliveryFee = 0;
-          if(msgBox) msgBox.innerHTML = `<span style="color:green; font-weight:bold;">🎉 مبروك! حصلت على توصيل مجاني.</span>`;
+      if(cart.length > 0) {
+        discountAmount = rawSubtotal * 0.05;
+        const subtotalAfterDiscount = rawSubtotal - discountAmount;
+        
+        const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
+        const msgBox = document.getElementById('delivery-info-msg');
+
+        if(deliveryOption === 'delivery') {
+          if(rawSubtotal >= 350) {
+            deliveryFee = 0;
+            if(msgBox) msgBox.innerHTML = `<span style="color:green; font-weight:bold;">🎉 مبروك! حصلت على توصيل مجاني.</span>`;
+          } else {
+            deliveryFee = 80;
+            if(msgBox) msgBox.innerHTML = `رسوم التوصيل: 80 ل.س (أضف بـ ${350 - rawSubtotal} ل.س للتوصيل المجاني)`;
+          }
         } else {
-          deliveryFee = 80;
-          if(msgBox) msgBox.innerHTML = `رسوم التوصيل: 80 ل.س (أضف بـ ${350 - subtotal} ل.س للحصول على توصيل مجاني)`;
+          if(msgBox) msgBox.innerText = `* التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.`;
         }
-      } else {
-        if(msgBox) msgBox.innerText = `* التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.`;
-      }
 
-      const grandTotal = subtotal + deliveryFee;
+        grandTotal = subtotalAfterDiscount + deliveryFee;
+      } else {
+        document.getElementById('delivery-info-msg').innerText = `* التوصيل مجاني للطلبات فوق 350 ل.س وبكلفة 80 ل.س للطلبات أقل.`;
+      }
 
       document.getElementById('cart-count').innerText = totalQty;
       document.getElementById('cart-total-display').innerText = grandTotal.toLocaleString() + ' ل.س';
-      document.getElementById('cart-modal-total').innerText = grandTotal.toLocaleString() + ' ل.س';
+      
+      document.getElementById('bill-subtotal').innerText = rawSubtotal.toLocaleString() + ' ل.س';
+      document.getElementById('bill-discount').innerText = '-' + discountAmount.toLocaleString() + ' ل.س';
+      document.getElementById('bill-delivery').innerText = deliveryFee.toLocaleString() + ' ل.س';
+      document.getElementById('bill-grand-total').innerText = grandTotal.toLocaleString() + ' ل.س';
     }
     window.updateCartDisplay = updateCartDisplay;
 
@@ -574,18 +728,33 @@
           <div class="cart-item">
             <div>
               <strong>${item.name}</strong>
-              <div style="font-size:0.8rem; color:#64748b;">${Number(item.price).toLocaleString()} ل.س × ${item.qty}</div>
+              <div style="font-size:0.8rem; color:#64748b;">${Number(item.price).toLocaleString()} ل.س</div>
             </div>
-            <button style="border:none; background:transparent; color:red; cursor:pointer;" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button class="cart-qty-btn" onclick="changeQty('${item.id}', -1)">-</button>
+              <span style="font-weight:bold;">${item.qty}</span>
+              <button class="cart-qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+              <button style="border:none; background:transparent; color:red; cursor:pointer; margin-right:5px;" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
+            </div>
           </div>
         `;
       });
     }
 
+    window.changeQty = function(id, delta) {
+      const item = cart.find(i => i.id == id);
+      if(item) {
+        item.qty += delta;
+        if(item.qty <= 0) cart = cart.filter(i => i.id != id);
+      }
+      renderCartItems();
+      updateCartDisplay();
+    };
+
     window.removeFromCart = function(id) {
       cart = cart.filter(i => i.id != id);
-      updateCartDisplay();
       renderCartItems();
+      updateCartDisplay();
     };
 
     function renderFavItems() {
@@ -599,9 +768,12 @@
       favProducts.forEach(item => {
         c.innerHTML += `
           <div class="cart-item">
-            <div>
-              <strong>${item.name}</strong>
-              <div style="font-size:0.8rem; color:var(--primary-navy); font-weight:bold;">${Number(item.price).toLocaleString()} ل.س</div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <img src="${item.img}" style="width:45px; height:45px; object-fit:cover; border-radius:8px;" onerror="this.src='https://via.placeholder.com/45'">
+              <div>
+                <strong>${item.name}</strong>
+                <div style="font-size:0.8rem; color:var(--primary-navy); font-weight:bold;">${Number(item.price).toLocaleString()} ل.س</div>
+              </div>
             </div>
             <button class="btn-add" style="width:auto; padding:5px 12px;" onclick="addToCart('${item.id}')">إضافة للسلة</button>
           </div>
@@ -610,11 +782,15 @@
     }
 
     window.checkoutWhatsApp = function() {
-      if(cart.length === 0) return;
-      const subtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+      if(cart.length === 0) {
+        showToast("سلة المشتريات فارغة! يرجى إضافة بعض المنتجات أولاً لإتمام الطلب.", "error");
+        return;
+      }
+
+      const rawSubtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
       const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
-      let deliveryFee = (deliveryOption === 'delivery' && subtotal < 350) ? 80 : 0;
-      const grandTotal = subtotal + deliveryFee;
+      let deliveryFee = (deliveryOption === 'delivery' && rawSubtotal < 350) ? 80 : 0;
+      const grandTotal = rawSubtotal + deliveryFee;
 
       let msg = "*طلب جديد من متجر مكتبة المصطفى*%0A%0A";
       cart.forEach(i => { msg += `- ${i.name} (الكمية: ${i.qty}) = ${i.price * i.qty} ل.س%0A`; });
