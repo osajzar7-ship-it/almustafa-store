@@ -25,6 +25,15 @@ const products = [
   { id: '31', category: 'stationery', name: 'قرآن كريم حجم كبير', desc: 'طبعة فاخرة بخط واضح وجلي مريح للعين أثناء القراءة والتدبر', price: 310, img: 'images/quran-large.jpg', stockAlert: false },
   { id: '32', category: 'stationery', name: 'دفتر كشكول 5 أقسام', desc: 'تصميم أنيق وورق عالي الجودة مقسم عملياً لكافة التدوينات', price: 50, img: 'images/kashkul-5.jpg', stockAlert: false },
   { id: '33', category: 'stationery', name: 'ورق A4 ملون 10 ألوان مختلفة', desc: 'حزمة ورق ممتازة بألوان زاهية متعددة الاستخدامات للطباعة والأعمال الفنية', price: 320, img: 'images/a4-colored-paper.jpg', stockAlert: false },
+  { id: '34', category: 'stationery', name: 'لوحة ملاحظات مع أيام الأسبوع (ألوان متعددة)', desc: 'لوحة تنظيمية ممتازة لتحديد المهام اليومية والجدول الأسبوعي بألوان أنيقة', price: 210, img: 'images/weekly-notes-board.jpg', stockAlert: false },
+  { id: '35', category: 'stationery', name: 'جزء رشيدي', desc: 'كتاب أساسي ومبسط لتعليم الأطفال والناشئة القراءة والقراءة القرآنية الصحيحة', price: 40, img: 'images/juz-rashidi.jpg', stockAlert: false },
+  { id: '36', category: 'stationery', name: 'الأفعال الشاذة لتعلم الإنجليزية', desc: 'دليل ميسر ومركز لحفظ وفهم الأفعال الشاذة وتطوير اللغة الإنجليزية', price: 30, img: 'images/irregular-verbs.jpg', stockAlert: false },
+  { id: '37', category: 'stationery', name: 'دفتر جيب أنيق لتدوين الملاحظات', desc: 'حجم مدمج وعملي يسهل حمله في الجيب لتدوين الأفكار والملاحظات السريعة', price: 40, img: 'images/pocket-notebook.jpg', stockAlert: true },
+  { id: '38', category: 'stationery', name: 'دفتر فواتير حجم صغير', desc: 'دفتر فواتير بتنظيم واضح وحجم مدمج مناسب للحسابات والمعاملات اليومية', price: 40, img: 'images/invoices-small.jpg', stockAlert: true },
+  { id: '39', category: 'stationery', name: 'دفتر فواتير حجم متوسط', desc: 'دفتر فواتير مقاس متوسط بصفوف واضحة لتنظيم المبيعات والسجلات المالية', price: 70, img: 'images/invoices-medium.jpg', stockAlert: true },
+  { id: '40', category: 'stationery', name: 'دفتر بضائع حجم متوسط', desc: 'سجل عملي وممتاز لتسجيل ورصد حركة البضائع والمخزون بسهولة', price: 50, img: 'images/inventory-book-medium.jpg', stockAlert: true },
+  { id: '41', category: 'stationery', name: 'دفتر سلك حجم صغير جداً وحجم صغير', desc: 'دفتر سلك بتصميم عملي وورق ممتاز مناسب للملاحظات والتنقل', price: 40, img: 'images/wire-notebook-small.jpg', stockAlert: true },
+  { id: '42', category: 'stationery', name: 'دفتر جيب جلد فاخر', desc: 'غلاف جلدي أنيق وعالي الجودة بحجم مدمج للتدوين والملاحظات الخاصة', price: 40, img: 'images/leather-pocket-notebook.jpg', stockAlert: true },
 
   // باقات المدارس
   { id: '4', category: 'school-packages', name: 'باقة الصفوف الأولى', desc: 'دفاتر مسطرة، أقلام رصاص، تلوين، ومحاية', price: 280, img: 'images/package-primary.jpg', stockAlert: false },
