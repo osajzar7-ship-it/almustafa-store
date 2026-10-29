@@ -302,15 +302,15 @@
       }
 
       const rand = Math.random() * 100;
-      let winningIndex = 2; // أحمر (حظ أوفر)
+      let winningIndex = 2; 
       let wonPoints = 0;
 
-      if(rand < 20.0) { winningIndex = 0; wonPoints = 5; }         // 5 نقاط - أصفر
-      else if(rand < 39.9) { winningIndex = 1; wonPoints = 10; }   // 10 نقاط - أخضر
-      else if(rand < 54.9) { winningIndex = 2; wonPoints = 0; }    // حظ أوفر - أحمر
-      else if(rand < 84.9) { winningIndex = 3; wonPoints = 3; }    // 3 نقاط - أصفر
-      else if(rand < 85.0) { winningIndex = 4; wonPoints = 30; }   // 30 نقطة - أخضر
-      else { winningIndex = 5; wonPoints = 0; }                   // حظ أوفر - أحمر
+      if(rand < 20.0) { winningIndex = 0; wonPoints = 5; }         
+      else if(rand < 39.9) { winningIndex = 1; wonPoints = 10; }   
+      else if(rand < 54.9) { winningIndex = 2; wonPoints = 0; }    
+      else if(rand < 84.9) { winningIndex = 3; wonPoints = 3; }    
+      else if(rand < 85.0) { winningIndex = 4; wonPoints = 30; }   
+      else { winningIndex = 5; wonPoints = 0; }                   
 
       window.rotateCanvasWheel(winningIndex, async () => {
         window.userPoints += wonPoints;
@@ -421,17 +421,16 @@
       <button class="close-modal-btn" onclick="toggleCartModal()">&times;</button>
       <h3 style="color:var(--primary-navy); margin-bottom:12px;"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
       
-      <div class="qabasin-notice">📍 التوصيل داخل بلدة قباسين فقط</div>
+      <div class="qabasin-notice">📍 الطلب والاستلام من داخل المكتبة في قباسين</div>
       <div class="discount-banner">🎁 خصم خاص 5% للطلبات عبر الموقع!</div>
 
       <div id="cart-items-container" style="max-height:180px; overflow-y:auto; text-align:right;"></div>
       
-      <!-- Delivery Options -->
+      <!-- Delivery Options (Fixed to Pickup) -->
       <div class="delivery-options-box">
-        <strong><i class="fas fa-truck"></i> طريقة الاستلام:</strong>
+        <strong><i class="fas fa-store"></i> طريقة الاستلام:</strong>
         <div style="display:flex; gap:15px; margin-top:6px;">
-          <label><input type="radio" name="delivery-option" value="pickup" checked onchange="updateCartDisplay()"> استلام من المكتبة</label>
-          <label><input type="radio" name="delivery-option" value="delivery" onchange="updateCartDisplay()"> توصيل للمنزل</label>
+          <label><input type="radio" name="delivery-option" value="pickup" checked disabled> استلام من المكتبة حصراً</label>
         </div>
       </div>
 
@@ -448,7 +447,6 @@
       <div class="bill-details" id="bill-details-panel">
         <div class="bill-row"><span>سعر المنتجات:</span> <span id="bill-subtotal" class="text-red">0 ل.س</span></div>
         <div class="bill-row"><span>خصم خصائص الموقع (5%):</span> <span id="bill-discount" class="text-red">0 ل.س</span></div>
-        <div class="bill-row"><span>رسوم التوصيل (نقداً):</span> <span id="bill-delivery" class="text-black">0 ل.س</span></div>
         <hr style="margin: 6px 0; border:none; border-top: 1px solid #cbd5e1;">
         <div class="bill-row" style="font-size:1.05rem;"><span>المجموع الإجمالي:</span> <span id="bill-grand-total" class="text-black">0 ل.س</span></div>
       </div>
@@ -710,20 +708,12 @@
       const totalQty = cart.reduce((s,i)=>s+i.qty,0);
       const rawSubtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
       
-      let deliveryFee = 0;
       let discountAmount = 0;
       let grandTotal = 0;
 
       if(cart.length > 0) {
         discountAmount = rawSubtotal * 0.05;
-        const subtotalAfterDiscount = rawSubtotal - discountAmount;
-        
-        const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
-        if(deliveryOption === 'delivery') {
-          deliveryFee = rawSubtotal >= 350 ? 0 : 80;
-        }
-
-        grandTotal = subtotalAfterDiscount + deliveryFee;
+        grandTotal = rawSubtotal - discountAmount;
       }
 
       document.getElementById('cart-count').innerText = totalQty;
@@ -731,7 +721,6 @@
       
       document.getElementById('bill-subtotal').innerText = rawSubtotal.toLocaleString() + ' ل.س';
       document.getElementById('bill-discount').innerText = '-' + discountAmount.toLocaleString() + ' ل.س';
-      document.getElementById('bill-delivery').innerText = deliveryFee.toLocaleString() + ' ل.س';
       document.getElementById('bill-grand-total').innerText = grandTotal.toLocaleString() + ' ل.س';
     }
     window.updateCartDisplay = updateCartDisplay;
@@ -817,8 +806,6 @@
       const productsFinalPrice = rawSubtotal - discount;
 
       const paymentOption = document.querySelector('input[name="payment-option"]:checked')?.value || 'cash';
-      const deliveryOption = document.querySelector('input[name="delivery-option"]:checked')?.value || 'pickup';
-      let deliveryFee = (deliveryOption === 'delivery' && rawSubtotal < 350) ? 80 : 0;
 
       if(paymentOption === 'points') {
         if(!window.currentUser) {
@@ -834,12 +821,8 @@
       let msg = "*طلب جديد من متجر مكتبة المصطفى*%0A%0A";
       cart.forEach(i => { msg += `- ${i.name} (الكمية: ${i.qty}) = ${i.price * i.qty} ل.س%0A`; });
       
-      msg += `%0A*طريقة الاستلام:* ${deliveryOption === 'delivery' ? 'توصيل للمنزل' : 'استلام من المكتبة'}`;
+      msg += `%0A*طريقة الاستلام:* استلام من المكتبة (قباسين)`;
       msg += `%0A*طريقة الدفع:* ${paymentOption === 'points' ? `نقاط الولاء (خصم ${productsFinalPrice} نقطة)` : 'كاش نقداً'}`;
-      if(deliveryOption === 'delivery') {
-        msg += `%0A*رسوم التوصيل (نقداً):* ${deliveryFee === 0 ? 'مجاني 🎉' : '80 ل.س'}`;
-      }
-      msg += `%0A*نطاق التوصيل:* بلدة قباسين حصراً`;
 
       window.open(`https://wa.me/?text=${msg}`, '_blank');
     };
