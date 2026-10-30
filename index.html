@@ -223,23 +223,30 @@
 
     
     function listenToUserMessages(userCode) {
-      const q = query(collection(db, "messages"), where("targetUser", "in", ["all", userCode]));
+      const q = query(collection(db, "messages"));
       onSnapshot(q, (snapshot) => {
         const list = document.getElementById('messages-list-container');
         const badge = document.getElementById('msg-badge');
         list.innerHTML = '';
         
-        if(snapshot.empty) {
+        let validMessages = [];
+        snapshot.forEach(doc => {
+          const msg = doc.data();
+          if (msg.targetUser === "all" || String(msg.targetUser).trim() === String(userCode).trim()) {
+            validMessages.push(msg);
+          }
+        });
+
+        if(validMessages.length === 0) {
           list.innerHTML = '<p style="color:#94a3b8; text-align:center;">لا توجد رسائل جديدة</p>';
           badge.style.display = 'none';
           return;
         }
 
         badge.style.display = 'inline-block';
-        badge.innerText = snapshot.size;
+        badge.innerText = validMessages.length;
 
-        snapshot.forEach(doc => {
-          const msg = doc.data();
+        validMessages.forEach(msg => {
           list.innerHTML += `<div style="background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:8px; text-align:right;">
             <strong style="color:var(--primary-navy); display:block;">${msg.title || 'رسالة من المكتبة'}</strong>
             <span style="font-size:0.85rem; color:#334155;">${msg.text}</span>
