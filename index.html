@@ -230,10 +230,8 @@
       } else {
         badge.style.display = 'none';
       }
-    }
-
-    function listenToUserMessages(userCode) {
-      const q = query(collection(db, "messages"), where("targetUser", "in", ["all", userCode]));
+    }    function listenToUserMessages(userCode) {
+      const q = query(collection(db, "messages"), or(where("targetUser", "==", "all"), where("targetUser", "==", userCode)));
       onSnapshot(q, (snapshot) => {
         const list = document.getElementById('messages-list-container');
         const badge = document.getElementById('msg-badge');
@@ -258,6 +256,8 @@
       });
     }
 
+        
+      
     window.submitSupportTicket = async function() {
       if(!window.currentUser) {
         window.showToast("عذراً! ميزة إرسال الشكاوى متاحة للأعضاء المسجلين فقط. يرجى تسجيل الدخول أولاً.", "error");
