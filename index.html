@@ -221,45 +221,32 @@
       checkWheelAvailability();
     }
 
-    function checkWheelAvailability() {
-      const hoursPassed = (Date.now() - lastSpinTime) / (1000 * 60 * 60);
-      const badge = document.getElementById('wheel-badge');
-      if (hoursPassed >= 22) {
+    
+    function listenToUserMessages(userCode) {
+      const q = query(collection(db, "messages"), where("targetUser", "in", ["all", userCode]));
+      onSnapshot(q, (snapshot) => {
+        const list = document.getElementById('messages-list-container');
+        const badge = document.getElementById('msg-badge');
+        list.innerHTML = '';
+        
+        if(snapshot.empty) {
+          list.innerHTML = '<p style="color:#94a3b8; text-align:center;">لا توجد رسائل جديدة</p>';
+          badge.style.display = 'none';
+          return;
+        }
+
         badge.style.display = 'inline-block';
-        badge.innerText = 'جاهزة!';
-      } else {
-        badge.style.display = 'none';
-      }
-        function listenToUserMessages(userCode) {
-      const list = document.getElementById('messages-list-container');
-      const badge = document.getElementById('msg-badge');
-      
-      const qAll = query(collection(db, "messages"), where("targetUser", "==", "all"));
-      onSnapshot(qAll, (snapAll) => {
-        const qUser = query(collection(db, "messages"), where("targetUser", "==", userCode));
-        onSnapshot(qUser, (snapUser) => {
-          list.innerHTML = '';
-          let allMessages = [];
-          
-          snapAll.forEach(doc => allMessages.push(doc.data()));
-          snapUser.forEach(doc => allMessages.push(doc.data()));
+        badge.innerText = snapshot.size;
 
-          if (allMessages.length === 0) {
-            list.innerHTML = '<p style="color:#94a3b8; text-align:center;">لا توجد رسائل جديدة</p>';
-            badge.style.display = 'none';
-            return;
-          }
-
-          badge.style.display = 'inline-block';
-          badge.innerText = allMessages.length;
-
-          allMessages.forEach(msg => {
-            list.innerHTML += `<div style="background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:8px; text-align:right;">
-              <strong style="color:var(--primary-navy); display:block;">${msg.title || 'رسالة من المكتبة'}</strong>
-              <span style="font-size:0.85rem; color:#334155;">${msg.text}</span>
-            </div>`;
-          });
+        snapshot.forEach(doc => {
+          const msg = doc.data();
+          list.innerHTML += `<div style="background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:8px; text-align:right;">
+            <strong style="color:var(--primary-navy); display:block;">${msg.title || 'رسالة من المكتبة'}</strong>
+            <span style="font-size:0.85rem; color:#334155;">${msg.text}</span>
+          </div>`;
         });
+      }, (error) => {
+        console.error("Error loading messages:", error);
       });
     }
 
